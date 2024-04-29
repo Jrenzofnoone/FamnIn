@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "860055826386",
+    "project_id": "farmin-79aac",
+    "storage_bucket": "farmin-79aac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:860055826386:android:f3e72231100d8b5ebf220b",
+        "android_client_info": {
+          "package_name": "com.example.farmin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgcKTpgaFIJq31xARCrpRcclxeP9MD-No"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">FarmIn</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="typeCrop">
+        <item>Food Crops</item>
+        <item>Feed crops</item>
+        <item>Fiber crops</item>
+        <item>Oilseed crops</item>
+        <item>Ornamental crops</item>
+        <item>Industrial crops</item>
+    </string-array>
+    <string-array name="typeSeed">
+        <item>Chia Seeds</item>
+        <item>Egusi Seeds</item>
+        <item>Flax Seeds</item>
+        <item>Hemp Seeds</item>
+        <item>Jackfruit Seeds</item>
+        <item>Lotus Seeds</item>
+    </string-array>
+</resources>
