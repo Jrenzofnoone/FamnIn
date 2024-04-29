@@ -33,6 +33,5 @@ public class DashBoard extends AppCompatActivity {
         vpAdapter.addFragment(new FragmentDbCrop(), "Crop");
         vpAdapter.addFragment(new FragmentDbSeed(), "Seed");
         viewPager.setAdapter(vpAdapter);
-
     }
 }

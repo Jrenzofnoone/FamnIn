@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -56,7 +57,7 @@ public class AddingCrop extends AppCompatActivity {
     private final static int pickImageRequest = 1;
     private Uri imageUri;
     String key, stringUri, qrCodeUrl;
-    private Boolean isSelected ;
+    private Boolean isSelected , haveScan =false;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,16 +77,60 @@ public class AddingCrop extends AppCompatActivity {
         etNotes = findViewById(R.id.etNotes);
         ivImage = findViewById(R.id.ivImage);
         ivscan = findViewById(R.id.ivscan);
-        String[] items = getResources().getStringArray(R.array.typeCrop);
+
         ivscan.setOnClickListener(view -> {
             scanCode();
+            haveScan = true;
+        });
+        if(haveScan == true) {
+
+        } else {
+
+        }
+        btnAdd.setOnClickListener(view -> {
+            if(etName.getText().toString().isEmpty()) {
+                etName.setError("Must not be empty");
+            } else if (etNotes.getText().toString().isEmpty()) {
+                etNotes.setError("Must not be empty");
+            } else if (etDescription.getText().toString().isEmpty()) {
+                etDescription.setError("Must not be empty");
+            } else {
+                addProduct(etName.getText().toString().trim(),spinType.getSelectedItem().toString(),etNotes.getText().toString().trim(),etDescription.getText().toString().trim());
+            }
+        });
+        btnGoBack.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), DashBoard.class);
+            startActivity(intent);
+            finish();
+        });
+        ivImage.setOnClickListener(view -> {
+            openFileChooser();
+        });
+    }
+
+    private void scanCode() {
+        ScanOptions options = new ScanOptions();
+        options.setPrompt("Volume up to flash on");
+        options.setBeepEnabled(true);
+        options.setOrientationLocked(true);
+        options.setCaptureActivity(CaptureAct.class);
+        barLauncher.launch(options);
+
+    }
+    ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result -> {
+        if(result.getContents() != null) {
+            key = result.getContents();
+            if(key.isEmpty()) {
+                Toast.makeText(this, "Does not exist", Toast.LENGTH_SHORT).show();
+            }
+            String[] items = getResources().getStringArray(R.array.typeCrop);
             DatabaseReference cropRef = FirebaseDatabase.getInstance().getReference("Crops");
             cropRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for(DataSnapshot postSnap : snapshot.getChildren()) {
+                    for (DataSnapshot postSnap : snapshot.getChildren()) {
                         addingUploads addingUploads = postSnap.getValue(com.example.farmin.addingUploads.class);
-                        if(addingUploads.getKey().equals(key)){
+                        if (addingUploads.getKey().equals(key)) {
                             etName.setText(addingUploads.getName());
                             int index = Arrays.asList(items).indexOf(addingUploads.getType());
                             spinType.setSelection(index);
@@ -106,31 +151,6 @@ public class AddingCrop extends AppCompatActivity {
 
                 }
             });
-        });
-        btnAdd.setOnClickListener(view -> {
-            addProduct(etName.getText().toString().trim(),spinType.getSelectedItem().toString(),etNotes.getText().toString().trim(),etDescription.getText().toString().trim());
-        });
-        btnGoBack.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), DashBoard.class);
-            startActivity(intent);
-            finish();
-        });
-        ivImage.setOnClickListener(view -> {
-            openFileChooser();
-        });
-    }
-
-    private void scanCode() {
-        ScanOptions options = new ScanOptions();
-        options.setPrompt("Volume up to flash on");
-        options.setBeepEnabled(true);
-        options.setOrientationLocked(true);
-        options.setCaptureActivity(CaptureAct.class);
-        barLauncher.launch(options);
-    }
-    ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result -> {
-        if(result.getContents() != null) {
-            key = result.getContents();
         }
     });
 
@@ -139,7 +159,6 @@ public class AddingCrop extends AppCompatActivity {
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, pickImageRequest);
-
     }
 
     @Override
@@ -158,10 +177,10 @@ public class AddingCrop extends AppCompatActivity {
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
     private void addProduct(String name, String type, String descrip, String notes) {
-        DatabaseReference productRef = FirebaseDatabase.getInstance().getReference("Seeds");
+        DatabaseReference productRef = FirebaseDatabase.getInstance().getReference("Crops");
         String key = productRef.push().getKey();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference("Seeds");
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference("Crops");
         MultiFormatWriter writer = new MultiFormatWriter();
         try {
             BitMatrix matrix = writer.encode(key, BarcodeFormat.QR_CODE, 800, 800);

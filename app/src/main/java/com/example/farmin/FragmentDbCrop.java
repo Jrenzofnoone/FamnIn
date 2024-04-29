@@ -1,6 +1,7 @@
 package com.example.farmin;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,12 +31,14 @@ public class FragmentDbCrop extends Fragment implements clickInterface{
     private AllAdapter adapter;
     private FirebaseUser user;
     private DatabaseReference cropRef;
+    private ImageView ivAddCrop;
 
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_db_crop, container, false);
+        ivAddCrop = rootView.findViewById(R.id.ivAddCrop);
         recyclerView = rootView.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -59,6 +63,10 @@ public class FragmentDbCrop extends Fragment implements clickInterface{
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
+        });
+        ivAddCrop.setOnClickListener(view -> {
+            Intent intent = new Intent(getContext(), AddingCrop.class);
+            startActivity(intent);
         });
         return rootView;
     }

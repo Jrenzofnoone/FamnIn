@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
@@ -54,7 +55,7 @@ public class AddingSeed extends AppCompatActivity {
     private Spinner spinType;
     private final static int pickImageRequest = 1;
     private Uri imageUri;
-    private Boolean isSelected ;
+    private Boolean isSelected , haveScan = false;
     String key, stringUri, qrCodeUrl;
 
     @SuppressLint("MissingInflatedId")
@@ -79,13 +80,50 @@ public class AddingSeed extends AppCompatActivity {
         String[] items = getResources().getStringArray(R.array.typeCrop);
         ivscan.setOnClickListener(view -> {
             scanCode();
+        });
+        btnAdd.setOnClickListener(view -> {
+            if(etName.getText().toString().isEmpty()) {
+                etName.setError("Must not be empty");
+            } else if (etNotes.getText().toString().isEmpty()) {
+                etNotes.setError("Must not be empty");
+            } else if (etDescription.getText().toString().isEmpty()) {
+                etDescription.setError("Must not be empty");
+            } else {
+                addProduct(etName.getText().toString().trim(),spinType.getSelectedItem().toString(),etNotes.getText().toString().trim(),etDescription.getText().toString().trim());
+            }
+        });
+        ivImage.setOnClickListener(view -> {
+            openFileChooser();
+        });
+        btnGoBack.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), DashBoard.class);
+            startActivity(intent);
+            finish();
+        });
+    }
+    private void scanCode() {
+        ScanOptions options = new ScanOptions();
+        options.setPrompt("Volume up to flash on");
+        options.setBeepEnabled(true);
+        options.setOrientationLocked(true);
+        options.setCaptureActivity(CaptureAct.class);
+        barLauncher.launch(options);
+        haveScan = true;
+    }
+    ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result -> {
+        if(result.getContents() != null) {
+            key = result.getContents();
+            if(key.isEmpty()) {
+                Toast.makeText(this, "Does not exist", Toast.LENGTH_SHORT).show();
+            }
+            String[] items = getResources().getStringArray(R.array.typeCrop);
             DatabaseReference cropRef = FirebaseDatabase.getInstance().getReference("Seeds");
             cropRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for(DataSnapshot postSnap : snapshot.getChildren()) {
+                    for (DataSnapshot postSnap : snapshot.getChildren()) {
                         addingUploads addingUploads = postSnap.getValue(com.example.farmin.addingUploads.class);
-                        if(addingUploads.getKey().equals(key)){
+                        if (addingUploads.getKey().equals(key)) {
                             etName.setText(addingUploads.getName());
                             int index = Arrays.asList(items).indexOf(addingUploads.getType());
                             spinType.setSelection(index);
@@ -106,30 +144,6 @@ public class AddingSeed extends AppCompatActivity {
 
                 }
             });
-        });
-        btnAdd.setOnClickListener(view -> {
-            addProduct(etName.getText().toString().trim(), spinType.getSelectedItem().toString(),etNotes.getText().toString().trim(),etDescription.getText().toString().trim());
-        });
-        ivImage.setOnClickListener(view -> {
-            openFileChooser();
-        });
-        btnGoBack.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), DashBoard.class);
-            startActivity(intent);
-            finish();
-        });
-    }
-    private void scanCode() {
-        ScanOptions options = new ScanOptions();
-        options.setPrompt("Volume up to flash on");
-        options.setBeepEnabled(true);
-        options.setOrientationLocked(true);
-        options.setCaptureActivity(CaptureAct.class);
-        barLauncher.launch(options);
-    }
-    ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result -> {
-        if(result.getContents() != null) {
-            key = result.getContents();
         }
     });
     private void openFileChooser() {
