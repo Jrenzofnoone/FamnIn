@@ -173,7 +173,7 @@ public class AddingSeed extends AppCompatActivity {
         DatabaseReference productRef = FirebaseDatabase.getInstance().getReference("Seeds");
         String key = productRef.push().getKey();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference("Seeds");
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference("Product");
         MultiFormatWriter writer = new MultiFormatWriter();
         try {
             BitMatrix matrix = writer.encode(key, BarcodeFormat.QR_CODE, 800, 800);

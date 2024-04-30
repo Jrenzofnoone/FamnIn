@@ -180,7 +180,7 @@ public class AddingCrop extends AppCompatActivity {
         DatabaseReference productRef = FirebaseDatabase.getInstance().getReference("Crops");
         String key = productRef.push().getKey();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference("Crops");
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference("Product");
         MultiFormatWriter writer = new MultiFormatWriter();
         try {
             BitMatrix matrix = writer.encode(key, BarcodeFormat.QR_CODE, 800, 800);
