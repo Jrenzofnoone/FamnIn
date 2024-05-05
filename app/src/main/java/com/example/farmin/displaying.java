@@ -239,6 +239,7 @@ public class displaying extends AppCompatActivity {
             File csvFile = new File(root, fileName);
             FileWriter writer = new FileWriter(csvFile);
             writer.append(csvData);
+            writer.append("\n");
             writer.flush();
             writer.close();
         } catch (Exception e) {
