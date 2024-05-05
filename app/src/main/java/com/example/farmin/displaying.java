@@ -3,6 +3,7 @@ package com.example.farmin;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -29,6 +30,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -55,6 +57,7 @@ public class displaying extends AppCompatActivity {
     TextToSpeech t1;
     final static int RequestCode = 1232;
     private Button btnExportPdf,btnExportCsv, btnExportExcel;
+    private FloatingActionButton btnGoBack;
     private Boolean editState = false;
     @SuppressLint("MissingInflatedId")
     @Override
@@ -82,6 +85,7 @@ public class displaying extends AppCompatActivity {
         ivImage = findViewById(R.id.ivImage);
         ivQr = findViewById(R.id.ivQr);
         ivExports = findViewById(R.id.ivExports);
+        btnGoBack = findViewById(R.id.btnGoBack);
         etName = findViewById(R.id.etName);
         etType = findViewById(R.id.etType);
         etDescrip = findViewById(R.id.etDescrip);
@@ -176,6 +180,11 @@ public class displaying extends AppCompatActivity {
                 editState = false;
                 ivEdit.setImageResource(R.drawable.edit);
             }
+        });
+        btnGoBack.setOnClickListener(view -> {
+            Intent intent = new Intent(displaying.this, DashBoard.class);
+            startActivity(intent);
+            finish();
         });
     }
 
