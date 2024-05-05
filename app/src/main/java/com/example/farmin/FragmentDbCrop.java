@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +32,7 @@ public class FragmentDbCrop extends Fragment implements clickInterface{
     private AllAdapter adapter;
     private FirebaseUser user;
     private DatabaseReference cropRef;
-    private ImageView ivAddCrop;
+    private ImageView ivAddCrop, ivChecking, ivExport;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -39,11 +40,15 @@ public class FragmentDbCrop extends Fragment implements clickInterface{
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_db_crop, container, false);
         ivAddCrop = rootView.findViewById(R.id.ivAddCrop);
+        ivExport = rootView.findViewById(R.id.ivExport);
+        ivChecking = rootView.findViewById(R.id.ivChecking);
         recyclerView = rootView.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         uploads = new ArrayList<>();
         adapter = new AllAdapter(getActivity(),2, uploads, this);
+
+        adapter.notifyDataSetChanged();
         user = FirebaseAuth.getInstance().getCurrentUser();
         cropRef = FirebaseDatabase.getInstance().getReference("Crops");
         cropRef.addValueEventListener(new ValueEventListener() {
@@ -68,8 +73,12 @@ public class FragmentDbCrop extends Fragment implements clickInterface{
             Intent intent = new Intent(getContext(), AddingCrop.class);
             startActivity(intent);
         });
+        ivChecking.setOnClickListener(view -> {
+            adapter.setCheckBoxVisible();
+        });
         return rootView;
     }
+
 
     @Override
     public void setItemClick(int position) {

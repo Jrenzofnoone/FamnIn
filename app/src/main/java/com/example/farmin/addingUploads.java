@@ -4,7 +4,7 @@ public class addingUploads {
     public addingUploads() {
 
     }
-    private String key, userEmail, name, type,descrip,  notes,  mimageurl,  mqrcode;
+    private String csType, key, userEmail, name, type,descrip,  notes,  mimageurl,  mqrcode;
 
     public String getName() {
         return name;
@@ -70,7 +70,16 @@ public class addingUploads {
         this.type = type;
     }
 
-    public addingUploads(String key, String userEmail, String name, String type, String descrip, String notes, String imageurl, String qrcode) {
+    public String getCsType() {
+        return csType;
+    }
+
+    public void setCsType(String csType) {
+        this.csType = csType;
+    }
+
+    public addingUploads(String csType, String key, String userEmail, String name, String type, String descrip, String notes, String imageurl, String qrcode) {
+        this.csType = csType;
         this.key = key;
         this.userEmail = userEmail;
         this.name = name;

@@ -7,10 +7,12 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -34,6 +36,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.google.zxing.BarcodeFormat;
@@ -58,6 +61,7 @@ public class AddingCrop extends AppCompatActivity {
     private Uri imageUri;
     String key, stringUri, qrCodeUrl;
     private Boolean isSelected , haveScan =false;
+    private ProgressBar progressBar;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +81,7 @@ public class AddingCrop extends AppCompatActivity {
         etNotes = findViewById(R.id.etNotes);
         ivImage = findViewById(R.id.ivImage);
         ivscan = findViewById(R.id.ivscan);
+        progressBar = findViewById(R.id.progressBar);
 
         ivscan.setOnClickListener(view -> {
             scanCode();
@@ -95,6 +100,7 @@ public class AddingCrop extends AppCompatActivity {
             } else if (etDescription.getText().toString().isEmpty()) {
                 etDescription.setError("Must not be empty");
             } else {
+                progressBar.setVisibility(View.VISIBLE);
                 addProduct(etName.getText().toString().trim(),spinType.getSelectedItem().toString(),etNotes.getText().toString().trim(),etDescription.getText().toString().trim());
             }
         });
@@ -176,10 +182,13 @@ public class AddingCrop extends AppCompatActivity {
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
+    int totalSteps = 3;
+    int currentSteps = 0;
     private void addProduct(String name, String type, String descrip, String notes) {
         DatabaseReference productRef = FirebaseDatabase.getInstance().getReference("Crops");
         String key = productRef.push().getKey();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
         StorageReference storageRef = FirebaseStorage.getInstance().getReference("Product");
         MultiFormatWriter writer = new MultiFormatWriter();
         try {
@@ -190,9 +199,17 @@ public class AddingCrop extends AppCompatActivity {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
             byte[] data = baos.toByteArray();
             StorageReference qrRef = storageRef.child(System.currentTimeMillis() + "." + ".jpg");
-            qrRef.putBytes(data).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            qrRef.putBytes(data).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                    double progress = (100.0 * snapshot.getBytesTransferred()/ snapshot.getTotalByteCount());
+                    progressBar.setProgress((int) progress);
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    currentSteps++;
+                    progressBar.setProgress((currentSteps * 100) / totalSteps);
                     taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
@@ -206,17 +223,28 @@ public class AddingCrop extends AppCompatActivity {
         }
         if(isSelected == false) {
             StorageReference fileReference = storageRef.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
-            fileReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            fileReference.putFile(imageUri).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
+                    double progress = (100.0 * snapshot.getBytesTransferred()/ snapshot.getTotalByteCount());
+                    progressBar.setProgress((int) progress);
+                }
+            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    currentSteps++;
+                    progressBar.setProgress((currentSteps * 100) / totalSteps);
                     taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
+
                             stringUri = uri.toString();
-                            addingUploads addingUploads = new addingUploads(key, user.getEmail(), name, type, descrip, notes,stringUri,qrCodeUrl);
+                            addingUploads addingUploads = new addingUploads("Crops",key, user.getEmail(), name, type, descrip, notes,stringUri,qrCodeUrl);
                             productRef.child(key).setValue(addingUploads).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
+                                    currentSteps++;
+                                    progressBar.setProgress((currentSteps * 100) / totalSteps);
                                     Log.d("please", "wirk");
                                 }
                             });
@@ -225,10 +253,14 @@ public class AddingCrop extends AppCompatActivity {
                 }
             });
         } else {
-            addingUploads addingUploads = new addingUploads(key, user.getEmail(), name, type, descrip, notes,stringUri,qrCodeUrl);
+            currentSteps++;
+            progressBar.setProgress((currentSteps * 100) / totalSteps);
+            addingUploads addingUploads = new addingUploads("Crops",key, user.getEmail(), name, type, descrip, notes,stringUri,qrCodeUrl);
             productRef.child(key).setValue(addingUploads).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void unused) {
+                    currentSteps++;
+                    progressBar.setProgress((currentSteps * 100) / totalSteps);
                     Log.d("please", "wirk");
                 }
             });

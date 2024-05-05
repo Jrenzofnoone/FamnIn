@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AllAdapter extends RecyclerView.Adapter<AllAdapter.viewHolder> {
@@ -22,11 +24,13 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.viewHolder> {
     private Context context;
     private int depends;
     private clickInterface clickInterface;
+    List<Integer> checkedPosition;
 
     public AllAdapter(Context context, int depends, List<addingUploads> uploads, clickInterface clickInterface) {
         this.uploads = uploads;
         this.context = context;
         this.depends = depends;
+        this.checkedPosition = new ArrayList<>();
         this.clickInterface = clickInterface;
     }
 
@@ -53,6 +57,11 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.viewHolder> {
         } else {
             Toast.makeText(context, "Image URL is empty", Toast.LENGTH_SHORT).show();
         }
+        if(areCheckBoxVisible){
+            holder.checkBox.setVisibility(View.VISIBLE);
+        } else {
+            holder.checkBox.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
@@ -61,10 +70,20 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.viewHolder> {
         return uploads.size();
 
     }
+    public List<Integer> getCheckedPosition() {
+        return checkedPosition;
+    }
+    private boolean areCheckBoxVisible = false;
+    public void setCheckBoxVisible() {
+        areCheckBoxVisible = !areCheckBoxVisible;
+        notifyDataSetChanged();
+        Log.d("checking", "you dumb");
 
+    }
     public class viewHolder extends RecyclerView.ViewHolder {
         private TextView tvNote, tvDescrip, tvType, tvName;
         private ImageView ivImage;
+        private CheckBox checkBox;
         public viewHolder(@NonNull View itemView, clickInterface clickInterface) {
             super(itemView);
             tvNote = itemView.findViewById(R.id.tvNote);
@@ -72,6 +91,17 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.viewHolder> {
             tvType = itemView.findViewById(R.id.tvType);
             tvName = itemView.findViewById(R.id.tvName);
             ivImage = itemView.findViewById(R.id.ivImage);
+            checkBox = itemView.findViewById(R.id.checkBox);
+            checkBox.setOnClickListener(view -> {
+                int position =getAdapterPosition();
+                if(position != RecyclerView.NO_POSITION) {
+                    if(checkBox.isChecked()) {
+                        checkedPosition.add(position);
+                    } else {
+                        checkedPosition.remove(Integer.valueOf(position));
+                    }
+                }
+            });
             itemView.setOnClickListener(view -> {
                 int pos = getAdapterPosition();
                 if(depends == 1) {
@@ -82,6 +112,8 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.viewHolder> {
                     intent.putExtra("Type",addingUploads.getType());
                     intent.putExtra("Notes",addingUploads.getNotes());
                     intent.putExtra("Image",addingUploads.getImageurl());
+                    intent.putExtra("key", addingUploads.getKey());
+                    intent.putExtra("csKey", addingUploads.getCsType());
                     intent.putExtra("depends", 2);
                     context.startActivity(intent);
                 } else if (depends == 2) {
@@ -93,9 +125,12 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.viewHolder> {
                     intent.putExtra("Notes",addingUploads.getNotes());
                     intent.putExtra("Image",addingUploads.getImageurl());
                     intent.putExtra("qrCode", addingUploads.getQrcode());
+                    intent.putExtra("Key", addingUploads.getKey());
+                    intent.putExtra("csKey", addingUploads.getCsType());
                     context.startActivity(intent);
                 }
             });
         }
+
     }
 }

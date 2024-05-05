@@ -206,7 +206,7 @@ public class AddingSeed extends AppCompatActivity {
                         @Override
                         public void onSuccess(Uri uri) {
                             stringUri = uri.toString();
-                            addingUploads addingUploads = new addingUploads(key, user.getEmail(), name, type, descrip, notes,stringUri,qrCodeUrl);
+                            addingUploads addingUploads = new addingUploads("Seeds",key, user.getEmail(), name, type, descrip, notes,stringUri,qrCodeUrl);
                             productRef.child(key).setValue(addingUploads).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
@@ -218,7 +218,7 @@ public class AddingSeed extends AppCompatActivity {
                 }
             });
         } else {
-            addingUploads addingUploads = new addingUploads(key, user.getEmail(), name, type, descrip, notes,stringUri,qrCodeUrl);
+            addingUploads addingUploads = new addingUploads("Seeds",key, user.getEmail(), name, type, descrip, notes,stringUri,qrCodeUrl);
             productRef.child(key).setValue(addingUploads).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void unused) {

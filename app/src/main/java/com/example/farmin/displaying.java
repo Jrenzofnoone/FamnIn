@@ -10,8 +10,12 @@ import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
 import android.os.Environment;
 import android.speech.tts.TextToSpeech;
+import android.text.InputFilter;
+import android.text.Spanned;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +28,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
@@ -37,14 +46,16 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Map;
 
 public class displaying extends AppCompatActivity {
-    private ImageView ivQr, ivImage, ivQrcode, ivVoiceDescrip, ivVoiceNotes, ivExports;
-    private TextView tvName, tvType, tvDescrip, tvNote;
+    private ImageView ivQr, ivImage, ivQrcode, ivVoiceDescrip, ivVoiceNotes, ivExports, ivEdit;
+    private EditText etName,etType,etDescrip,etNote;
     private Dialog qrDialog, dialog_exports;
     TextToSpeech t1;
     final static int RequestCode = 1232;
     private Button btnExportPdf,btnExportCsv, btnExportExcel;
+    private Boolean editState = false;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,25 +76,28 @@ public class displaying extends AppCompatActivity {
                 }
             }
         });
+        ivEdit = findViewById(R.id.ivEdit);
         ivVoiceNotes = findViewById(R.id.ivVoiceNotes);
         ivVoiceDescrip = findViewById(R.id.ivVoiceDescrip);
         ivImage = findViewById(R.id.ivImage);
         ivQr = findViewById(R.id.ivQr);
         ivExports = findViewById(R.id.ivExports);
-        tvName = findViewById(R.id.tvName);
-        tvType = findViewById(R.id.tvType);
-        tvDescrip = findViewById(R.id.tvDescrip);
-        tvNote = findViewById(R.id.tvNote);
+        etName = findViewById(R.id.etName);
+        etType = findViewById(R.id.etType);
+        etDescrip = findViewById(R.id.etDescrip);
+        etNote = findViewById(R.id.etNote);
         String name = getIntent().getStringExtra("Name");
         String descrip = getIntent().getStringExtra("Descrip");
         String type = getIntent().getStringExtra("Type");
         String notes = getIntent().getStringExtra("Notes");
         String stringUrl = getIntent().getStringExtra("Image");
         String stringQr = getIntent().getStringExtra("qrCode");
-        tvName.setText(name);
-        tvDescrip.setText(descrip);
-        tvType.setText(type);
-        tvNote.setText(notes);
+        String key = getIntent().getStringExtra("Key");
+        String csKey = getIntent().getStringExtra("csKey");
+        etName.setText(name);
+        etDescrip.setText(descrip);
+        etType.setText(type);
+        etNote.setText(notes);
         if(!isFinishing() && !isDestroyed()) {
             Glide.with(getApplicationContext())
                     .load(stringUrl)
@@ -115,11 +129,11 @@ public class displaying extends AppCompatActivity {
         btnExportCsv = dialog_exports.findViewById(R.id.btnExportCsv);
         btnExportExcel = dialog_exports.findViewById(R.id.btnExportExcel);
         ivVoiceNotes.setOnClickListener(view -> {
-            String voice = tvNote.getText().toString();
+            String voice = etNote.getText().toString();
             t1.speak(voice, TextToSpeech.QUEUE_FLUSH, null);
         });
         ivVoiceDescrip.setOnClickListener(view -> {
-            String voice = tvDescrip.getText().toString();
+            String voice = etDescrip.getText().toString();
             t1.speak(voice, TextToSpeech.QUEUE_FLUSH, null);
         });
         ivQr.setOnClickListener(view -> {
@@ -144,8 +158,38 @@ public class displaying extends AppCompatActivity {
             createExcel(name,type,descrip,notes);
             dialog_exports.dismiss();
         });
+        Log.d("csType", csKey);
+        etName.setEnabled(false);
+        etDescrip.setEnabled(false);
+        etType.setEnabled(false);
+        etNote.setEnabled(false);
+        ivEdit.setOnClickListener(view -> {
+            if(editState == false) {
+                etName.setEnabled(true);
+                etDescrip.setEnabled(true);
+                etType.setEnabled(true);
+                etNote.setEnabled(true);
+                ivEdit.setImageResource(R.drawable.check);
+                editState = true;
+            } else {
+                update(csKey, key, etName.getText().toString(), etType.getText().toString(), etDescrip.getText().toString(), etNote.getText().toString(), stringUrl, stringQr);
+                editState = false;
+                ivEdit.setImageResource(R.drawable.edit);
+            }
+        });
     }
 
+    private void update(String csType, String key,String name, String type, String descrip, String notes, String stringUrl, String stringQr) {
+        DatabaseReference productRef = FirebaseDatabase.getInstance().getReference(csType);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        addingUploads addingUploads = new addingUploads(csType, key, user.getEmail(), name, type, descrip, notes, stringUrl, stringQr);
+        productRef.child(key).setValue(addingUploads).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(displaying.this, "It works if this appear", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     private void createPdf(String name, String type, String descrip, String notes) {
         PdfDocument document = new PdfDocument();
         PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(1080, 1920, 1).create();

@@ -57,4 +57,12 @@
             android:paddingVertical="5dp"/>
     </LinearLayout>
     </LinearLayout>
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/checkBox"
+        android:buttonTint="@color/white"
+        android:paddingStart="10dp">
+
+    </CheckBox>
 </androidx.cardview.widget.CardView>
