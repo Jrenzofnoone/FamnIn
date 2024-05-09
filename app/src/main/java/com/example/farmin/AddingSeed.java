@@ -1,11 +1,15 @@
 package com.example.farmin;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -22,6 +26,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -44,19 +50,31 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 import com.journeyapps.barcodescanner.ScanContract;
 import com.journeyapps.barcodescanner.ScanOptions;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
-public class AddingSeed extends AppCompatActivity {
-    private EditText etName,etDescription, etNotes;
-    private Button btnAdd;
+public class AddingSeed extends AppCompatActivity implements addingInterface{
+    //    private EditText etName,etDescription, etNotes;
+//    private Button btnAdd;
     private FloatingActionButton btnGoBack;
-    private ImageView ivImage, ivscan;
-    private Spinner spinType;
+    private ImageView ivscan;
+//    private Spinner spinType;
     private final static int pickImageRequest = 1;
+    private final static int pickFileRequest = 123;
     private Uri imageUri;
-    private Boolean isSelected , haveScan = false;
-    String key, stringUri, qrCodeUrl;
+    String key;
+//    private Boolean isSelected , haveScan =false;
+//    private ProgressBar progressBar;
+    private RecyclerView recyclerView;
+    private addingAdapter adapter;
+    private List<addingUploads> uploads;
+    private ImageView ivImport;
+    private int pos;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -69,37 +87,67 @@ public class AddingSeed extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        btnAdd = findViewById(R.id.btnAdd);
+        ivImport = findViewById(R.id.ivImport);
+        recyclerView = findViewById(R.id.recyclerView);
+        uploads = new ArrayList<>();
+        addingUploads addingUploads = new addingUploads("","","","","","","","","");
+        uploads.add(addingUploads);
+        adapter = new addingAdapter(AddingSeed.this,"Seeds", uploads, this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+        ivImport.setOnClickListener(view -> {
+            openFilePicker();
+        });
+
         btnGoBack = findViewById(R.id.btnGoBack);
-        spinType = findViewById(R.id.spinType);
-        etName = findViewById(R.id.etName);
-        etDescription = findViewById(R.id.etDescription);
-        etNotes = findViewById(R.id.etNotes);
-        ivImage = findViewById(R.id.ivImage);
-        ivscan = findViewById(R.id.ivscan);
-        String[] items = getResources().getStringArray(R.array.typeCrop);
+
+//        ivscan = findViewById(R.id.ivscan);
+//        String[] items = getResources().getStringArray(R.array.typeCrop);
         ivscan.setOnClickListener(view -> {
             scanCode();
         });
-        btnAdd.setOnClickListener(view -> {
-            if(etName.getText().toString().isEmpty()) {
-                etName.setError("Must not be empty");
-            } else if (etNotes.getText().toString().isEmpty()) {
-                etNotes.setError("Must not be empty");
-            } else if (etDescription.getText().toString().isEmpty()) {
-                etDescription.setError("Must not be empty");
-            } else {
-                addProduct(etName.getText().toString().trim(),spinType.getSelectedItem().toString(),etNotes.getText().toString().trim(),etDescription.getText().toString().trim());
-            }
-        });
-        ivImage.setOnClickListener(view -> {
-            openFileChooser();
-        });
+//        btnAdd.setOnClickListener(view -> {
+//            if(etName.getText().toString().isEmpty()) {
+//                etName.setError("Must not be empty");
+//            } else if (etNotes.getText().toString().isEmpty()) {
+//                etNotes.setError("Must not be empty");
+//            } else if (etDescription.getText().toString().isEmpty()) {
+//                etDescription.setError("Must not be empty");
+//            } else {
+//                addProduct(etName.getText().toString().trim(),spinType.getSelectedItem().toString(),etNotes.getText().toString().trim(),etDescription.getText().toString().trim());
+//            }
+//        });
+//        ivImage.setOnClickListener(view -> {
+//            openFileChooser();
+//        });
         btnGoBack.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), DashBoard.class);
             startActivity(intent);
             finish();
         });
+    }
+    private void openFilePicker() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("text/*");
+        startActivityForResult(intent, pickFileRequest);
+    }
+    private void openImagePicker() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent, pickImageRequest);
+    }
+    @Override
+    public void setItemClick(int position, String itemClick) {
+        pos = position;
+        if(itemClick.equals("Image")) {
+            openImagePicker();
+        } else if(itemClick.equals("false")){
+
+        } else {
+            scanCode();
+        }
     }
     private void scanCode() {
         ScanOptions options = new ScanOptions();
@@ -108,7 +156,6 @@ public class AddingSeed extends AppCompatActivity {
         options.setOrientationLocked(true);
         options.setCaptureActivity(CaptureAct.class);
         barLauncher.launch(options);
-        haveScan = true;
     }
     ActivityResultLauncher<ScanOptions> barLauncher = registerForActivityResult(new ScanContract(), result -> {
         if(result.getContents() != null) {
@@ -116,25 +163,15 @@ public class AddingSeed extends AppCompatActivity {
             if(key.isEmpty()) {
                 Toast.makeText(this, "Does not exist", Toast.LENGTH_SHORT).show();
             }
-            String[] items = getResources().getStringArray(R.array.typeCrop);
             DatabaseReference cropRef = FirebaseDatabase.getInstance().getReference("Seeds");
             cropRef.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     for (DataSnapshot postSnap : snapshot.getChildren()) {
-                        addingUploads addingUploads = postSnap.getValue(com.example.farmin.addingUploads.class);
+                        addingUploads addingUploads = postSnap.getValue(addingUploads.class);
                         if (addingUploads.getKey().equals(key)) {
-                            etName.setText(addingUploads.getName());
-                            int index = Arrays.asList(items).indexOf(addingUploads.getType());
-                            spinType.setSelection(index);
-                            Glide.with(getApplicationContext())
-                                    .load(addingUploads.getImageurl())
-                                    .fitCenter()
-                                    .into(ivImage);
-                            etDescription.setText(addingUploads.getDescrip());
-                            etNotes.setText(addingUploads.getNotes());
-                            stringUri = addingUploads.getImageurl();
-                            isSelected = true;
+                            adapter.setAllforItemQr(pos,addingUploads.getName(), addingUploads.getType(),addingUploads.getDescrip(),
+                                    addingUploads.getNotes(),addingUploads.getImageurl());
                         }
                     }
                 }
@@ -146,87 +183,94 @@ public class AddingSeed extends AppCompatActivity {
             });
         }
     });
-    private void openFileChooser() {
-        Intent intent = new Intent();
-        intent.setType("image/*");
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(intent, pickImageRequest);
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == pickImageRequest && resultCode == RESULT_OK
+        if (requestCode == pickImageRequest && resultCode == RESULT_OK
                 && data != null && data.getData() != null) {
             imageUri = data.getData();
-            ivImage.setImageURI(imageUri);
-            isSelected = false;
+            uploadImageToFirebase(imageUri);
+            Toast.makeText(this, "is this working", Toast.LENGTH_SHORT).show();
+        } else if (requestCode == pickFileRequest && resultCode == RESULT_OK) {
+            Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
+            if (data != null) {
+                Uri uri = data.getData();
+                uploads.clear();
+                List<addingUploads> newUploads = readCSV(uri);
+                if (newUploads != null && !newUploads.isEmpty()) {
+                    uploads.addAll(newUploads);
+                } else {
+                    Toast.makeText(this, "Failed", Toast.LENGTH_SHORT).show();
+                }
+                adapter.notifyDataSetChanged();
+            }
         }
     }
-    private  String getFileExtension(Uri uri) {
+    private void uploadImageToFirebase(Uri imageUri) {
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference("Product");
+        StorageReference fileReference = storageRef.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
+        fileReference.putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
+            taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(uri -> {
+                String imageUrl = uri.toString();
+                adapter.setImageForItem(pos, imageUrl);
+            });
+        }).addOnFailureListener(e -> {
+            Log.d("error", "definitely failed");
+        });
+    }
+    private String getFileExtension(Uri uri) {
         ContentResolver cR = getContentResolver();
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
-
-    private void addProduct(String name,String type, String descrip, String notes) {
-        DatabaseReference productRef = FirebaseDatabase.getInstance().getReference("Seeds");
-        String key = productRef.push().getKey();
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference("Product");
-        MultiFormatWriter writer = new MultiFormatWriter();
-        try {
-            BitMatrix matrix = writer.encode(key, BarcodeFormat.QR_CODE, 800, 800);
-            BarcodeEncoder encoder = new BarcodeEncoder();
-            Bitmap bitmap = encoder.createBitmap(matrix);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            byte[] data = baos.toByteArray();
-            StorageReference qrRef = storageRef.child(System.currentTimeMillis() + "." + ".jpg");
-            qrRef.putBytes(data).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            qrCodeUrl = uri.toString();
-                        }
-                    });
+        private List<addingUploads> readCSV (Uri uri){
+            List<addingUploads> muploads = new ArrayList<>();
+            try {
+                InputStream inputStream = getContentResolver().openInputStream(uri);
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    String[] string = line.split(",");
+                    addingUploads addingUploads = new addingUploads();
+                    addingUploads.setName(string[0]);
+                    addingUploads.setType(string[1]);
+                    addingUploads.setDescrip(string[2]);
+                    addingUploads.setNotes(string[3]);
+                    addingUploads.setKey(string[4]);
+                    addingUploads.setImageurl(string[5]);
+                    addingUploads.setQrcode(string[6]);
+                    addingUploads.setCsType(string[7]);
+                    muploads.add(addingUploads);
                 }
-            });
-        } catch (WriterException e) {
-            throw new RuntimeException(e);
-        }
-        if(isSelected == false) {
-            StorageReference fileReference = storageRef.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
-            fileReference.putFile(imageUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            stringUri = uri.toString();
-                            addingUploads addingUploads = new addingUploads("Seeds",key, user.getEmail(), name, type, descrip, notes,stringUri,qrCodeUrl);
-                            productRef.child(key).setValue(addingUploads).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    Log.d("please", "wirk");
-                                }
-                            });
-                        }
-                    });
-                }
-            });
-        } else {
-            addingUploads addingUploads = new addingUploads("Seeds",key, user.getEmail(), name, type, descrip, notes,stringUri,qrCodeUrl);
-            productRef.child(key).setValue(addingUploads).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void unused) {
-                    Log.d("please", "wirk");
-                }
-            });
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+            return muploads;
         }
 
+        private static final int PermissionCode = 1001;
+        @Override
+        public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+            super.onCreate(savedInstanceState, persistentState);
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                if(checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
+                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PermissionCode);
+                    Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "hell", Toast.LENGTH_SHORT).show();
+            }
+        }
 
-    }
+        @Override
+        public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+            if(requestCode == PermissionCode) {
+                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "hell", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
 }

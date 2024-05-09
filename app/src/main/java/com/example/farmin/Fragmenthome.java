@@ -59,13 +59,16 @@ public class Fragmenthome extends Fragment {
         tvHumidity = rootView.findViewById(R.id.tvHumidity);
         tvWind = rootView.findViewById(R.id.tvWind);
         tabLayout = rootView.findViewById(R.id.tabLayout);
-        if (ContextCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, locationCode);
-        } else {
-
-        }
+        requestLocationPermission();
         getLocation();
         return rootView;
+    }
+    private void requestLocationPermission() {
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, locationCode);
+        } else {
+            getLocation(); // Call getLocation if permission already granted
+        }
     }
 
     @Override
@@ -87,7 +90,7 @@ public class Fragmenthome extends Fragment {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 getLocation();
             } else {
-
+                getLocation();
             }
         }
     }

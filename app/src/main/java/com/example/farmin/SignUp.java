@@ -26,17 +26,17 @@ public class SignUp extends AppCompatActivity {
     private TextView tvClickMe;
     FirebaseAuth mAuth;
     private EditText etEmail, etPassword, etConfirmPassword;
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            Intent dashboard = new Intent(getApplicationContext(), DashBoard.class);
-            startActivity(dashboard);
-            finish();
-        }
-    }
+//
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        if (currentUser != null) {
+//            Intent dashboard = new Intent(getApplicationContext(), DashBoard.class);
+//            startActivity(dashboard);
+//            finish();
+//        }
+//    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +71,14 @@ public class SignUp extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(SignUp.this, "Account Created.", Toast.LENGTH_SHORT).show();
+                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        Toast.makeText(SignUp.this, "Please verify ", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
                             } else {
                                 Toast.makeText(SignUp.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                             }

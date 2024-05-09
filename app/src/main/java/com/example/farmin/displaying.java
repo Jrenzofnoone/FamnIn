@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -59,6 +61,7 @@ public class displaying extends AppCompatActivity {
     private Button btnExportPdf,btnExportCsv, btnExportExcel;
     private FloatingActionButton btnGoBack;
     private Boolean editState = false;
+    private String fileName;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,7 +157,11 @@ public class displaying extends AppCompatActivity {
             StringBuilder csvDataBuilder = new StringBuilder();
             csvDataBuilder.append("Name: "+name +",Type: "+ type +",Description: "+ descrip +",Notes: "+ notes);
             String csvData = csvDataBuilder.toString();
-            String fileName = name.trim();
+            if(name.equals("")){
+                fileName = "name";
+            } else {
+                fileName = name.trim();
+            }
             createCsv(fileName+".csv", csvData);
             dialog_exports.dismiss();
         });
@@ -188,6 +195,7 @@ public class displaying extends AppCompatActivity {
         });
     }
 
+
     private void update(String csType, String key,String name, String type, String descrip, String notes, String stringUrl, String stringQr) {
         DatabaseReference productRef = FirebaseDatabase.getInstance().getReference(csType);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -200,6 +208,7 @@ public class displaying extends AppCompatActivity {
         });
     }
     private void createPdf(String name, String type, String descrip, String notes) {
+        askPermission();
         PdfDocument document = new PdfDocument();
         PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(1080, 1920, 1).create();
         PdfDocument.Page page = document.startPage(pageInfo);
@@ -216,7 +225,7 @@ public class displaying extends AppCompatActivity {
         canvas.drawText(notes , 300, 800, paint2);
         document.finishPage(page);
         File downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-        String fileName = name +".pdf";
+        String fileName = name.trim() +".pdf";
         File file = new File(downloads, fileName);
         try {
             FileOutputStream fos = new FileOutputStream(file);
@@ -274,6 +283,12 @@ public class displaying extends AppCompatActivity {
     }
 
     private void askPermission() {
-        ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, RequestCode);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, RequestCode);
+        } else {
+            // Access the PDF file here
+        }
+
     }
 }

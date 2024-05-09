@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -89,6 +90,18 @@ private String name, descrip, type, notes, stringUrl, stringQr, key, csKey;
 
         });
         ivExport.setOnClickListener(view -> {
+            String fileName = "BulkProducts";
+            File root = new File(Environment.getExternalStorageDirectory(), Environment.DIRECTORY_DOWNLOADS);
+            if(!root.exists()){
+                root.mkdirs();
+            }
+            File rawr = new File(root, fileName +".csv");
+            int suffix = 1;
+            while (rawr.exists()){
+                fileName = fileName + "(" + suffix+ ")";
+                suffix++;
+                rawr = new File(root, fileName +".csv");
+            }
             for(Integer positions : checkedPosition){
                 if(positions != null) {
                     Log.d("psition", String.valueOf(positions));
@@ -104,10 +117,10 @@ private String name, descrip, type, notes, stringUrl, stringQr, key, csKey;
                     StringBuilder csvDataBuilder = new StringBuilder();
                     csvDataBuilder.append("Name: "+name +",Type: "+ type +",Description: "+ descrip +",Notes: "+ notes+",key: "+ key+",Image Url: "+ stringUrl+",Qr code Url: "+ stringQr+",Cs Key: "+ csKey);
                     String csvData = csvDataBuilder.toString();
-                    String fileName = "BulkProducts";
                     createCsv(fileName, csvData);
                 }
             }
+            Toast.makeText(getActivity(), "clicked", Toast.LENGTH_SHORT).show();
         });
         return rootView;
     }

@@ -34,6 +34,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.List;
 
@@ -71,36 +72,10 @@ public class DashBoard extends AppCompatActivity implements NavigationView.OnNav
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout, new Fragmenthome()).commit();
             nav_view.setCheckedItem(R.id.nav_home);
         }
-//        menu = findViewById(R.id.menu);
-//        llHome = findViewById(R.id.llHome);
-//        llAbout = findViewById(R.id.llAbout);
-//        llSettings = findViewById(R.id.llSettings);
-//        llLogout = findViewById(R.id.llLogout);
-
-
-
-//        menu.setOnClickListener(view -> {
-//            openDrawer(drawerLayout);
-//        });
-//        llHome.setOnClickListener(view -> {
-//            recreate();
-//        });
-//        llAbout.setOnClickListener(view -> {
-//            redirectActivity(DashBoard.this, Info.class);
-//        });
-//        llSettings.setOnClickListener(view -> {
-//            redirectActivity(DashBoard.this, Info.class);
-//        });
-//        llAbout.setOnClickListener(view -> {
-//            FirebaseAuth.getInstance().signOut();
-//            Intent intent = new Intent(DashBoard.this, SignIn.class);
-//            startActivity(intent);
-//        });
-
+        TextView tv = nav_view.findViewById(R.id.tvUserEmail);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        tv.setText(user.getEmail());
     }
-
-
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         if (menuItem.getItemId() == R.id.nav_home) {
@@ -113,11 +88,13 @@ public class DashBoard extends AppCompatActivity implements NavigationView.OnNav
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout, new Fragmentsetting()).commit();
         } else  {
             Toast.makeText(this, "Log out", Toast.LENGTH_SHORT).show();
+            FirebaseAuth.getInstance().signOut();
+            Intent intent = new Intent(getApplicationContext(), SignIn.class);
+            startActivity(intent);
         }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
-
     @Override
     public void onBackPressed() {
         if(drawerLayout.isDrawerOpen(GravityCompat.START)) {

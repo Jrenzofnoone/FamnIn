@@ -30,17 +30,17 @@ public class SignIn extends AppCompatActivity {
     private Button btnLogIn;
     private TextView tvClickMe;
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            Intent dashboard = new Intent(getApplicationContext(), DashBoard.class);
-            startActivity(dashboard);
-            finish();
-        }
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//        // Check if user is signed in (non-null) and update UI accordingly.
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        if(currentUser != null){
+//            Intent dashboard = new Intent(getApplicationContext(), DashBoard.class);
+//            startActivity(dashboard);
+//            finish();
+//        }
+//    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,10 +76,16 @@ public class SignIn extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    Toast.makeText(SignIn.this, "Login Successfully ", Toast.LENGTH_SHORT).show();
-                                    Intent dashboard = new Intent(getApplicationContext(), DashBoard.class);
-                                    startActivity(dashboard);
-                                    finish();
+                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                    if(user.isEmailVerified()){
+                                        Toast.makeText(SignIn.this, "Login Successfully ", Toast.LENGTH_SHORT).show();
+                                        Intent dashboard = new Intent(getApplicationContext(), DashBoard.class);
+                                        startActivity(dashboard);
+                                        finish();
+                                    } else  {
+                                        Toast.makeText(SignIn.this, "verify it you bitch ", Toast.LENGTH_SHORT).show();
+                                    }
+
                                 } else {
                                     Toast.makeText(SignIn.this, "Wrond Password", Toast.LENGTH_SHORT).show();
                                 }

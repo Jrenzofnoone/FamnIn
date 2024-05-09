@@ -11,6 +11,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -21,6 +22,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FarmIn"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
             android:name=".Fragmentsetting"
@@ -33,9 +35,6 @@
             android:exported="false" />
         <activity
             android:name=".Setting"
-            android:exported="false" />
-        <activity
-            android:name=".FragmentDbWeather"
             android:exported="false" />
         <activity
             android:name=".displaying"
@@ -63,7 +62,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
+                <action android:name="android.intent.action.OPEN_DOCUMENT"/>
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
