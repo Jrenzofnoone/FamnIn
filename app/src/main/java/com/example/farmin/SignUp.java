@@ -26,17 +26,21 @@ public class SignUp extends AppCompatActivity {
     private TextView tvClickMe;
     FirebaseAuth mAuth;
     private EditText etEmail, etPassword, etConfirmPassword;
-//
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        if (currentUser != null) {
-//            Intent dashboard = new Intent(getApplicationContext(), DashBoard.class);
-//            startActivity(dashboard);
-//            finish();
-//        }
-//    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            if(currentUser.isEmailVerified()){
+                Intent dashboard = new Intent(getApplicationContext(), DashBoard.class);
+                startActivity(dashboard);
+                finish();
+            } else {
+                Toast.makeText(this, "Please verify your Email", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

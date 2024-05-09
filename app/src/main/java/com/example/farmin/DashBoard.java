@@ -1,6 +1,7 @@
 package com.example.farmin;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -8,6 +9,7 @@ import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -72,7 +74,8 @@ public class DashBoard extends AppCompatActivity implements NavigationView.OnNav
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout, new Fragmenthome()).commit();
             nav_view.setCheckedItem(R.id.nav_home);
         }
-        TextView tv = nav_view.findViewById(R.id.tvUserEmail);
+        View headerView = nav_view.getHeaderView(0);
+        TextView tv = headerView.findViewById(R.id.tvUserEmail);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         tv.setText(user.getEmail());
     }

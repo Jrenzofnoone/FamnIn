@@ -30,17 +30,22 @@ public class SignIn extends AppCompatActivity {
     private Button btnLogIn;
     private TextView tvClickMe;
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//        // Check if user is signed in (non-null) and update UI accordingly.
-//        FirebaseUser currentUser = mAuth.getCurrentUser();
-//        if(currentUser != null){
-//            Intent dashboard = new Intent(getApplicationContext(), DashBoard.class);
-//            startActivity(dashboard);
-//            finish();
-//        }
-//    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            if(currentUser.isEmailVerified()){
+                Intent dashboard = new Intent(getApplicationContext(), DashBoard.class);
+                startActivity(dashboard);
+                finish();
+            } else {
+                Toast.makeText(this, "Please verify your Email", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
