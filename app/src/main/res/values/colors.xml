@@ -3,4 +3,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="main">#486A28</color>
+    <color name="textInputOutlineColor">#CF2C2C</color>
+    <color name="buttonColorLight">#FF0000</color> <color name="buttonColorDark">#FFFFFF</color>
+    <color name="mtrl_textinput_default_box_stroke_color">#fff</color>
 </resources>

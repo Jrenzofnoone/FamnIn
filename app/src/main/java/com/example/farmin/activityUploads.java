@@ -7,24 +7,88 @@ public class activityUploads {
     String name;
     String type;
     String descrip;
-    String year;
-    String month;
-    String day;
+    String startYear;
+    String startMonth;
+    String startDay;
+    String finishYear;
+    String finishMonth;
+    String finishDay;
     String yield;
     String notes;
     String mimage;
     String key;
+    String userEmail;
 
-    public activityUploads(String key,String name, String type, String descrip, String year, String month, String day, String yield, String notes, String image) {
+    public activityUploads(String userEmail,String key,String name, String type, String descrip, String startYear, String startMonth, String startDay,String finishYear, String finishMonth, String finishDay, String yield, String notes, String image) {
+        this.userEmail = userEmail;
         this.name = name;
         this.type = type;
         this.descrip = descrip;
-        this.year = year;
-        this.month = month;
-        this.day = day;
+        this.startYear = startYear;
+        this.startMonth = startMonth;
+        this.startDay = startDay;
+        this.finishYear = finishYear;
+        this.finishMonth = finishMonth;
+        this.finishDay = finishDay;
         this.yield = yield;
         this.notes = notes;
         this.mimage = image;
+    }
+
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
+    public String getStartYear() {
+        return startYear;
+    }
+
+    public void setStartYear(String startYear) {
+        this.startYear = startYear;
+    }
+
+    public String getStartMonth() {
+        return startMonth;
+    }
+
+    public void setStartMonth(String startMonth) {
+        this.startMonth = startMonth;
+    }
+
+    public String getStartDay() {
+        return startDay;
+    }
+
+    public void setStartDay(String startDay) {
+        this.startDay = startDay;
+    }
+
+    public String getFinishYear() {
+        return finishYear;
+    }
+
+    public void setFinishYear(String finishYear) {
+        this.finishYear = finishYear;
+    }
+
+    public String getFinishMonth() {
+        return finishMonth;
+    }
+
+    public void setFinishMonth(String finishMonth) {
+        this.finishMonth = finishMonth;
+    }
+
+    public String getFinishDay() {
+        return finishDay;
+    }
+
+    public void setFinishDay(String finishDay) {
+        this.finishDay = finishDay;
     }
 
     public String getKey() {
@@ -57,30 +121,6 @@ public class activityUploads {
 
     public void setDescrip(String descrip) {
         this.descrip = descrip;
-    }
-
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
-
-    public String getMonth() {
-        return month;
-    }
-
-    public void setMonth(String month) {
-        this.month = month;
-    }
-
-    public String getDay() {
-        return day;
-    }
-
-    public void setDay(String day) {
-        this.day = day;
     }
 
     public String getYield() {

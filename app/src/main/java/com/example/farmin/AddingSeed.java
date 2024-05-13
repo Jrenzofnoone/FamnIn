@@ -101,7 +101,7 @@ public class AddingSeed extends AppCompatActivity implements addingInterface{
 
         btnGoBack = findViewById(R.id.btnGoBack);
 
-//        ivscan = findViewById(R.id.ivscan);
+        ivscan = findViewById(R.id.ivscan);
 //        String[] items = getResources().getStringArray(R.array.typeCrop);
         ivscan.setOnClickListener(view -> {
             scanCode();

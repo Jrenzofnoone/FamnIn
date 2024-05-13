@@ -25,6 +25,8 @@ import androidx.core.view.WindowInsetsCompat;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -32,14 +34,14 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 public class AddingActivity extends AppCompatActivity {
-    private ImageView ivCalendar, ivCheck, ivBox, ivImage;
+    private ImageView ivFinishCalendar, ivStartCalendar, ivCheck, ivBox, ivImage;
     private Dialog calendarDialog;
-    private EditText etDate, etName, etYield, etNotes;
+    private EditText etFinishDate, etStartingDate, etName, etYield, etNotes;
     private FloatingActionButton btnGoBack;
     private CalendarView calendarView;
-    private int myear, mmonth, mday;
+    private int startYear, startMonth, startDay, finishYear, finishMonth, finishDay;
     private String name, descrip, type, notes, stringUrl;
-    private Boolean isSelected ;
+    private Boolean isSelected, isState;
     private final static int pickImageRequest = 1;
     private Uri imageUri;
 
@@ -58,29 +60,45 @@ public class AddingActivity extends AppCompatActivity {
         etName = findViewById(R.id.etName);
         etNotes = findViewById(R.id.etNotes);
         etYield = findViewById(R.id.etYield);
-        ivCalendar = findViewById(R.id.ivCalendar);
+        ivStartCalendar = findViewById(R.id.ivStartCalendar);
+        ivFinishCalendar = findViewById(R.id.ivFinishCalendar);
         ivCheck = findViewById(R.id.ivCheck);
         ivBox = findViewById(R.id.ivBox);
         ivImage = findViewById(R.id.ivImage);
-        etDate = findViewById(R.id.etDate);
+        etStartingDate = findViewById(R.id.etStartingDate);
+        etFinishDate = findViewById(R.id.etFinishDate);
         calendarDialog = new Dialog(AddingActivity.this);
         calendarDialog.setContentView(R.layout.dialog_calendar);
         calendarDialog.setCancelable(true);
         calendarDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         calendarDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.custom_dialogbg));
         calendarView = calendarDialog.findViewById(R.id.cvCalendar);
-        ivCalendar.setOnClickListener(view -> {
+        ivStartCalendar.setOnClickListener(view -> {
             calendarDialog.show();
+            isState = false;
+        });
+        ivFinishCalendar.setOnClickListener(view -> {
+            calendarDialog.show();
+            isState = true;
         });
         calendarView.setMinDate(System.currentTimeMillis());
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView calendarView, int year, int month, int day) {
-                myear = year;
-                mmonth = month;
-                mday = day;
+                if (isState == false) {
+                startYear = year;
+                startMonth = month;
+                startDay = day;
                 calendarDialog.dismiss();
-                etDate.setText(myear + "/"+ mmonth +"/"+mday);
+                etStartingDate.setText(startYear + "/"+ startMonth +"/"+startDay);
+                } else if (isState == true) {
+                    finishYear = year;
+                    finishMonth = month;
+                    finishDay = day;
+                    calendarDialog.dismiss();
+                    etFinishDate.setText(finishYear + "/"+ finishMonth +"/"+finishDay);
+                }
+
             }
         });
         int depends = getIntent().getIntExtra("depends", 1);
@@ -106,10 +124,22 @@ public class AddingActivity extends AppCompatActivity {
         }
 
         ivCheck.setOnClickListener(view -> {
-            if(isSelected == true) {
-                addActivity(name,etYield.getText().toString(),String.valueOf(myear),String.valueOf(mmonth), String.valueOf(mday), type, descrip, notes, stringUrl);
+            if(etName.getText().toString().equals("")) {
+                etName.setError("Must not be Empty");
+            } else if (etStartingDate.getText().toString().equals("")) {
+                etStartingDate.setError("Must not be Empty");
+            } else if (etFinishDate.getText().toString().equals("")) {
+                etFinishDate.setError("Must not be Empty");
+            } else if (etYield.getText().toString().equals("")) {
+                etYield.setError("Must not be Empty");
+            } else if (etNotes.getText().toString().equals("")) {
+                etNotes.setError("Must not be Empty");
             } else {
-                addActivity(etName.getText().toString(), etYield.getText().toString(),String.valueOf(myear),String.valueOf(mmonth), String.valueOf(mday), "", "", etNotes.getText().toString(), "");
+                if(isSelected == true) {
+                    addActivity(name,etYield.getText().toString(),String.valueOf(startYear),String.valueOf(startMonth), String.valueOf(startDay),String.valueOf(finishYear),String.valueOf(finishMonth), String.valueOf(finishDay), type, descrip, notes, stringUrl);
+                } else {
+                    addActivity(etName.getText().toString(), etYield.getText().toString(),String.valueOf(startYear),String.valueOf(startMonth), String.valueOf(startDay),String.valueOf(finishYear),String.valueOf(finishMonth), String.valueOf(finishDay), "", "", etNotes.getText().toString(), "");
+                }
             }
         });
         ivImage.setOnClickListener(view -> {
@@ -149,11 +179,12 @@ public class AddingActivity extends AppCompatActivity {
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
-    private void addActivity(String name, String yield,String year, String month, String day, String type, String descrip, String notes, String urlImage) {
+    private void addActivity(String name, String yield,String mstartYear, String mstartMonth, String mstartDay, String mfinishYear, String mfinishMonth, String mfinishDay, String type, String descrip, String notes, String urlImage) {
         DatabaseReference activityRef = FirebaseDatabase.getInstance().getReference("Activity");
         String key = activityRef.push().getKey();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(isSelected == true) {
-            activityUploads activityUploads = new activityUploads(key,name, type, descrip, year, month, day, yield, notes, urlImage);
+            activityUploads activityUploads = new activityUploads(user.getEmail(),key,name, type, descrip, mstartYear, mstartMonth, mstartDay, mfinishYear, mfinishMonth, mfinishDay, yield, notes, urlImage);
             activityRef.child(key).setValue(activityUploads).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void unused) {
@@ -172,7 +203,7 @@ public class AddingActivity extends AppCompatActivity {
                     taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                            activityUploads activityUploads = new activityUploads(key,name, type, descrip, year, month, day, yield, notes, uri.toString());
+                            activityUploads activityUploads = new activityUploads(user.getEmail(),key,name, type, descrip, mstartYear, mstartMonth, mstartDay, mfinishYear, mfinishMonth, mfinishDay, yield, notes, uri.toString());
                             activityRef.child(key).setValue(activityUploads).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {

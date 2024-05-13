@@ -77,14 +77,16 @@ public class DashBoard extends AppCompatActivity implements NavigationView.OnNav
         View headerView = nav_view.getHeaderView(0);
         TextView tv = headerView.findViewById(R.id.tvUserEmail);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        tv.setText(user.getEmail());
+        if(user != null || user.equals("")) {
+            tv.setText(user.getEmail());
+        }
     }
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         if (menuItem.getItemId() == R.id.nav_home) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout, new Fragmenthome()).commit();
         } else if (menuItem.getItemId() == R.id.nav_activity) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout, new FragmentActivity()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout, new Fragmentactivity()).commit();
         } else if (menuItem.getItemId() == R.id.nav_about) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout, new Fragmetnabout()).commit();
         }  else if (menuItem.getItemId() == R.id.nav_setting) {
