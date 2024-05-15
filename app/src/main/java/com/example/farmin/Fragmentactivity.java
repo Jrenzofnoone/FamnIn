@@ -21,6 +21,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,6 +38,7 @@ public class Fragmentactivity extends Fragment implements activityInterface{
     private DatabaseReference databaseRef;
     private List<activityUploads> uploads;
     private CountDownTimer countDownFinish;
+    private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,9 +52,7 @@ public class Fragmentactivity extends Fragment implements activityInterface{
         tvTime = rootView.findViewById(R.id.tvTime);
         tvBeforeTime = rootView.findViewById(R.id.tvBeforeTime);
         tvNote = rootView.findViewById(R.id.tvNote);
-
         gridView = rootView.findViewById(R.id.gvSelling);
-
         uploads = new ArrayList<>();
         adapter = new GridAdapter(getActivity(), uploads, this);
         databaseRef = FirebaseDatabase.getInstance().getReference("Activity");
@@ -62,7 +62,20 @@ public class Fragmentactivity extends Fragment implements activityInterface{
                 gridView.setAdapter(adapter);
                 for(DataSnapshot postSnopshot : snapshot.getChildren()) {
                     activityUploads activityUploads = postSnopshot.getValue(activityUploads.class);
-                    uploads.add(activityUploads);
+                    int mfinishYear = Integer.parseInt(activityUploads.finishYear) ;
+                    int mfinishMonth = Integer.parseInt(activityUploads.finishMonth) + 1;
+                    int mfinishDay = Integer.parseInt(activityUploads.finishDay);
+                    try {
+                        Date finishDate = format.parse(mfinishYear+"-"+ mfinishMonth +"-"+ mfinishDay);
+                        Date currentDate = new Date();
+                        if(currentDate.after(finishDate)){
+
+                        } else {
+                            uploads.add(activityUploads);
+                        }
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             }
             @Override
@@ -80,12 +93,11 @@ public class Fragmentactivity extends Fragment implements activityInterface{
                 .fitCenter()
                 .into(imageView);
         tvNote.setText(notes);
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         try{
             int mstartYear = Integer.parseInt(startYear) ;
             int mstartMonth = Integer.parseInt(startMonth) + 1;
-            int mfinishYear = Integer.parseInt(startYear) ;
-            int mfinishMonth = Integer.parseInt(startMonth) + 1;
+            int mfinishYear = Integer.parseInt(finishYear) ;
+            int mfinishMonth = Integer.parseInt(finishMonth) + 1;
 
             Date startDate = format.parse(mstartYear+"-"+ mstartMonth +"-"+ startDay);
             Date finishDate = format.parse(mfinishYear+"-"+ mfinishMonth +"-"+ finishDay);
@@ -115,15 +127,21 @@ public class Fragmentactivity extends Fragment implements activityInterface{
             countDownFinish = new CountDownTimer(timeDifference, 1000) {
                 @Override
                 public void onTick(long l) {
+                    long timeDif = finishDate.getTime() -(System.currentTimeMillis() - currentDate.getTime());
                     long seconds = l / 1000;
-                    long hours = seconds / 3600;
-                    long minutes = (seconds % 3600) / 60;
+                    long minutes = seconds/ 60;
+                    long hours = minutes / 60;
+                    long days = hours / 24;
+                    long weeks = days / 7;
+                    long mdays = days % 7;
+                    long mhours = hours %24;
+
                     long secs = seconds % 60;
                     String remainingTime ;
-                    if(hours >99) {
-                        remainingTime = "99...:" + String.format("%02d:%02d", minutes, secs);
+                    if(mhours >99) {
+                        remainingTime = "99...:" + String.format("%02d:%02d", mdays, mhours);
                     } else {
-                        remainingTime = String.format("%02d:%02d:%02d", hours, minutes, secs);
+                        remainingTime = String.format("%02d:%02d:%02d", weeks, mdays, mhours);
                     }
                     tvTime.setText(remainingTime);
                 }

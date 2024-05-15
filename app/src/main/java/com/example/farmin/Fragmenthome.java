@@ -2,8 +2,13 @@ package com.example.farmin;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.media.Image;
 import android.os.Bundle;
 
@@ -15,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,8 +40,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-
 public class Fragmenthome extends Fragment {
     private TabLayout tabLayout;
     private ViewPager viewPager;
@@ -44,8 +48,6 @@ public class Fragmenthome extends Fragment {
     private static final String baseUrl = "https://api.openweathermap.org/data/2.5/";
     private static final int locationCode = 1001;
     private ImageView ivCloud;
-
-
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,13 +65,15 @@ public class Fragmenthome extends Fragment {
         getLocation();
         return rootView;
     }
+
     private void requestLocationPermission() {
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, locationCode);
         } else {
-            getLocation(); // Call getLocation if permission already granted
+            getLocation();
         }
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -90,7 +94,7 @@ public class Fragmenthome extends Fragment {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 getLocation();
             } else {
-                getLocation();
+                requestLocationPermission();
             }
         }
     }
@@ -115,6 +119,8 @@ public class Fragmenthome extends Fragment {
                     double latitude = location.getLatitude();
                     double longtitude = location.getLongitude();
                     fetchWeather(latitude, longtitude);
+                } else {
+                    Log.d("check", "check");
                 }
             }
         });

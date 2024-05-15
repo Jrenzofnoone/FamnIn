@@ -1,7 +1,12 @@
 package com.example.farmin;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -34,18 +39,17 @@ public class SignIn extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            if(currentUser.isEmailVerified()){
-                Intent dashboard = new Intent(getApplicationContext(), DashBoard.class);
-                startActivity(dashboard);
-                finish();
-            } else {
-                Toast.makeText(this, "Please verify your Email", Toast.LENGTH_SHORT).show();
+            if(currentUser != null){
+                if(currentUser.isEmailVerified()){
+                    Intent dashboard = new Intent(getApplicationContext(), DashBoard.class);
+                    startActivity(dashboard);
+                    finish();
+                } else {
+                    Toast.makeText(this, "Please verify your Email", Toast.LENGTH_SHORT).show();
+                }
+        } else {
             }
-
-        }
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,4 +104,5 @@ public class SignIn extends AppCompatActivity {
             }
         });
     }
+
 }
