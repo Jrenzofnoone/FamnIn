@@ -2,8 +2,10 @@ package com.example.farmin;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,6 +29,7 @@ public class SignUp extends AppCompatActivity {
     private TextView tvClickMe;
     FirebaseAuth mAuth;
     private TextInputEditText etEmail, etPassword, etConfirmPassword;
+    private CheckBox cbPassword;
 
     @Override
     public void onStart() {
@@ -54,7 +57,7 @@ public class SignUp extends AppCompatActivity {
         });
         mAuth = FirebaseAuth.getInstance();
         btnSignUp = findViewById(R.id.btnSignUp);
-
+        cbPassword = findViewById(R.id.cbPassword);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
@@ -99,5 +102,13 @@ public class SignUp extends AppCompatActivity {
                 startActivity(login);
             }
         });
+        cbPassword.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                etPassword.setTransformationMethod(null);
+                etConfirmPassword.setTransformationMethod(null);
+            } else {
+                etPassword.setTransformationMethod(new PasswordTransformationMethod());
+                etConfirmPassword.setTransformationMethod(new PasswordTransformationMethod());
+            }});
     }
 }
