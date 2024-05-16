@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,14 +24,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import android.widget.CheckBox;
-
 public class SignUp extends AppCompatActivity {
     private Button btnSignUp;
     private TextView tvClickMe;
     FirebaseAuth mAuth;
     private TextInputEditText etEmail, etPassword, etConfirmPassword;
-
     private CheckBox cbPassword;
 
     @Override
@@ -59,12 +57,11 @@ public class SignUp extends AppCompatActivity {
         });
         mAuth = FirebaseAuth.getInstance();
         btnSignUp = findViewById(R.id.btnSignUp);
-
+        cbPassword = findViewById(R.id.cbPassword);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         tvClickMe = findViewById(R.id.tvClickMe);
-        cbPassword = findViewById(R.id.cbPassword);
         btnSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,13 +101,12 @@ public class SignUp extends AppCompatActivity {
                 Intent login = new Intent(getApplicationContext(), SignIn.class);
                 startActivity(login);
             }
-        });cbPassword.setOnCheckedChangeListener((buttonView, isChecked) -> {
+        });
+        cbPassword.setOnCheckedChangeListener((buttonView, isChecked) -> {
             if (isChecked) {
-                // Show password
                 etPassword.setTransformationMethod(null);
                 etConfirmPassword.setTransformationMethod(null);
             } else {
-                // Hide password
                 etPassword.setTransformationMethod(new PasswordTransformationMethod());
                 etConfirmPassword.setTransformationMethod(new PasswordTransformationMethod());
             }});
