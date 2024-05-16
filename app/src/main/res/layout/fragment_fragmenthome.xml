@@ -4,20 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragmenthome">
+    tools:context=".Fragmenthome"
+    android:background="@color/theme">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="152dp"
-        android:background="#Ffffff"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tabIndicatorColor="@color/main"
-        app:tabRippleColor="@color/white"
+        app:tabRippleColor="@color/main"
         app:tabTextColor="@color/main">
 
 
@@ -81,6 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
                 android:text="Description"/>
+
             <TextView
                 android:id="@+id/tvCloudiness"
                 android:textColor="@color/white"
@@ -89,33 +91,39 @@
                 android:layout_weight="0.5"
                 android:text="Cloudiness"/>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.25"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/tvPressure"
-                android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="Pressure"/>
+                android:text="Pressure"
+                android:textColor="@color/white" />
+
             <TextView
                 android:id="@+id/tvHumidity"
-                android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="Humidity"/>
+                android:text="Humidity"
+                android:textColor="@color/white" />
+
             <TextView
                 android:id="@+id/tvWind"
-                android:textColor="@color/white"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:textSize="12dp"
                 android:layout_weight="0.5"
-                android:text="Wind"/>
+                android:text="Wind"
+                android:textColor="@color/white"
+                android:textSize="12dp" />
+
+
         </LinearLayout>
 
     </LinearLayout>

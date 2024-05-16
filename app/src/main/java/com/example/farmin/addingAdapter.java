@@ -98,7 +98,7 @@ public class addingAdapter extends RecyclerView.Adapter<addingAdapter.viewHolder
         if(selectedItem == position){
             holder.itemView.setBackgroundColor(Color.WHITE);
         }else {
-            holder.itemView.setBackgroundColor(Color.TRANSPARENT);
+            holder.itemView.setBackgroundColor(Color.WHITE);
         }
 
     }

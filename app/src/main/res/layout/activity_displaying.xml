@@ -5,8 +5,9 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/theme"
     tools:context=".displaying">
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnGoBack"
         android:layout_width="wrap_content"
@@ -43,14 +44,14 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <EditText
-        android:textIsSelectable="false"
-        android:background="@color/white"
         android:id="@+id/etName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:text="TextView"
-        android:textSize="20dp"
         android:textColor="@color/main"
+        android:textIsSelectable="false"
+        android:textSize="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.116"
@@ -59,44 +60,44 @@
         app:layout_constraintVertical_bias="0.104" />
 
     <EditText
-        android:textIsSelectable="false"
-        android:background="@color/white"
         android:id="@+id/etType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:background="@color/white"
         android:text="TextView"
-        android:textSize="20dp"
         android:textColor="@color/main"
+        android:textIsSelectable="false"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.116"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etName" />
 
     <EditText
-        android:textIsSelectable="false"
-        android:background="@color/white"
         android:id="@+id/etDescrip"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:background="@color/white"
         android:text="TextView"
-        android:textSize="20dp"
         android:textColor="@color/main"
+        android:textIsSelectable="false"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.194"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etType" />
 
     <EditText
-        android:textIsSelectable="false"
-        android:background="@color/white"
         android:id="@+id/etNote"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:background="@color/white"
         android:text="TextView"
         android:textColor="@color/main"
+        android:textIsSelectable="false"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.194"

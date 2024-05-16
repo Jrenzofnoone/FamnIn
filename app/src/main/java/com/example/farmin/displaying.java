@@ -249,10 +249,12 @@ public class displaying extends AppCompatActivity {
             FileWriter writer = new FileWriter(csvFile);
             writer.append(csvData);
             writer.append("\n");
+            Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show();
             writer.flush();
             writer.close();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Failed to save CSV file", Toast.LENGTH_SHORT).show();
         }
     }
     private void createExcel(String name, String type, String descrip, String notes) {
