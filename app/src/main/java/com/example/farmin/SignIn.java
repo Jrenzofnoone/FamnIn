@@ -4,14 +4,18 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Point;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Patterns;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -39,13 +43,14 @@ import java.util.regex.Pattern;
 
 public class SignIn extends AppCompatActivity {
     private DatabaseReference userDataRef;
-    private TextInputEditText etEmail, etPassword;
+    private TextInputEditText metEmail,etEmail, etPassword;
     FirebaseAuth mAuth;
     private Button btnLogIn, btnCancel,btnReset;
     private TextView tvClickMe, tvForgetpassword;
     private CheckBox cbPassword;
     private Dialog forgotDialog;
     private FirebaseUser currentUser;
+    private WindowManager windowManager;
 
     @Override
     public void onStart() {
@@ -72,6 +77,12 @@ public class SignIn extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        Display display = windowManager.getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int screenWidth = size.x;
+        int screenHeight = size.y;
         mAuth = FirebaseAuth.getInstance();
         tvClickMe = findViewById(R.id.tvClickMe);
         tvForgetpassword = findViewById(R.id.tvForgetpassword);
@@ -83,11 +94,18 @@ public class SignIn extends AppCompatActivity {
         forgotDialog = new Dialog(SignIn.this);
         forgotDialog.setContentView(R.layout.dialog_forgot);
         forgotDialog.setCancelable(true);
-        forgotDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        Window window = forgotDialog.getWindow();
+        float dialogPercentageWidth = 0.8f;
+        float dialogPercentageHeight = 0.4f;
+        WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
+        layoutParams.copyFrom(window.getAttributes());
+        layoutParams.width = (int) (screenWidth * dialogPercentageWidth);
+        layoutParams.height = (int) (screenHeight * dialogPercentageHeight);
+        window.setAttributes(layoutParams);
         forgotDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.custom_dialogbg));
         btnReset = forgotDialog.findViewById(R.id.btnReset);
         btnCancel = forgotDialog.findViewById(R.id.btnCancel);
-        etEmail = forgotDialog.findViewById(R.id.etEmail);
+        metEmail = forgotDialog.findViewById(R.id.etEmail);
 
         tvClickMe.setOnClickListener(view -> {
             Intent login = new Intent(getApplicationContext(), SignUp.class);
@@ -100,7 +118,7 @@ public class SignIn extends AppCompatActivity {
             forgotDialog.dismiss();
         });
         btnReset.setOnClickListener(view -> {
-            String userEmail = etEmail.getText().toString();
+            String userEmail = metEmail.getText().toString();
             if(TextUtils.isEmpty(userEmail) && !Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()) {
                 Toast.makeText(this, "Enter your registered Email", Toast.LENGTH_SHORT).show();
                 return;

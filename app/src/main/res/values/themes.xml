@@ -13,7 +13,7 @@
         <item name="hintTextColor">#ffffff</item>
     </style>
     <style name="forgotTextInputLayout" >
-        <item name="boxStrokeColor">#1C36C4</item>
+        <item name="boxStrokeColor">@color/main</item>
         <item name="cursorColor">@color/main</item>
         <item name="android:textColorHint">@color/main</item>
         <item name="hintTextColor">@color/main</item>

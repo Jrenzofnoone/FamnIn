@@ -7,6 +7,9 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".displaying">
+
+
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnGoBack"
         android:layout_width="wrap_content"
@@ -25,127 +28,52 @@
         android:layout_width="228dp"
         android:layout_height="202dp"
         android:layout_marginTop="88dp"
+        android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.224"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
-    <ImageView
-        android:id="@+id/ivQr"
-        android:layout_width="70dp"
-        android:layout_height="82dp"
-        android:layout_marginTop="160dp"
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="304dp"
+        android:background="#Ffffff"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.541"
-        app:layout_constraintStart_toEndOf="@+id/ivImage"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:tabIndicatorColor="@color/main"
+        app:tabRippleColor="@color/white"
+        app:tabTextColor="@color/main">
 
-    <EditText
-        android:textIsSelectable="false"
-        android:background="@color/white"
-        android:id="@+id/etName"
-        android:layout_width="wrap_content"
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Overview" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Exports" />
+
+        <com.google.android.material.tabs.TabItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="QR Code" />
+
+    </com.google.android.material.tabs.TabLayout>
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textSize="20dp"
-        android:textColor="@color/main"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.116"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ivImage"
-        app:layout_constraintVertical_bias="0.104" />
+        app:layout_constraintTop_toBottomOf="@+id/tabLayout"/>
 
-    <EditText
-        android:textIsSelectable="false"
-        android:background="@color/white"
-        android:id="@+id/etType"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="TextView"
-        android:textSize="20dp"
-        android:textColor="@color/main"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.116"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etName" />
-
-    <EditText
-        android:textIsSelectable="false"
-        android:background="@color/white"
-        android:id="@+id/etDescrip"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="TextView"
-        android:textSize="20dp"
-        android:textColor="@color/main"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.194"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etType" />
-
-    <EditText
-        android:textIsSelectable="false"
-        android:background="@color/white"
-        android:id="@+id/etNote"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="TextView"
-        android:textColor="@color/main"
-        android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.194"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etDescrip" />
-
-    <ImageView
-        android:id="@+id/ivVoiceDescrip"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="112dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.056"
-        app:layout_constraintStart_toEndOf="@+id/tvDescrip"
-        app:layout_constraintTop_toBottomOf="@+id/etType"
-        app:srcCompat="@drawable/voice" />
-
-    <ImageView
-        android:id="@+id/ivVoiceNotes"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="112dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.056"
-        app:layout_constraintStart_toEndOf="@+id/tvDescrip"
-        app:layout_constraintTop_toBottomOf="@+id/etDescrip"
-        app:srcCompat="@drawable/voice" />
-
-    <ImageView
-        android:id="@+id/ivExports"
-        android:layout_width="47dp"
-        android:layout_height="37dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.607"
-        app:layout_constraintStart_toEndOf="@+id/ivEdit"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/export" />
-
-    <ImageView
-        android:id="@+id/ivEdit"
-        android:layout_width="47dp"
-        android:layout_height="37dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
-        app:layout_constraintStart_toEndOf="@+id/ivImage"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/edit" />
 </androidx.constraintlayout.widget.ConstraintLayout>
