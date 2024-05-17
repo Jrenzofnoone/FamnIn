@@ -24,6 +24,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.regex.Pattern;
+
 public class SignUp extends AppCompatActivity {
     private Button btnSignUp;
     private TextView tvClickMe;
@@ -62,16 +64,20 @@ public class SignUp extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         tvClickMe = findViewById(R.id.tvClickMe);
-        btnSignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        btnSignUp.setOnClickListener(view -> {
                 String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
+                String thing = "[a-zA-Z0-9]*$";
+            Pattern pattern = Pattern.compile(thing);
                 String confirmPassword = etConfirmPassword.getText().toString();
                 if (email.isEmpty()) {
                     etEmail.setError("Cannot be Empty");
                 } else if (password.isEmpty()) {
                     etPassword.setError("Cannot be Empty");
+                } else if(password.length() < 8) {
+                    etPassword.setError("Length must be more than 8 letters");
+                } else if(pattern.matcher(password).matches()) {
+                    etPassword.setError("Must contain special letters");
                 } else if (!password.equals(confirmPassword)) {
                     Toast.makeText(SignUp.this, "Password does not match", Toast.LENGTH_SHORT).show();
                 } else {
@@ -93,7 +99,6 @@ public class SignUp extends AppCompatActivity {
                         }
                     });
                 }
-            }
         });
         tvClickMe.setOnClickListener(new View.OnClickListener() {
             @Override
