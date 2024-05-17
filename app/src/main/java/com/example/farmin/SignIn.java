@@ -39,7 +39,7 @@ import java.util.regex.Pattern;
 
 public class SignIn extends AppCompatActivity {
     private DatabaseReference userDataRef;
-    private TextInputEditText etEmail, etPassword;
+    private TextInputEditText metEmail, etEmail, etPassword;
     FirebaseAuth mAuth;
     private Button btnLogIn, btnCancel,btnReset;
     private TextView tvClickMe, tvForgetpassword;
@@ -83,11 +83,11 @@ public class SignIn extends AppCompatActivity {
         forgotDialog = new Dialog(SignIn.this);
         forgotDialog.setContentView(R.layout.dialog_forgot);
         forgotDialog.setCancelable(true);
-        forgotDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        forgotDialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         forgotDialog.getWindow().setBackgroundDrawable(getDrawable(R.drawable.custom_dialogbg));
         btnReset = forgotDialog.findViewById(R.id.btnReset);
         btnCancel = forgotDialog.findViewById(R.id.btnCancel);
-        etEmail = forgotDialog.findViewById(R.id.etEmail);
+        metEmail = forgotDialog.findViewById(R.id.etEmail);
 
         tvClickMe.setOnClickListener(view -> {
             Intent login = new Intent(getApplicationContext(), SignUp.class);

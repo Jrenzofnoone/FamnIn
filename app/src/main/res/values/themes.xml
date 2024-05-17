@@ -7,4 +7,10 @@
     </style>
 
     <style name="Theme.FarmIn" parent="Base.Theme.FarmIn" />
+    <style name="TextInputLayout" >
+        <item name="boxStrokeColor">#ffffff</item>
+        <item name="cursorColor">#ffffff</item>
+        <item name="android:textColorHint">#ffffff</item>
+        <item name="hintTextColor">#ffffff</item>
+    </style>
 </resources>
