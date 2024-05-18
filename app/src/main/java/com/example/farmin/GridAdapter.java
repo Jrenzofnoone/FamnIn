@@ -22,10 +22,12 @@ public class GridAdapter extends BaseAdapter {
 
     private final activityInterface activityInterface;
     LayoutInflater inflater;
-    public GridAdapter(Context context, List<activityUploads> uploads, activityInterface activityInterface) {
+    private int itemHeight;
+    public GridAdapter(Context context, List<activityUploads> uploads, activityInterface activityInterface, int itemHeight) {
         this.context = context;
         this.uploads = uploads;
         this.activityInterface = activityInterface;
+        this.itemHeight = itemHeight;
     }
 
     @Override
@@ -54,7 +56,14 @@ public class GridAdapter extends BaseAdapter {
             view = inflater.inflate(R.layout.griditem, null);
         }
         ivImage = view.findViewById(R.id.ivImage);
-
+        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+        if(layoutParams == null) {
+            layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeight);
+        } else {
+            layoutParams.height = itemHeight;
+        }
+        Log.d("heigh", String.valueOf(itemHeight));
+        view.setLayoutParams(layoutParams);
         activityUploads uploadCurrent = uploads.get(i);
         // holder.ivImage.setImageURI(Uri.parse(uploadCurrent.getImageUrl()));
         String imageUrl = uploadCurrent.getimage();
