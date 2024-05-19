@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.os.CountDownTimer;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -53,8 +54,12 @@ public class Fragmentactivity extends Fragment implements activityInterface{
         tvBeforeTime = rootView.findViewById(R.id.tvBeforeTime);
         tvNote = rootView.findViewById(R.id.tvNote);
         gridView = rootView.findViewById(R.id.gvSelling);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        requireActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int screenHeight = displayMetrics.heightPixels;
+        int itemHeight = (int) (screenHeight * 0.2);
         uploads = new ArrayList<>();
-        adapter = new GridAdapter(getActivity(), uploads, this);
+        adapter = new GridAdapter(getActivity(), uploads, this, itemHeight);
         databaseRef = FirebaseDatabase.getInstance().getReference("Activity");
         databaseRef.addValueEventListener(new ValueEventListener() {
             @Override

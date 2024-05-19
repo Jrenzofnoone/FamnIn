@@ -20,6 +20,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
@@ -30,7 +31,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 
 public class DashBoard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -67,7 +67,6 @@ public class DashBoard extends AppCompatActivity implements NavigationView.OnNav
         TextView tv = headerView.findViewById(R.id.tvUserEmail);
         ivImage = headerView.findViewById(R.id.ivImage);
         ivImage.setOnClickListener(v -> openImagePicker());
-
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             tv.setText(user.getEmail());
@@ -77,8 +76,7 @@ public class DashBoard extends AppCompatActivity implements NavigationView.OnNav
             userStorage.child(user.getUid() + ".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
-                    // Load the image into the ImageView using Picasso
-                    Picasso.get().load(uri).into(ivImage);
+                    Glide.with(getApplicationContext()).load(uri).fitCenter().into(ivImage);
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override

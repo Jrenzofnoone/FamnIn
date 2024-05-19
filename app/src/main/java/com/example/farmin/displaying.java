@@ -62,18 +62,18 @@ import java.util.Locale;
 import java.util.Map;
 
 public class displaying extends AppCompatActivity {
-    private ImageView ivQr, ivImage, ivQrcode, ivVoiceDescrip, ivVoiceNotes, ivExports;
+    private ImageView ivQr, ivImage, ivQrcode, ivVoiceDescrip, ivVoiceNotes, ivExports, ivGoBack;
   //  private EditText etName,etType,etDescrip,etNote;
     private Dialog qrDialog, dialog_exports;
     TextToSpeech t1;
     final static int RequestCode = 1232;
     private Button btnExportPdf,btnExportCsv, btnExportExcel;
-    private FloatingActionButton btnGoBack;
     private Boolean editState = false;
     private String fileName;
     private viewHolderDisplay viewHolderDisplay;
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private TextView tvName;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +86,7 @@ public class displaying extends AppCompatActivity {
             return insets;
         });
         askPermission();
+        tvName = findViewById(R.id.tvName);
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
         tabLayout.setupWithViewPager(viewPager);
@@ -107,7 +108,7 @@ public class displaying extends AppCompatActivity {
 
 
         ivImage = findViewById(R.id.ivImage);
-        btnGoBack = findViewById(R.id.btnGoBack);
+        ivGoBack = findViewById(R.id.ivGoBack);
         String name = getIntent().getStringExtra("Name");
         String descrip = getIntent().getStringExtra("Descrip");
         String type = getIntent().getStringExtra("Type");
@@ -130,9 +131,10 @@ public class displaying extends AppCompatActivity {
                     .fitCenter()
                     .into(ivImage);
         }
+        tvName.setText(name);
 
 
-        btnGoBack.setOnClickListener(view -> {
+        ivGoBack.setOnClickListener(view -> {
             Intent intent = new Intent(displaying.this, DashBoard.class);
             startActivity(intent);
             finish();
