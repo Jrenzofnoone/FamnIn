@@ -23,7 +23,7 @@ public class IncomeDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_income, null);
+        View dialogView = inflater.inflate(R.layout.add_income, null);
 
         builder.setView(dialogView);
         builder.setTitle("Add Income");
@@ -32,7 +32,7 @@ public class IncomeDialogFragment extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
 
                 EditText etAmount = dialogView.findViewById(R.id.etAmount);
-                EditText etNoteIncome = dialogView.findViewById(R.id.etNote);  // Assuming you have a note field
+                EditText etNoteIncome = dialogView.findViewById(R.id.etNote_income);  // Assuming you have a note field
 
                 String amount = etAmount.getText().toString();
                 String note = etNoteIncome.getText().toString();
