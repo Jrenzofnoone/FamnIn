@@ -22,10 +22,11 @@
             android:background="@color/main"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             android:popupTheme="@style/Theme.AppCompat.Light"/>
+
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/fragment_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/fragment_layout">
+            android:layout_height="match_parent">
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>

@@ -160,4 +160,8 @@ public class Fragmentactivity extends Fragment implements activityInterface{
             Log.d("error", e.toString());
         }
     }
+    private void showNotification(String activityName) {
+
+
+    }
     }

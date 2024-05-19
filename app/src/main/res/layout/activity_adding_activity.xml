@@ -25,7 +25,7 @@
 
     <View
         android:id="@+id/view"
-        android:layout_width="386dp"
+        android:layout_width="match_parent"
         android:layout_height="94dp"
         android:background="@color/main"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,13 +40,13 @@
         android:layout_marginTop="24dp"
         android:src="@drawable/check"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.132"
+        app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toEndOf="@+id/ivBox"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/view2"
-        android:layout_width="365dp"
+        android:layout_width="match_parent"
         android:layout_height="555dp"
         android:layout_marginTop="160dp"
         android:background="@color/main"
@@ -251,7 +251,7 @@
         android:id="@+id/ivBox"
         android:layout_width="51dp"
         android:layout_height="46dp"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="44dp"
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toEndOf="@+id/textView14"
         app:layout_constraintTop_toTopOf="parent"
