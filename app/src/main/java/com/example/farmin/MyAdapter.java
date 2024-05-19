@@ -1,5 +1,6 @@
 package com.example.farmin;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,37 +12,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-    public class Income {
-        public String amount;
-        public String note;
-
-        public Income() {
-            // Default constructor required for calls to DataSnapshot.getValue(Income.class)
-        }
-
-        public Income(String amount, String note) {
-            this.amount = amount;
-            this.note = note;
-        }
-    }
-
-    public class Expense {
-        public String amount;
-        public String note;
-
-        public Expense() {
-            // Default constructor required for calls to DataSnapshot.getValue(Expense.class)
-        }
-
-        public Expense(String amount, String note) {
-            this.amount = amount;
-            this.note = note;
-        }
-    }
-    private List<Object> itemList; // Can hold both Income and Expense
-
-    public MyAdapter(List<Object> itemList) {
+    private List<objectIncome> itemList;
+    private Context context;
+    public MyAdapter(List<objectIncome> itemList, Context context) {
         this.itemList = itemList;
+        this.context = context;
     }
 
     @NonNull
@@ -54,17 +29,9 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Object currentItem = itemList.get(position);
-
-        if (currentItem instanceof Income) {
-            Income income = (Income) currentItem;
-            holder.amountTextView.setText(income.amount);
-            holder.noteTextView.setText(income.note);
-        } else if (currentItem instanceof Expense) {
-            Expense expense = (Expense) currentItem;
-            holder.amountTextView.setText(expense.amount);
-            holder.noteTextView.setText(expense.note);
-        }
+        objectIncome objectIncome = itemList.get(position);
+            holder.amountTextView.setText(objectIncome.getAmount());
+            holder.noteTextView.setText(objectIncome.getNote());
     }
 
     @Override

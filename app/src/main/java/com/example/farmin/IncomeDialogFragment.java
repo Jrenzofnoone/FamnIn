@@ -13,8 +13,12 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.util.HashMap;
 
 public class IncomeDialogFragment extends DialogFragment {
 
@@ -23,7 +27,7 @@ public class IncomeDialogFragment extends DialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = requireActivity().getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.add_income, null);
+        View dialogView = inflater.inflate(R.layout.dialog_income, null);
 
         builder.setView(dialogView);
         builder.setTitle("Add Income");
@@ -32,7 +36,7 @@ public class IncomeDialogFragment extends DialogFragment {
             public void onClick(DialogInterface dialog, int which) {
 
                 EditText etAmount = dialogView.findViewById(R.id.etAmount);
-                EditText etNoteIncome = dialogView.findViewById(R.id.etNote_income);  // Assuming you have a note field
+                EditText etNoteIncome = dialogView.findViewById(R.id.etNote);  // Assuming you have a note field
 
                 String amount = etAmount.getText().toString();
                 String note = etNoteIncome.getText().toString();
@@ -57,11 +61,16 @@ public class IncomeDialogFragment extends DialogFragment {
     private void saveIncomeToFirebase(String amount, String note) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference incomeRef = database.getReference("income");
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         String incomeId = incomeRef.push().getKey();
         if (incomeId != null) {
-            Income income = new Income(amount, note);
-            incomeRef.child(incomeId).setValue(income);
+            HashMap<String, String> list = new HashMap<>();
+            list.put("amount",amount);
+            list.put("note",note);
+            list.put("user", user.getEmail());
+
+            incomeRef.child(incomeId).setValue(list);
         }
     }
 
@@ -73,20 +82,6 @@ public class IncomeDialogFragment extends DialogFragment {
             int width = ViewGroup.LayoutParams.MATCH_PARENT;
             int height = ViewGroup.LayoutParams.WRAP_CONTENT;
             dialog.getWindow().setLayout(width, height);
-        }
-    }
-
-    public static class Income {
-        public String amount;
-        public String note;
-
-        public Income() {
-            // Default constructor required for calls to DataSnapshot.getValue(Income.class)
-        }
-
-        public Income(String amount, String note) {
-            this.amount = amount;
-            this.note = note;
         }
     }
 }
