@@ -21,7 +21,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -35,71 +34,49 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Fragment_dashboard_expensive_income extends Fragment {
-    private MyAdapter myAdapter;
-    private List<Object> itemList;
-    private RecyclerView recyclerView;
+public class Fragment_dashoard_expensive_income extends Fragment {
+    private TextView addExpenseButton, addIncome;
+    private RecyclerView recyclerView_show_expenses_income;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_dashboard_expensive_income, container, false);
 
-        // Initialize RecyclerView
-        recyclerView = view.findViewById(R.id.recyclerView_show_expenses_income);
-        itemList = new ArrayList<>();
-        myAdapter = new MyAdapter(itemList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(myAdapter);
+        // Find TextViews
+        addExpenseButton = view.findViewById(R.id.addExpensive);
+        addIncome = view.findViewById(R.id.addIncome);
+        recyclerView_show_expenses_income = view.findViewById(R.id.recyclerView_show_expenses_income);
 
-        // Fetch data from Firebase and add it to the adapter
-        loadDataFromFirebase();
+        // Set click listener for Add Expense button
+        addExpenseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Open expense dialog fragment
+                openExpenseDialog();
+            }
+        });
+
+        // Set click listener for Add Income button
+        addIncome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Open income dialog fragment
+                openIncomeDialog();
+            }
+        });
 
         return view;
     }
 
-    private void loadDataFromFirebase() {
-        DatabaseReference expensesRef = FirebaseDatabase.getInstance().getReference().child("expenses");
-        DatabaseReference incomesRef = FirebaseDatabase.getInstance().getReference().child("income");
 
-        expensesRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                itemList.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Expense expense = snapshot.getValue(Expense.class);
-                    if (expense != null) {
-                        itemList.add(expense);
-                    }
-                }
-                myAdapter.notifyDataSetChanged();
-            }
+    private void openExpenseDialog() {
+        ExpenseDialogFragment dialog = new ExpenseDialogFragment();
+        dialog.show(getChildFragmentManager(), "ExpenseDialogFragment");
+    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle error
-            }
-        });
-
-        incomesRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Income income = snapshot.getValue(Income.class);
-                    if (income != null) {
-                        itemList.add(income);
-                    }
-                }
-                myAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle error
-            }
-        });
+    private void openIncomeDialog() {
+        IncomeDialogFragment dialog = new IncomeDialogFragment();
+        dialog.show(getChildFragmentManager(), "IncomeDialogFragment");
     }
 }
