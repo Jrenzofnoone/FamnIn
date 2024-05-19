@@ -56,9 +56,9 @@ public class addingAdapter extends RecyclerView.Adapter<addingAdapter.viewHolder
     String key, qrCodeUrl;
     String name, type, descrip, notes;
     private String ref;
-    private int selectedItem = -1;
+    private int selectedItem = -1, itemHeight;
 
-    public addingAdapter(Context context, String ref,List<addingUploads> uploads, addingInterface addingInterface) {
+    public addingAdapter(Context context, String ref,List<addingUploads> uploads, addingInterface addingInterface, int itemHeight) {
         if (uploads == null || uploads.isEmpty()) {
             addingUploads addingUploads = new addingUploads("","","","","","","","","");
             uploads.add(addingUploads);
@@ -67,6 +67,7 @@ public class addingAdapter extends RecyclerView.Adapter<addingAdapter.viewHolder
         this.ref = ref;
         this.context = context;
         this.addingInterface = addingInterface;
+        this.itemHeight = itemHeight;
     }
     @NonNull
     @Override
@@ -134,6 +135,7 @@ public class addingAdapter extends RecyclerView.Adapter<addingAdapter.viewHolder
             btnAdd.setOnClickListener(view -> {
                 addingUploads currentUploads = uploads.get(getAdapterPosition());
                 String imageUrl = currentUploads.getImageurl();
+                String csKey = currentUploads.getCsType();
                 String name = etName.getText().toString();
                 String type = spinType.getSelectedItem().toString();
                 String descrip = etDescription.getText().toString();
@@ -142,7 +144,7 @@ public class addingAdapter extends RecyclerView.Adapter<addingAdapter.viewHolder
                 if(name.isEmpty() ||descrip.isEmpty()|| notes.isEmpty() || type.isEmpty() ||modified.isEmpty()){
                     Toast.makeText(context, "empty", Toast.LENGTH_SHORT).show();
                 } else{
-                    addProduct(name, type,descrip,notes,modified);
+                    addProduct(name, type,descrip,notes,modified, csKey);
                     uploads.remove(getAdapterPosition());
                     notifyDataSetChanged();
                     if (uploads == null || uploads.isEmpty()) {
@@ -169,7 +171,7 @@ public class addingAdapter extends RecyclerView.Adapter<addingAdapter.viewHolder
         notifyItemChanged(position);
     }
 
-    private void addProduct(String name, String type, String descrip, String notes, String imageUrl) {
+    private void addProduct(String name, String type, String descrip, String notes, String imageUrl, String csKey) {
         DatabaseReference productRef = FirebaseDatabase.getInstance().getReference(ref);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         MultiFormatWriter writer = new MultiFormatWriter();
@@ -199,7 +201,7 @@ public class addingAdapter extends RecyclerView.Adapter<addingAdapter.viewHolder
                         @Override
                         public void onSuccess(Uri uri) {
                             qrCodeUrl = uri.toString();
-                            addingUploads addingUploads = new addingUploads("Seeds",key, user.getEmail(), name, type, descrip, notes,imageUrl,qrCodeUrl);
+                            addingUploads addingUploads = new addingUploads(csKey,key, user.getEmail(), name, type, descrip, notes,imageUrl,qrCodeUrl);
                             productRef.child(key).setValue(addingUploads).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {

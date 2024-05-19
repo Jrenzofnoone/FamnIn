@@ -10,6 +10,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.PersistableBundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.webkit.MimeTypeMap;
 import android.widget.Button;
@@ -87,12 +88,16 @@ public class AddingSeed extends AppCompatActivity implements addingInterface{
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int screenHeight = displayMetrics.heightPixels;
+        int itemHeight = (int) (screenHeight * 0.2);
         ivImport = findViewById(R.id.ivImport);
         recyclerView = findViewById(R.id.recyclerView);
         uploads = new ArrayList<>();
         addingUploads addingUploads = new addingUploads("","","","","","","","","");
         uploads.add(addingUploads);
-        adapter = new addingAdapter(AddingSeed.this,"Seeds", uploads, this);
+        adapter = new addingAdapter(AddingSeed.this,"Seeds", uploads, this, itemHeight);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
         ivImport.setOnClickListener(view -> {

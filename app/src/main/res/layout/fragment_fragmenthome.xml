@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragmenthome"
-    android:background="@color/theme">
+    android:background="@color/theme"
+    tools:context=".Fragmenthome">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
@@ -38,58 +38,64 @@
             android:text="Seed" />
 
     </com.google.android.material.tabs.TabLayout>
+
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tabLayout"/>
+        app:layout_constraintTop_toTopOf="@+id/guideline77" />
 
     <LinearLayout
-        android:background="@color/main"
-        android:layout_margin="10dp"
         android:layout_width="match_parent"
-        android:padding="10dp"
         android:layout_height="142dp"
+        android:layout_margin="10dp"
+        android:background="@color/main"
         android:orientation="horizontal"
+        android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/tabLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_weight="0.5"
-        android:id="@+id/ivCloud"
-        android:src="@drawable/sky_night"/>
+
+        <ImageView
+            android:id="@+id/ivCloud"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:src="@drawable/sky_night" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.25"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/tvTemp"
-                android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="Temp"/>
+                android:text="Temp"
+                android:textColor="@color/white" />
+
             <TextView
                 android:id="@+id/tvDescrip"
-                android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="Description"/>
+                android:text="Description"
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/tvCloudiness"
-                android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="Cloudiness"/>
+                android:text="Cloudiness"
+                android:textColor="@color/white" />
         </LinearLayout>
 
         <LinearLayout
@@ -127,6 +133,13 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline77"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.28" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

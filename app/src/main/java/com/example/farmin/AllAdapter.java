@@ -20,18 +20,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AllAdapter extends RecyclerView.Adapter<AllAdapter.viewHolder> {
-    private List<addingUploads> uploads;
+    private List<addingUploads> uploads ;
     private Context context;
-    private int depends;
+    private int depends, itemHeight;
     private clickInterface clickInterface;
     List<Integer> checkedPosition;
 
-    public AllAdapter(Context context, int depends, List<addingUploads> uploads, clickInterface clickInterface) {
+    public AllAdapter(Context context, int depends, List<addingUploads> uploads, clickInterface clickInterface, int itemHeight) {
         this.uploads = uploads;
         this.context = context;
         this.depends = depends;
         this.checkedPosition = new ArrayList<>();
         this.clickInterface = clickInterface;
+        this.itemHeight = itemHeight;
     }
 
     @NonNull
@@ -43,32 +44,39 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.viewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull AllAdapter.viewHolder holder, int position) {
-        addingUploads currentUploads = uploads.get(position);
-        holder.tvName.setText(currentUploads.getName());
-        holder.tvType.setText("Type: "+currentUploads.getType());
-        holder.tvDescrip.setText("Description: "+currentUploads.getDescrip());
-        holder.tvNote.setText("Notes: "+currentUploads.getNotes());
-        String imageUrl = currentUploads.getImageurl();
-        if (imageUrl != null && !imageUrl.isEmpty()) {
-            Glide.with(holder.itemView.getContext())
-                    .load(imageUrl)
-                    .fitCenter()
-                    .into(holder.ivImage);
-        } else {
-            Toast.makeText(context, "Image URL is empty", Toast.LENGTH_SHORT).show();
-        }
-        if(areCheckBoxVisible){
-            holder.checkBox.setVisibility(View.VISIBLE);
-        } else {
-            holder.checkBox.setVisibility(View.INVISIBLE);
-        }
+            Log.d("AllAdapter", "onBindViewHolder: position - " + position);
+            Log.d("AllAdapter", "Uploads list size: " + uploads.size());
+//            ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
+//            if(layoutParams == null) {
+//                layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeight);
+//            } else {
+//                layoutParams.height = itemHeight;
+//            }
+            addingUploads currentUploads = uploads.get(position);
+            holder.tvName.setText(currentUploads.getName());
+            holder.tvType.setText("Type: " + currentUploads.getType());
+            holder.tvDescrip.setText("Description: " + currentUploads.getDescrip());
+            holder.tvNote.setText("Notes: " + currentUploads.getNotes());
+            String imageUrl = currentUploads.getImageurl();
+            if (imageUrl != null && !imageUrl.isEmpty()) {
+                Glide.with(holder.itemView.getContext())
+                        .load(imageUrl)
+                        .fitCenter()
+                        .into(holder.ivImage);
+            } else {
+                Toast.makeText(context, "Image URL is empty", Toast.LENGTH_SHORT).show();
+            }
+            if (areCheckBoxVisible) {
+                holder.checkBox.setVisibility(View.VISIBLE);
+            } else {
+                holder.checkBox.setVisibility(View.INVISIBLE);
+            }
+
     }
 
     @Override
     public int getItemCount() {
-        Log.d("size", String.valueOf(uploads.size()));
         return uploads.size();
-
     }
     public List<Integer> getCheckedPosition() {
         return checkedPosition;
@@ -77,7 +85,6 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.viewHolder> {
     public void setCheckBoxVisible() {
         areCheckBoxVisible = !areCheckBoxVisible;
         notifyDataSetChanged();
-        Log.d("checking", "you dumb");
 
     }
     public class viewHolder extends RecyclerView.ViewHolder {

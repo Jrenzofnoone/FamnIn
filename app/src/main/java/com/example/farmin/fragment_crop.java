@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,11 +34,15 @@ public class fragment_crop extends Fragment implements clickInterface{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_crop, container, false);
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        requireActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int screenHeight = displayMetrics.heightPixels;
+        int itemHeight = (int) (screenHeight * 0.2);
         recyclerView = rootView.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         uploads = new ArrayList<>();
-        adapter = new AllAdapter(getActivity(),1, uploads, this);
+        adapter = new AllAdapter(getActivity(),1, uploads, this, itemHeight);
         user = FirebaseAuth.getInstance().getCurrentUser();
         cropRef = FirebaseDatabase.getInstance().getReference("Crops");
         cropRef.addValueEventListener(new ValueEventListener() {
