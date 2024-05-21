@@ -90,6 +90,8 @@ public class SignIn extends AppCompatActivity {
             return insets;
         });
         alarm();
+        setScheduleAlarm();
+        setExactAlarm();
         requestNotificationPermission();
         createNotificationChannel();
         scheduleAlarm();
@@ -225,6 +227,24 @@ public class SignIn extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.SET_ALARM) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SET_ALARM}, requestCode);
+            } else {
+                Log.d("permission", "already given");
+            }
+        }
+    }
+    private void setScheduleAlarm() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.SCHEDULE_EXACT_ALARM) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.SCHEDULE_EXACT_ALARM}, requestCode);
+            } else {
+                Log.d("permission", "already given");
+            }
+        }
+    }
+    private void setExactAlarm() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.USE_EXACT_ALARM) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.USE_EXACT_ALARM}, requestCode);
             } else {
                 Log.d("permission", "already given");
             }
