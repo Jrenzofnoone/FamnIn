@@ -175,7 +175,7 @@ public class SignIn extends AppCompatActivity {
                                     }
 
                                 } else {
-                                    Toast.makeText(SignIn.this, "Wrond Password", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SignIn.this, "Wrong Password", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
