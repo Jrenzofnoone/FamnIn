@@ -69,6 +69,7 @@ public class IncomeDialogFragment extends DialogFragment {
             list.put("amount",amount);
             list.put("note",note);
             list.put("user", user.getEmail());
+            list.put("type", "Income");
 
             incomeRef.child(incomeId).setValue(list);
         }
