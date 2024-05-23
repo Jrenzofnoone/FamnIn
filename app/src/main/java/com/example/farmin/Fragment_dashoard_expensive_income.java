@@ -67,7 +67,7 @@ public class Fragment_dashoard_expensive_income extends Fragment {
         incomeRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
+                uploads.clear();
                 for(DataSnapshot post: snapshot.getChildren()){
                     objectIncome objectIncome = post.getValue(com.example.farmin.objectIncome.class);
                     uploads.add(objectIncome);
@@ -83,6 +83,7 @@ public class Fragment_dashoard_expensive_income extends Fragment {
         expenseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                uploads.clear();
                 for(DataSnapshot post: snapshot.getChildren()){
                     objectIncome objectIncome = post.getValue(com.example.farmin.objectIncome.class);
                     uploads.add(objectIncome);

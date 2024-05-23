@@ -140,13 +140,16 @@ public class Fragmentactivity extends Fragment implements activityInterface{
                     long weeks = days / 7;
                     long mdays = days % 7;
                     long mhours = hours %24;
+                    String fweeks = String.format("%02d", weeks);
+                    String fdays = String.format("%02d", mdays);
+                    String fhours = String.format("%02d", mhours);
 
                     long secs = seconds % 60;
                     String remainingTime ;
                     if(mhours >99) {
-                        remainingTime = "99...:" + String.format("%02d:%02d", mdays, mhours);
+                        remainingTime = "99w...:"+ fdays +"d:"+ fhours +"h";
                     } else {
-                        remainingTime = String.format("%02d:%02d:%02d", weeks, mdays, mhours);
+                        remainingTime = fweeks +"w:"+ fdays +"d:"+ fhours +"h";
                     }
                     tvTime.setText(remainingTime);
                 }
