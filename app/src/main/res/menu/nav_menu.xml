@@ -13,6 +13,12 @@
             android:title="Activities"
             android:icon="@drawable/home"/>
         <item
+            android:id="@+id/nav_calculate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/info"
+            android:title="Calculate" />
+        <item
             android:id="@+id/nav_expensive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

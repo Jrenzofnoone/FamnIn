@@ -111,12 +111,4 @@
         app:layout_constraintStart_toEndOf="@+id/gvSelling"
         app:layout_constraintTop_toBottomOf="@+id/to" />
 
-    <ImageView
-        android:id="@+id/iv_notification"
-        android:layout_width="96dp"
-        android:layout_height="63dp"
-        android:src="@drawable/ic_notification"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/gvSelling"
-        tools:layout_editor_absoluteY="80dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
