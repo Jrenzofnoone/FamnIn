@@ -10,13 +10,18 @@
     <style name="TextInputLayout" >
         <item name="boxStrokeColor">#ffffff</item>
         <item name="cursorColor">#ffffff</item>
-        <item name="android:textColorHint">#ffffff</item>
-        <item name="hintTextColor">#ffffff</item>
+        <item name="android:textColorHint">@color/mainTextColor</item>
+        <item name="hintTextColor">@color/mainTextColor</item>
+        <item name="background">@drawable/roundedcorners</item>
+        <item name="fontFamily">@font/poppinsregular</item>
     </style>
     <style name="forgotTextInputLayout" >
         <item name="boxStrokeColor">@color/main</item>
         <item name="cursorColor">@color/main</item>
         <item name="android:textColorHint">@color/main</item>
         <item name="hintTextColor">@color/main</item>
+    </style> <style name="mainfont" >
+      <item name="fontFamily"></item>
     </style>
+
 </resources>

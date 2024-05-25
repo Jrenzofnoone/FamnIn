@@ -27,6 +27,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,6 +64,8 @@ public class SignIn extends AppCompatActivity {
     private FirebaseUser currentUser;
     private WindowManager windowManager;
     private int requestCode = 1;
+    private ImageView ivShowPassword;
+    private Boolean depends = true;
 
     @Override
     public void onStart() {
@@ -95,6 +98,7 @@ public class SignIn extends AppCompatActivity {
         requestNotificationPermission();
         createNotificationChannel();
         scheduleAlarm();
+        ivShowPassword = findViewById(R.id.ivShowPassword);
         windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
         Display display = windowManager.getDefaultDisplay();
         Point size = new Point();
@@ -108,7 +112,6 @@ public class SignIn extends AppCompatActivity {
         btnLogIn = findViewById(R.id.btnLogIn);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
-        cbPassword = findViewById(R.id.cbPassword);
         forgotDialog = new Dialog(SignIn.this);
         forgotDialog.setContentView(R.layout.dialog_forgot);
         forgotDialog.setCancelable(true);
@@ -181,10 +184,14 @@ public class SignIn extends AppCompatActivity {
                         });
             }
         });
-        cbPassword.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
+        ivShowPassword.setOnClickListener(view -> {
+            if(depends == true) {
+                depends = false;
+                ivShowPassword.setImageResource(R.drawable.closedeye);
                 etPassword.setTransformationMethod(null);
             } else {
+                depends = true;
+                ivShowPassword.setImageResource(R.drawable.eye);
                 etPassword.setTransformationMethod(new PasswordTransformationMethod());
             }
         });

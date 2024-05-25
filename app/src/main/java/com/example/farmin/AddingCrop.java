@@ -3,6 +3,7 @@ package com.example.farmin;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -81,6 +82,7 @@ public class AddingCrop extends AppCompatActivity implements addingInterface {
     private List<addingUploads> uploads;
     private ImageView ivImport;
     private int pos;
+    private ProgressDialog progressDialog;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +105,8 @@ public class AddingCrop extends AppCompatActivity implements addingInterface {
         uploads.add(addingUploads);
         adapter = new addingAdapter(AddingCrop.this, "Crops", uploads, this, itemHeight);
 
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Uploading, please wait...");
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
         ivImport.setOnClickListener(view -> {
@@ -239,12 +243,14 @@ public class AddingCrop extends AppCompatActivity implements addingInterface {
         }
     }
     private void uploadImageToFirebase(Uri imageUri) {
+        progressDialog.show();
         StorageReference storageRef = FirebaseStorage.getInstance().getReference("Product");
         StorageReference fileReference = storageRef.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
         fileReference.putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
             taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(uri -> {
                 String imageUrl = uri.toString();
                 adapter.setImageForItem(pos, imageUrl);
+                progressDialog.dismiss();
             });
         }).addOnFailureListener(e -> {
             Log.d("error", "definitely failed");

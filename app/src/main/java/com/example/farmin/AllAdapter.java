@@ -46,17 +46,17 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.viewHolder> {
     public void onBindViewHolder(@NonNull AllAdapter.viewHolder holder, int position) {
             Log.d("AllAdapter", "onBindViewHolder: position - " + position);
             Log.d("AllAdapter", "Uploads list size: " + uploads.size());
-//            ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
-//            if(layoutParams == null) {
-//                layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeight);
-//            } else {
-//                layoutParams.height = itemHeight;
-//            }
+            ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
+            if(layoutParams == null) {
+                layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeight);
+            } else {
+                layoutParams.height = itemHeight;
+            }
             addingUploads currentUploads = uploads.get(position);
             holder.tvName.setText(currentUploads.getName());
-            holder.tvType.setText("Type: " + currentUploads.getType());
-            holder.tvDescrip.setText("Description: " + currentUploads.getDescrip());
-            holder.tvNote.setText("Notes: " + currentUploads.getNotes());
+            holder.tvType.setText(currentUploads.getType());
+            holder.tvDescrip.setText(currentUploads.getDescrip());
+            holder.tvNote.setText(currentUploads.getNotes());
             String imageUrl = currentUploads.getImageurl();
             if (imageUrl != null && !imageUrl.isEmpty()) {
                 Glide.with(holder.itemView.getContext())

@@ -3,6 +3,7 @@ package com.example.farmin;
 import static androidx.core.app.ActivityCompat.startActivityForResult;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -57,6 +58,7 @@ public class addingAdapter extends RecyclerView.Adapter<addingAdapter.viewHolder
     String name, type, descrip, notes;
     private String ref;
     private int selectedItem = -1, itemHeight;
+    private ProgressDialog progressDialog;
 
     public addingAdapter(Context context, String ref,List<addingUploads> uploads, addingInterface addingInterface, int itemHeight) {
         if (uploads == null || uploads.isEmpty()) {
@@ -97,9 +99,9 @@ public class addingAdapter extends RecyclerView.Adapter<addingAdapter.viewHolder
             //Toast.makeText(context, "Image URL is empty", Toast.LENGTH_SHORT).show();
         }
         if(selectedItem == position){
-            holder.itemView.setBackgroundColor(Color.WHITE);
+            holder.itemView.setBackgroundColor(Color.parseColor("#14531A"));
         }else {
-            holder.itemView.setBackgroundColor(Color.WHITE);
+            holder.itemView.setBackgroundColor(Color.TRANSPARENT);
         }
 
     }
@@ -115,6 +117,7 @@ public class addingAdapter extends RecyclerView.Adapter<addingAdapter.viewHolder
         private ImageView ivImage;
         private Button btnAdd;
         private ConstraintLayout mainBackground;
+
         public viewHolder(@NonNull View itemView, addingInterface addingInterface) {
             super(itemView);
             mainBackground = itemView.findViewById(R.id.mainBackground);
@@ -124,6 +127,8 @@ public class addingAdapter extends RecyclerView.Adapter<addingAdapter.viewHolder
             etName = itemView.findViewById(R.id.etName);
             ivImage = itemView.findViewById(R.id.ivImage);
             btnAdd = itemView.findViewById(R.id.btnAdd);
+            progressDialog = new ProgressDialog(context);
+            progressDialog.setMessage("Uploading, please wait...");
             ivImage.setOnClickListener(view -> {
                 addingInterface.setItemClick(getAdapterPosition(), "Image");
             });
@@ -172,6 +177,7 @@ public class addingAdapter extends RecyclerView.Adapter<addingAdapter.viewHolder
     }
 
     private void addProduct(String name, String type, String descrip, String notes, String imageUrl, String csKey) {
+        progressDialog.show();
         DatabaseReference productRef = FirebaseDatabase.getInstance().getReference(ref);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         MultiFormatWriter writer = new MultiFormatWriter();
@@ -205,6 +211,7 @@ public class addingAdapter extends RecyclerView.Adapter<addingAdapter.viewHolder
                             productRef.child(key).setValue(addingUploads).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
+                                    progressDialog.dismiss();
                                     Log.d("please", "wirk");
                                 }
                             });

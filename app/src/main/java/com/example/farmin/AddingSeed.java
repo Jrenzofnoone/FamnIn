@@ -2,6 +2,7 @@ package com.example.farmin;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -60,23 +61,18 @@ import java.util.Arrays;
 import java.util.List;
 
 public class AddingSeed extends AppCompatActivity implements addingInterface{
-    //    private EditText etName,etDescription, etNotes;
-//    private Button btnAdd;
     private FloatingActionButton btnGoBack;
     private ImageView ivscan;
-//    private Spinner spinType;
     private final static int pickImageRequest = 1;
     private final static int pickFileRequest = 123;
     private Uri imageUri;
     String key;
-//    private Boolean isSelected , haveScan =false;
-//    private ProgressBar progressBar;
     private RecyclerView recyclerView;
     private addingAdapter adapter;
     private List<addingUploads> uploads;
     private ImageView ivImport;
     private int pos;
-
+    private ProgressDialog progressDialog;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +84,8 @@ public class AddingSeed extends AppCompatActivity implements addingInterface{
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Uploading, please wait...");
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int screenHeight = displayMetrics.heightPixels;
@@ -212,12 +210,14 @@ public class AddingSeed extends AppCompatActivity implements addingInterface{
         }
     }
     private void uploadImageToFirebase(Uri imageUri) {
+        progressDialog.show();
         StorageReference storageRef = FirebaseStorage.getInstance().getReference("Product");
         StorageReference fileReference = storageRef.child(System.currentTimeMillis() + "." + getFileExtension(imageUri));
         fileReference.putFile(imageUri).addOnSuccessListener(taskSnapshot -> {
             taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(uri -> {
                 String imageUrl = uri.toString();
                 adapter.setImageForItem(pos, imageUrl);
+                progressDialog.dismiss();
             });
         }).addOnFailureListener(e -> {
             Log.d("error", "definitely failed");

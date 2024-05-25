@@ -1,12 +1,14 @@
 package com.example.farmin;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +33,9 @@ public class SignUp extends AppCompatActivity {
     private TextView tvClickMe;
     FirebaseAuth mAuth;
     private TextInputEditText etEmail, etPassword, etConfirmPassword;
-    private CheckBox cbPassword;
+//    private CheckBox cbPassword;
+    private ImageView ivShowPassword;
+    private Boolean depends = true;
 
     @Override
     public void onStart() {
@@ -51,7 +55,7 @@ public class SignUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_sign_up);
+        setContentView(R.layout.sign_up);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -59,7 +63,8 @@ public class SignUp extends AppCompatActivity {
         });
         mAuth = FirebaseAuth.getInstance();
         btnSignUp = findViewById(R.id.btnSignUp);
-        cbPassword = findViewById(R.id.cbPassword);
+//        cbPassword = findViewById(R.id.cbPassword);
+        ivShowPassword = findViewById(R.id.ivShowPassword);
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
@@ -107,13 +112,26 @@ public class SignUp extends AppCompatActivity {
                 startActivity(login);
             }
         });
-        cbPassword.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
+//        cbPassword.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//            if (isChecked) {
+//                etPassword.setTransformationMethod(null);
+//                etConfirmPassword.setTransformationMethod(null);
+//            } else {
+//                etPassword.setTransformationMethod(new PasswordTransformationMethod());
+//                etConfirmPassword.setTransformationMethod(new PasswordTransformationMethod());
+//            }});
+        ivShowPassword.setOnClickListener(view -> {
+            if(depends == true) {
+                depends = false;
+                ivShowPassword.setImageResource(R.drawable.closedeye);
                 etPassword.setTransformationMethod(null);
                 etConfirmPassword.setTransformationMethod(null);
             } else {
+                depends = true;
+                ivShowPassword.setImageResource(R.drawable.eye);
                 etPassword.setTransformationMethod(new PasswordTransformationMethod());
                 etConfirmPassword.setTransformationMethod(new PasswordTransformationMethod());
-            }});
+            }
+        });
     }
 }

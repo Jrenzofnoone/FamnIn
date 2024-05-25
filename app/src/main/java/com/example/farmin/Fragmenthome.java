@@ -184,11 +184,11 @@ public class Fragmenthome extends Fragment {
             Log.d("code", iconCode);
             double formatFix = main.getTemp() - 273.15;
             String fixed = String.format("%.2f", formatFix);
-            tvTemp.setText(fixed + "°C");
-            tvHumidity.setText("Humidity: " + String.valueOf(main.getHumidity()));
-            tvPressure.setText("Pressure: " + String.valueOf(main.getPressure()));
-            tvWind.setText("Wind Speed: " + String.valueOf(wind.getSpeed()));
-            tvCloudiness.setText("Cloudiness: " + String.valueOf(clouds.getAll()));
+            tvTemp.setText(fixed + "°");
+            tvHumidity.setText(String.valueOf(main.getHumidity()));
+            tvPressure.setText(String.valueOf(main.getPressure()));
+            tvWind.setText( String.valueOf(wind.getSpeed()));
+            tvCloudiness.setText(String.valueOf(clouds.getAll()));
         }
 
     }

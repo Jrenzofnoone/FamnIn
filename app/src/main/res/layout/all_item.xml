@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="match_parent"
     android:layout_margin="10dp"
-    android:backgroundTint="@color/main"
+    android:backgroundTint="@color/background"
     android:background="@drawable/rounded"
     app:cardCornerRadius="10dp">
 
@@ -39,15 +39,31 @@
         android:id="@+id/tvType"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:autoSizeMaxTextSize="1000sp"
+        android:autoSizeMinTextSize="1dp"
+        android:autoSizeTextType="uniform"
         android:paddingVertical="5dp"
         android:text="Type"
         android:textColor="@color/white"
         android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline72"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline77"
+        app:layout_constraintTop_toTopOf="@+id/guideline71" />
+
+    <TextView
+        android:id="@+id/tv_type"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:autoSizeMaxTextSize="1000sp"
         android:autoSizeMinTextSize="1dp"
         android:autoSizeTextType="uniform"
+        android:paddingVertical="5dp"
+        android:text="Type"
+        android:textColor="@color/white"
+        android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline72"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline77"
         app:layout_constraintStart_toStartOf="@+id/guideline67"
         app:layout_constraintTop_toTopOf="@+id/guideline71" />
 
@@ -55,15 +71,31 @@
         android:id="@+id/tvDescrip"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:autoSizeMaxTextSize="1000sp"
+        android:autoSizeMinTextSize="1dp"
+        android:autoSizeTextType="uniform"
         android:paddingVertical="5dp"
         android:text="Descrip"
         android:textColor="@color/white"
         android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline74"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline77"
+        app:layout_constraintTop_toTopOf="@+id/guideline73" />
+
+    <TextView
+        android:id="@+id/tv_descrip"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:autoSizeMaxTextSize="1000sp"
         android:autoSizeMinTextSize="1dp"
         android:autoSizeTextType="uniform"
+        android:paddingVertical="5dp"
+        android:text="Descrip"
+        android:textColor="@color/white"
+        android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline74"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline77"
         app:layout_constraintStart_toStartOf="@+id/guideline67"
         app:layout_constraintTop_toTopOf="@+id/guideline73" />
 
@@ -71,15 +103,31 @@
         android:id="@+id/tvNote"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:autoSizeMaxTextSize="1000sp"
+        android:autoSizeMinTextSize="1dp"
+        android:autoSizeTextType="uniform"
         android:paddingVertical="5dp"
         android:text="Note"
         android:textColor="@color/white"
         android:textSize="15sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline69"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guideline77"
+        app:layout_constraintTop_toTopOf="@+id/guideline75" />
+
+    <TextView
+        android:id="@+id/tv_note"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:autoSizeMaxTextSize="1000sp"
         android:autoSizeMinTextSize="1dp"
         android:autoSizeTextType="uniform"
+        android:paddingVertical="5dp"
+        android:text="Note"
+        android:textColor="@color/white"
+        android:textSize="15sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline69"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline77"
         app:layout_constraintStart_toStartOf="@+id/guideline67"
         app:layout_constraintTop_toTopOf="@+id/guideline75" />
 
@@ -162,12 +210,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.45"/>
-
-
-
-
-
-
-
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline77"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.7"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

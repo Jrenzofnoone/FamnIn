@@ -2,6 +2,7 @@ package com.example.farmin;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
@@ -44,6 +45,7 @@ public class AddingActivity extends AppCompatActivity {
     private Boolean isSelected, isState;
     private final static int pickImageRequest = 1;
     private Uri imageUri;
+    private ProgressDialog progressDialog;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -56,6 +58,8 @@ public class AddingActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setMessage("Uploading, please wait...");
         btnGoBack = findViewById(R.id.btnGoBack);
         etName = findViewById(R.id.etName);
         etNotes = findViewById(R.id.etNotes);
@@ -180,6 +184,7 @@ public class AddingActivity extends AppCompatActivity {
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
     private void addActivity(String name, String yield,String mstartYear, String mstartMonth, String mstartDay, String mfinishYear, String mfinishMonth, String mfinishDay, String type, String descrip, String notes, String urlImage) {
+        progressDialog.show();
         DatabaseReference activityRef = FirebaseDatabase.getInstance().getReference("Activity");
         String key = activityRef.push().getKey();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -188,6 +193,7 @@ public class AddingActivity extends AppCompatActivity {
             activityRef.child(key).setValue(activityUploads).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void unused) {
+                    progressDialog.dismiss();
                     Toast.makeText(AddingActivity.this, "Completed", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(getApplicationContext(), DashBoard.class);
                     startActivity(intent);
@@ -207,6 +213,7 @@ public class AddingActivity extends AppCompatActivity {
                             activityRef.child(key).setValue(activityUploads).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
+                                    progressDialog.dismiss();
                                     Toast.makeText(AddingActivity.this, "Completed", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(), DashBoard.class);
                                     startActivity(intent);

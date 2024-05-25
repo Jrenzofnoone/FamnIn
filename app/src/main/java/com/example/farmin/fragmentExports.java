@@ -1,5 +1,6 @@
 package com.example.farmin;
 
+import android.app.ProgressDialog;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -33,10 +34,13 @@ public class fragmentExports extends Fragment {
     private Button btnExportPdf, btnExportCsv, btnExportExcel;
     private viewHolderDisplay viewHolderDisplay;
     private String fileName;
+    private ProgressDialog progressDialog;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_exports, container, false);
+        progressDialog = new ProgressDialog(getActivity());
+        progressDialog.setMessage("Uploading, please wait...");
         viewHolderDisplay = new ViewModelProvider(requireActivity()).get(viewHolderDisplay.class);
         btnExportPdf = rootView.findViewById(R.id.btnExportPdf);
         btnExportCsv = rootView.findViewById(R.id.btnExportCsv);
@@ -69,6 +73,7 @@ public class fragmentExports extends Fragment {
         return rootView;
     }
     private void createPdf(String name, String type, String descrip, String notes) {
+        progressDialog.show();
         PdfDocument document = new PdfDocument();
         PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(1080, 1920, 1).create();
         PdfDocument.Page page = document.startPage(pageInfo);
@@ -93,6 +98,7 @@ public class fragmentExports extends Fragment {
             document.close();
             fos.close();
             Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -100,6 +106,7 @@ public class fragmentExports extends Fragment {
         }
     }
     private void createCsv(String fileName, String csvData) {
+        progressDialog.show();
         try {
             File root = new File(Environment.getExternalStorageDirectory(), Environment.DIRECTORY_DOWNLOADS);
             if(!root.exists()){
@@ -111,11 +118,13 @@ public class fragmentExports extends Fragment {
             writer.append("\n");
             writer.flush();
             writer.close();
+            progressDialog.dismiss();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
     private void createExcel(String name, String type, String descrip, String notes) {
+        progressDialog.show();
         String fileName = name+".xlsx";
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Products");
@@ -137,6 +146,7 @@ public class fragmentExports extends Fragment {
             workbook.write(fos);
             fos.close();
             workbook.close();
+            progressDialog.dismiss();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
