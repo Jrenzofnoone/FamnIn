@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn = "navigation_view">
     <group android:checkableBehavior="single">
-
         <item
             android:id="@+id/nav_home"
             android:title="Home"
@@ -12,6 +11,12 @@
             android:id="@+id/nav_activity"
             android:title="Activities"
             android:icon="@drawable/home"/>
+        <item
+            android:id="@+id/nav_calculate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:icon="@drawable/info"
+            android:title="Calculate" />
         <item
             android:id="@+id/nav_expensive"
             android:layout_width="wrap_content"
@@ -26,7 +31,6 @@
             android:id="@+id/nav_setting"
             android:title="Setting"
             android:icon="@drawable/settings"/>
-
     </group>
     <item android:title="">
         <menu>
@@ -36,5 +40,4 @@
                 android:icon="@drawable/log_out"/>
         </menu>
     </item>
-
 </menu>
