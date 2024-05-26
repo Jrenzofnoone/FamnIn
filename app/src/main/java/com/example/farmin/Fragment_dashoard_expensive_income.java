@@ -28,7 +28,7 @@ public class Fragment_dashoard_expensive_income extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_dashboard_expensive_income, container, false);
+        View view = inflater.inflate(R.layout.another_one, container, false);
 
         recyclerView_show_expenses_income = view.findViewById(R.id.recyclerView_show_expenses_income);
         tv_income_total = view.findViewById(R.id.tv_income_total);

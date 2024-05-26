@@ -1,12 +1,22 @@
 package com.example.farmin;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
@@ -33,6 +43,20 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.noteTextView.setText(objectIncome.getNote());
         holder.tvIncomeOrExpense.setText(objectIncome.getType());
         holder.tv_date.setText(objectIncome.getDate());
+        holder.ivTrash.setOnClickListener(view -> {
+            DatabaseReference ref = FirebaseDatabase.getInstance().getReference(objectIncome.getType());
+            Log.d("checking delete", objectIncome.getKey());
+            Log.d("checking delete", objectIncome.getType());
+            ref.child(objectIncome.getKey()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Toast.makeText(context, "Successfully Deleted", Toast.LENGTH_SHORT).show();
+                }
+            });
+            itemList.remove(position);
+            notifyDataSetChanged();
+        });
+
     }
 
     @Override
@@ -50,6 +74,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         public TextView noteTextView;
         public TextView tvIncomeOrExpense;
         public TextView tv_date;
+        private ImageView ivTrash;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -57,6 +82,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             noteTextView = itemView.findViewById(R.id.text_note);
             tvIncomeOrExpense = itemView.findViewById(R.id.tvIncomeOrExpense);
             tv_date = itemView.findViewById(R.id.tv_date);
+            ivTrash = itemView.findViewById(R.id.ivTrash);
+
         }
     }
 }

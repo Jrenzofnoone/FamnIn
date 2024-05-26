@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Date;
 import java.util.HashMap;
 
 public class IncomeDialogFragment extends DialogFragment {
@@ -66,10 +67,13 @@ public class IncomeDialogFragment extends DialogFragment {
         String incomeId = incomeRef.push().getKey();
         if (incomeId != null) {
             HashMap<String, String> list = new HashMap<>();
+            Date date = new Date();
             list.put("amount",amount);
             list.put("note",note);
             list.put("user", user.getEmail());
-            list.put("type", "Income");
+            list.put("date", date.toString());
+            list.put("key", incomeId);
+            list.put("type", "income");
 
             incomeRef.child(incomeId).setValue(list);
         }

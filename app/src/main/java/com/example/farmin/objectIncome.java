@@ -6,8 +6,31 @@ public class objectIncome {
     private String note;
     private String type;
     private String date;
-
+    private String key;
     // Constructor, getters, and setters
+    public objectIncome() {
+
+    }
+
+    public objectIncome(String amount, String note, String type, String date, String key) {
+        this.amount = amount;
+        this.note = note;
+        this.type = type;
+        this.date = date;
+        this.key = key;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     public String getAmount() {
         return amount;
