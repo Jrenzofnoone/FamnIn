@@ -231,8 +231,7 @@
         app:tabRippleColor="@color/main"
         app:tabSelectedTextColor="@color/background_two"
         app:tabTextColor="@color/white"
-
-       >
+>
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"

@@ -97,6 +97,8 @@ public class DashBoard extends AppCompatActivity implements NavigationView.OnNav
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout, new Fragmenthome()).commit();
         } else if (menuItem.getItemId() == R.id.nav_activity) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout, new Fragmentactivity()).commit();
+        } else if (menuItem.getItemId() == R.id.nav_calculate) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout, new cal_dash()).commit();
         } else if (menuItem.getItemId() == R.id.nav_expensive) {
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_layout, new Fragment_dashoard_expensive_income()).commit();
         } else if (menuItem.getItemId() == R.id.nav_about) {
