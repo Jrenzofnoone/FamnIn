@@ -80,6 +80,12 @@ public class addingAdapter extends RecyclerView.Adapter<addingAdapter.viewHolder
 
     @Override
     public void onBindViewHolder(@NonNull addingAdapter.viewHolder holder, int position) {
+        ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
+        if(layoutParams == null) {
+            layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeight);
+        } else {
+            layoutParams.height = itemHeight;
+        }
         addingUploads currentUploads = uploads.get(position);
         String[] items = context.getResources().getStringArray(R.array.typeCrop);
         holder.etName.setText(currentUploads.getName());

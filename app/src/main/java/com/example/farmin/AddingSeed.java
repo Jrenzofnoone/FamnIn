@@ -61,8 +61,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class AddingSeed extends AppCompatActivity implements addingInterface{
-    private FloatingActionButton btnGoBack;
-    private ImageView ivscan;
+    private ImageView ivscan, ivGoBack;
     private final static int pickImageRequest = 1;
     private final static int pickFileRequest = 123;
     private Uri imageUri;
@@ -89,7 +88,7 @@ public class AddingSeed extends AppCompatActivity implements addingInterface{
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int screenHeight = displayMetrics.heightPixels;
-        int itemHeight = (int) (screenHeight * 0.2);
+        int itemHeight = (int) (screenHeight * 0.8);
         ivImport = findViewById(R.id.ivImport);
         recyclerView = findViewById(R.id.recyclerView);
         uploads = new ArrayList<>();
@@ -102,7 +101,7 @@ public class AddingSeed extends AppCompatActivity implements addingInterface{
             openFilePicker();
         });
 
-        btnGoBack = findViewById(R.id.btnGoBack);
+        ivGoBack = findViewById(R.id.ivGoBack);
 
         ivscan = findViewById(R.id.ivscan);
 //        String[] items = getResources().getStringArray(R.array.typeCrop);
@@ -123,7 +122,7 @@ public class AddingSeed extends AppCompatActivity implements addingInterface{
 //        ivImage.setOnClickListener(view -> {
 //            openFileChooser();
 //        });
-        btnGoBack.setOnClickListener(view -> {
+        ivGoBack.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), DashBoard.class);
             startActivity(intent);
             finish();

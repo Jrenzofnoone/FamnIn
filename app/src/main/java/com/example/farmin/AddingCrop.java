@@ -67,7 +67,6 @@ import java.util.List;
 public class AddingCrop extends AppCompatActivity implements addingInterface {
 //    private EditText etName,etDescription, etNotes;
 //    private Button btnAdd;
-    private FloatingActionButton btnGoBack;
     private ImageView ivscan;
 //    private Spinner spinType;
     private final static int pickImageRequest = 1;
@@ -80,7 +79,7 @@ public class AddingCrop extends AppCompatActivity implements addingInterface {
     private RecyclerView recyclerView;
     private addingAdapter adapter;
     private List<addingUploads> uploads;
-    private ImageView ivImport;
+    private ImageView ivImport, ivGoBack;
     private int pos;
     private ProgressDialog progressDialog;
     @SuppressLint("MissingInflatedId")
@@ -97,8 +96,9 @@ public class AddingCrop extends AppCompatActivity implements addingInterface {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int screenHeight = displayMetrics.heightPixels;
-        int itemHeight = (int) (screenHeight * 0.2);
+        int itemHeight = (int) (screenHeight * 0.8);
         ivImport = findViewById(R.id.ivImport);
+        ivGoBack = findViewById(R.id.ivGoBack);
         recyclerView = findViewById(R.id.recyclerView);
         uploads = new ArrayList<>();
         addingUploads addingUploads = new addingUploads("","","","","","","","","");
@@ -113,7 +113,7 @@ public class AddingCrop extends AppCompatActivity implements addingInterface {
             openFilePicker();
         });
 //        btnAdd = findViewById(R.id.btnAdd);
-        btnGoBack = findViewById(R.id.btnGoBack);
+
 //        spinType = findViewById(R.id.spinType);
 //        etName = findViewById(R.id.etName);
 //        etDescription = findViewById(R.id.etDescription);
@@ -125,6 +125,11 @@ public class AddingCrop extends AppCompatActivity implements addingInterface {
         ivscan.setOnClickListener(view -> {
             scanCode();
             haveScan = "true";
+        });
+        ivGoBack.setOnClickListener(view -> {
+            Intent intent = new Intent(AddingCrop.this, DashBoard.class);
+            startActivity(intent);
+            finish();
         });
 //        if(haveScan == true) {
 //
@@ -143,11 +148,6 @@ public class AddingCrop extends AppCompatActivity implements addingInterface {
 //                addProduct(etName.getText().toString().trim(),spinType.getSelectedItem().toString(),etNotes.getText().toString().trim(),etDescription.getText().toString().trim());
 //            }
 //        });
-        btnGoBack.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), DashBoard.class);
-            startActivity(intent);
-            finish();
-        });
 //        ivImage.setOnClickListener(view -> {
 //            openFileChooser();
 //        });

@@ -5,6 +5,7 @@
     android:id="@+id/dialogForgot"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background= "#ffffff"
     android:padding="20dp">
 
 
@@ -14,9 +15,9 @@
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@drawable/roundedcorners"
-            android:backgroundTint="#ffffff"
+            android:backgroundTint="@color/background"
             android:text="cancel"
-            android:textColor="#486A28"
+            android:textColor="@color/background_two"
             android:textColorHint="#FFFFFF"
             app:layout_constraintBottom_toTopOf="@+id/guideline22"
             app:layout_constraintEnd_toStartOf="@+id/guideline19"
@@ -70,9 +71,9 @@
             android:autoSizeMaxTextSize="1000sp"
             android:autoSizeMinTextSize="1dp"
             android:background="@drawable/roundedcorners"
-            android:backgroundTint="#ffffff"
+            android:backgroundTint="@color/background"
             android:text="Confirm"
-            android:textColor="#486A28"
+            android:textColor="@color/background_two"
             android:textColorHint="#FFFFFF"
             app:layout_constraintBottom_toTopOf="@+id/guideline22"
             app:layout_constraintEnd_toStartOf="@+id/guideline18"
