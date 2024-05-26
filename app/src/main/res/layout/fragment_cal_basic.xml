@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number|numberDecimal" />
 
         <TextView
             android:id="@+id/textView7"
@@ -47,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number|numberDecimal" />
 
         <TextView
             android:id="@+id/textView7"
@@ -65,7 +65,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number|numberDecimal" />
 
         <TextView
             android:id="@+id/textView7"
@@ -83,7 +83,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="number" />
+            android:enabled="false"
+            android:textColor="@color/white" />
 
         <LinearLayout
             android:layout_width="match_parent"

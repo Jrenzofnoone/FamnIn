@@ -97,13 +97,13 @@ public class Fragment_dashoard_expensive_income extends Fragment {
         adapter.updateData(combinedList);
     }
     private void updateTotals() {
-        double totalIncome = calculateTotal(incomeList);
-        double totalExpenses = calculateTotal(expenseList);
+        int totalIncome = calculateTotal(incomeList);
+        int totalExpenses = calculateTotal(expenseList);
         tv_income_total.setText(String.valueOf(totalIncome));
         tv_expenses_total.setText(String.valueOf(totalExpenses));
     }
-    private double calculateTotal(List<objectIncome> list) {
-        double total = 0;
+    private int calculateTotal(List<objectIncome> list) {
+        int total = 0;
         for (objectIncome item : list) {
             total += item.getAmountAsDouble(); // Assuming objectIncome has a method getAmountAsDouble()
         }

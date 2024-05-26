@@ -44,33 +44,33 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.viewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull AllAdapter.viewHolder holder, int position) {
-            Log.d("AllAdapter", "onBindViewHolder: position - " + position);
-            Log.d("AllAdapter", "Uploads list size: " + uploads.size());
-            ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
-            if(layoutParams == null) {
-                layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeight);
-            } else {
-                layoutParams.height = itemHeight;
-            }
-            addingUploads currentUploads = uploads.get(position);
-            holder.tvName.setText(currentUploads.getName());
-            holder.tvType.setText(currentUploads.getType());
-            holder.tvDescrip.setText(currentUploads.getDescrip());
-            holder.tvNote.setText(currentUploads.getNotes());
-            String imageUrl = currentUploads.getImageurl();
-            if (imageUrl != null && !imageUrl.isEmpty()) {
-                Glide.with(holder.itemView.getContext())
-                        .load(imageUrl)
-                        .fitCenter()
-                        .into(holder.ivImage);
-            } else {
-                Toast.makeText(context, "Image URL is empty", Toast.LENGTH_SHORT).show();
-            }
-            if (areCheckBoxVisible) {
-                holder.checkBox.setVisibility(View.VISIBLE);
-            } else {
-                holder.checkBox.setVisibility(View.INVISIBLE);
-            }
+        Log.d("AllAdapter", "onBindViewHolder: position - " + position);
+        Log.d("AllAdapter", "Uploads list size: " + uploads.size());
+        ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
+        if(layoutParams == null) {
+            layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeight);
+        } else {
+            layoutParams.height = itemHeight;
+        }
+        addingUploads currentUploads = uploads.get(position);
+        holder.tvName.setText(currentUploads.getName());
+        holder.tvType.setText(currentUploads.getType());
+        holder.tvDescrip.setText(currentUploads.getDescrip());
+        holder.tvNote.setText(currentUploads.getNotes());
+        String imageUrl = currentUploads.getImageurl();
+        if (imageUrl != null && !imageUrl.isEmpty()) {
+            Glide.with(holder.itemView.getContext())
+                    .load(imageUrl)
+                    .fitCenter()
+                    .into(holder.ivImage);
+        } else {
+            Toast.makeText(context, "Image URL is empty", Toast.LENGTH_SHORT).show();
+        }
+        if (areCheckBoxVisible) {
+            holder.checkBox.setVisibility(View.VISIBLE);
+        } else {
+            holder.checkBox.setVisibility(View.INVISIBLE);
+        }
 
     }
 
@@ -113,7 +113,7 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.viewHolder> {
                 int pos = getAdapterPosition();
                 if(depends == 1) {
                     addingUploads addingUploads = uploads.get(pos);
-                    Intent intent = new Intent(context, AddingActivity.class);
+                    Intent intent = new Intent(context, displaying.class);
                     intent.putExtra("Name",addingUploads.getName());
                     intent.putExtra("Descrip",addingUploads.getDescrip());
                     intent.putExtra("Type",addingUploads.getType());

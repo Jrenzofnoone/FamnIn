@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-    android:background="@color/theme"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddingActivity">
+    tools:context=".AddingActivity"
+    android:background="@color/main">
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -27,7 +27,7 @@
         android:id="@+id/view"
         android:layout_width="match_parent"
         android:layout_height="94dp"
-        android:background="@color/main"
+        android:background="@color/background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,14 +46,16 @@
 
     <View
         android:id="@+id/view2"
-        android:layout_width="match_parent"
-        android:layout_height="555dp"
-        android:layout_marginTop="160dp"
-        android:background="@color/main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="@color/background"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:layout_constraintVertical_bias="0.259" />
 
     <TextView
         android:id="@+id/textView14"
@@ -72,29 +74,32 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginBottom="8dp"
         android:text="Name:"
-        android:textColor="@color/white"
+        android:textColor="@color/background_two"
         android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/etName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.073"
+        app:layout_constraintHorizontal_bias="0.09"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        app:layout_constraintTop_toTopOf="@+id/view2" />
 
     <EditText
         android:id="@+id/etName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="4dp"
         android:ems="10"
+        android:hint="Enter a name"
         android:inputType="text"
         android:text=""
-        android:hint="Name"
-        android:textColorHint="@color/white"
         android:textColor="@color/white"
+        android:textColorHint="@color/light_green"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.129"
+        app:layout_constraintHorizontal_bias="0.28"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -102,42 +107,44 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:text="Date"
-        android:textColor="@color/white"
+        android:textColor="@color/background_two"
         android:textSize="20dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.073"
+        app:layout_constraintHorizontal_bias="0.086"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etName" />
 
     <ImageView
         android:id="@+id/ivStartCalendar"
-        android:layout_width="49dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="60dp"
+        android:layout_height="51dp"
+        app:layout_constraintBottom_toTopOf="@+id/ivFinishCalendar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.651"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintHorizontal_bias="0.447"
+        app:layout_constraintStart_toEndOf="@+id/etStartingDate"
+        app:layout_constraintTop_toBottomOf="@+id/textVie4"
+        app:layout_constraintVertical_bias="0.13"
         app:srcCompat="@drawable/calendar" />
 
     <TextView
         android:id="@+id/textVie4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="48dp"
         android:text="Starting Date"
-        android:textColor="@color/white"
+        android:textColor="@color/dark_green"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.097"
+        app:layout_constraintHorizontal_bias="0.115"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etName" />
 
     <EditText
         android:id="@+id/etStartingDate"
-        android:layout_width="194dp"
-        android:layout_height="45dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:clickable="false"
         android:ems="10"
@@ -145,9 +152,9 @@
         android:inputType="text"
         android:text=""
         android:textColor="@color/white"
-        android:textColorHint="@color/white"
+        android:textColorHint="@color/light_green"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.124"
+        app:layout_constraintHorizontal_bias="0.225"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
@@ -155,55 +162,55 @@
         android:id="@+id/tetVie4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="144dp"
+        android:layout_marginTop="136dp"
         android:text="Finishing Date"
-        android:textColor="@color/white"
+        android:textColor="@color/dark_green"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.099"
+        app:layout_constraintHorizontal_bias="0.117"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etName" />
 
     <ImageView
         android:id="@+id/ivFinishCalendar"
-        android:layout_width="49dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="108dp"
+        android:layout_width="60dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.651"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
+        app:layout_constraintHorizontal_bias="0.447"
+        app:layout_constraintStart_toEndOf="@+id/etFinishDate"
+        app:layout_constraintTop_toBottomOf="@+id/tetVie4"
         app:srcCompat="@drawable/calendar" />
 
     <EditText
         android:id="@+id/etFinishDate"
-        android:layout_width="194dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="108dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:clickable="false"
         android:ems="10"
         android:hint="MM/DD/YYYY"
         android:inputType="text"
         android:text=""
         android:textColor="@color/white"
-        android:textColorHint="@color/white"
+        android:textColorHint="@color/light_green"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.124"
+        app:layout_constraintHorizontal_bias="0.225"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/tetVie4" />
 
     <EditText
         android:id="@+id/etYield"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:ems="10"
         android:hint="Estimated Yield"
         android:inputType="text"
         android:text=""
         android:textColor="@color/white"
-        android:textColorHint="@color/white"
+        android:textColorHint="@color/light_green"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.134"
+        app:layout_constraintHorizontal_bias="0.243"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
@@ -213,9 +220,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Estimated Yield"
-        android:textColor="@color/white"
+        android:textColor="@color/dark_green"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.086"
+        app:layout_constraintHorizontal_bias="0.102"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etFinishDate" />
 
@@ -223,15 +230,15 @@
         android:id="@+id/etNotes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Notes"
         android:inputType="text"
         android:text=""
         android:textColor="@color/white"
-        android:textColorHint="@color/white"
+        android:textColorHint="@color/light_green"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.129"
+        app:layout_constraintHorizontal_bias="0.243"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
@@ -241,7 +248,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Notes"
-        android:textColor="@color/white"
+        android:textColor="@color/background_two"
+        android:textSize="20dp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.085"
         app:layout_constraintStart_toStartOf="parent"
@@ -259,14 +268,14 @@
 
     <ImageView
         android:id="@+id/ivImage"
-        android:layout_width="61dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="102dp"
+        android:layout_height="97dp"
+        android:layout_marginTop="36dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.163"
+        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toEndOf="@+id/etName"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
-        app:srcCompat="@drawable/image" />
+        app:layout_constraintTop_toTopOf="@+id/view2"
+        app:srcCompat="@drawable/gallery" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -71,16 +71,16 @@ public class SignIn extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         currentUser = mAuth.getCurrentUser();
-            if(currentUser != null){
-                if(currentUser.isEmailVerified()){
-                    Intent dashboard = new Intent(getApplicationContext(), DashBoard.class);
-                    startActivity(dashboard);
-                    finish();
-                } else {
-                    Toast.makeText(this, "Please verify your Email", Toast.LENGTH_SHORT).show();
-                }
-        } else {
+        if(currentUser != null){
+            if(currentUser.isEmailVerified()){
+                Intent dashboard = new Intent(getApplicationContext(), DashBoard.class);
+                startActivity(dashboard);
+                finish();
+            } else {
+                Toast.makeText(this, "Please verify your Email", Toast.LENGTH_SHORT).show();
             }
+        } else {
+        }
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,7 +133,7 @@ public class SignIn extends AppCompatActivity {
             startActivity(login);
         });
         tvForgetpassword.setOnClickListener(view -> {
-           forgotDialog.show();
+            forgotDialog.show();
         });
         btnCancel.setOnClickListener(view -> {
             forgotDialog.dismiss();
@@ -174,11 +174,11 @@ public class SignIn extends AppCompatActivity {
                                         startActivity(dashboard);
                                         finish();
                                     } else  {
-                                        Toast.makeText(SignIn.this, "verify it you bitch ", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(SignIn.this, "Try Again", Toast.LENGTH_SHORT).show();
                                     }
 
                                 } else {
-                                    Toast.makeText(SignIn.this, "Wrond Password", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SignIn.this, "Wrong Password", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
@@ -205,8 +205,8 @@ public class SignIn extends AppCompatActivity {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, 21);
-        calendar.set(Calendar.MINUTE, 30);
+        calendar.set(Calendar.HOUR_OF_DAY, 12);
+        calendar.set(Calendar.MINUTE, 0);
         alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
         Log.d("checks", calendar.getTime().toString());
     }

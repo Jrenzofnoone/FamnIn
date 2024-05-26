@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,16 +19,29 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Locale;
+
 public class fragmentOverview extends Fragment {
     private viewHolderDisplay viewHolderDisplay;
     private EditText etName,etType,etDescrip,etNote;
     private ImageView ivEdit, ivVoiceNotes, ivVoiceDescrip;
     private Boolean editState = false;
     private String csKey, key, stringUrl, stringQr;
+    private TextToSpeech t1;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_overview, container, false);
+        t1 = new TextToSpeech(getActivity(), new TextToSpeech.OnInitListener() {
+            @Override
+            public void onInit(int i) {
+                if(i != TextToSpeech.ERROR) {
+                    t1.setLanguage(Locale.ENGLISH);
+                }
+            }
+        });
+        ivVoiceNotes = rootView.findViewById(R.id.ivVoiceNotes);
+        ivVoiceDescrip = rootView.findViewById(R.id.ivVoiceDescrip);
         viewHolderDisplay = new ViewModelProvider(requireActivity()).get(viewHolderDisplay.class);
         ivVoiceNotes = rootView.findViewById(R.id.ivVoiceNotes);
         ivVoiceDescrip = rootView.findViewById(R.id.ivVoiceDescrip);
@@ -65,6 +79,14 @@ public class fragmentOverview extends Fragment {
                 etNote.setEnabled(false);
                 ivEdit.setImageResource(R.drawable.edit);
             }
+        });
+        ivVoiceNotes.setOnClickListener(view -> {
+            String voice = etNote.getText().toString();
+            t1.speak(voice, TextToSpeech.QUEUE_FLUSH, null);
+        });
+        ivVoiceDescrip.setOnClickListener(view -> {
+            String voice = etType.getText().toString();
+            t1.speak(voice, TextToSpeech.QUEUE_FLUSH, null);
         });
         return rootView;
     }
