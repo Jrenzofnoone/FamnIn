@@ -61,9 +61,9 @@ public class IncomeDialogFragment extends DialogFragment {
 
     private void saveIncomeToFirebase(String amount, String note) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference incomeRef = database.getReference("income");
+        DatabaseReference incomeRef = database.getReference("INCOME");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String type = "income";
+        String type = "INCOME";
         String incomeId = incomeRef.push().getKey();
         Date date = new Date();
         if (incomeId != null) {

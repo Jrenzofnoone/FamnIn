@@ -61,9 +61,9 @@ public class ExpenseDialogFragment extends DialogFragment {
 
     private void saveExpenseToFirebase(String amount, String note) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference expensesRef = database.getReference("expenses");
+        DatabaseReference expensesRef = database.getReference("EXPENSES");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String type = "expenses";
+        String type = "EXPENSES";
         String expenseId = expensesRef.push().getKey();
         Date date = new Date();
         if (expenseId != null) {
