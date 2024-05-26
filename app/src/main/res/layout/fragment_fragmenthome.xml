@@ -237,7 +237,9 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="All" />
+            android:text="All"
+            tools:layout_editor_absoluteX="28dp"
+            tools:layout_editor_absoluteY="176dp" />
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"

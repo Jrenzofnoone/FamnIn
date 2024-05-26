@@ -73,7 +73,6 @@ public class displaying extends AppCompatActivity {
     private viewHolderDisplay viewHolderDisplay;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    private TextView tvName;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +85,6 @@ public class displaying extends AppCompatActivity {
             return insets;
         });
         askPermission();
-        tvName = findViewById(R.id.tvName);
         tabLayout = findViewById(R.id.tabLayout);
         viewPager = findViewById(R.id.viewPager);
         tabLayout.setupWithViewPager(viewPager);
@@ -131,7 +129,6 @@ public class displaying extends AppCompatActivity {
                     .fitCenter()
                     .into(ivImage);
         }
-        tvName.setText(name);
 
 
         ivGoBack.setOnClickListener(view -> {
