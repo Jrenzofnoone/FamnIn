@@ -18,7 +18,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Date;
 import java.util.HashMap;
 
 public class ExpenseDialogFragment extends DialogFragment {
@@ -63,17 +62,14 @@ public class ExpenseDialogFragment extends DialogFragment {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference expensesRef = database.getReference("expenses");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String type = "expenses";
         String expenseId = expensesRef.push().getKey();
-        Date date = new Date();
         if (expenseId != null) {
             HashMap<String, String> list = new HashMap<>();
             list.put("amount",amount);
             list.put("note",note);
-            list.put("type", type);
-            list.put("key", expenseId);
-            list.put("date", date.toString());
-            list.put("user",user.getEmail());
+            list.put("user", user.getEmail());
+            list.put("type", "Expense");
+
             expensesRef.child(expenseId).setValue(list);
         }
     }
