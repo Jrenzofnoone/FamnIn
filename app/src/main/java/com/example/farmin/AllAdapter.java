@@ -113,7 +113,7 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.viewHolder> {
                 int pos = getAdapterPosition();
                 if(depends == 1) {
                     addingUploads addingUploads = uploads.get(pos);
-                    Intent intent = new Intent(context, AddingActivity.class);
+                    Intent intent = new Intent(context, displaying.class);
                     intent.putExtra("Name",addingUploads.getName());
                     intent.putExtra("Descrip",addingUploads.getDescrip());
                     intent.putExtra("Type",addingUploads.getType());
