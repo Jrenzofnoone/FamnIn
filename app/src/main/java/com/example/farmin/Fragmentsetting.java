@@ -24,7 +24,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 public class Fragmentsetting extends Fragment {
     private TextView tvShare, tvSupport, tvAccount, tvContact, tvLanguage;
-    private Dialog supportDialog;
+    private Dialog supportDialog, contactsDialog;
     private TextInputEditText etMessage;
     private AppCompatButton btnReset, btnCancel;
 //    private int REQUEST_CODE_ASK_PERMISSIONS = 123;
@@ -41,7 +41,11 @@ public class Fragmentsetting extends Fragment {
         supportDialog = new Dialog(getActivity());
         supportDialog.setContentView(R.layout.dialog_support);
         supportDialog.setCancelable(true);
+        contactsDialog = new Dialog(getActivity());
+        contactsDialog.setContentView(R.layout.dailog_contacts);
+        contactsDialog.setCancelable(true);
         Window window = supportDialog.getWindow();
+        Window contaceswindow = contactsDialog.getWindow();
         float dialogPercentageWidth = 0.8f;
         float dialogPercentageHeight = 0.4f;
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
@@ -49,7 +53,9 @@ public class Fragmentsetting extends Fragment {
         layoutParams.width = (int) (screenWidth * dialogPercentageWidth);
         layoutParams.height = (int) (screenHeight * dialogPercentageHeight);
         window.setAttributes(layoutParams);
+        contaceswindow.setAttributes(layoutParams);
         supportDialog.getWindow().setBackgroundDrawable(requireActivity().getDrawable(R.drawable.custom_dialogbg));
+        contactsDialog.getWindow().setBackgroundDrawable(requireActivity().getDrawable(R.drawable.custom_dialogbg));
         etMessage = supportDialog.findViewById(R.id.etMessage);
         btnCancel = supportDialog.findViewById(R.id.btnCancel);
         btnReset = supportDialog.findViewById(R.id.btnReset);
@@ -64,6 +70,9 @@ public class Fragmentsetting extends Fragment {
         });
         tvSupport.setOnClickListener(view -> {
             supportDialog.show();
+        });
+        tvContact.setOnClickListener(view -> {
+            contactsDialog.show();
         });
         btnReset.setOnClickListener(view -> {
 //            if (ContextCompat.checkSelfPermission(this, permissions[0]) != PackageManager.PERMISSION_GRANTED) {
