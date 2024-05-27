@@ -41,7 +41,7 @@ public class AddingActivity extends AppCompatActivity {
     private FloatingActionButton btnGoBack;
     private CalendarView calendarView;
     private int startYear, startMonth, startDay, finishYear, finishMonth, finishDay;
-    private String name, descrip, type, notes, stringUrl;
+    private String name, descrip, type, notes, stringUrl = "";
     private Boolean isSelected, isState;
     private final static int pickImageRequest = 1;
     private Uri imageUri;
@@ -138,6 +138,8 @@ public class AddingActivity extends AppCompatActivity {
                 etYield.setError("Must not be Empty");
             } else if (etNotes.getText().toString().equals("")) {
                 etNotes.setError("Must not be Empty");
+            } else if (stringUrl.equals("")) {
+                Toast.makeText(this, "Please Select an image", Toast.LENGTH_SHORT).show();
             } else {
                 if(isSelected == true) {
                     addActivity(name,etYield.getText().toString(),String.valueOf(startYear),String.valueOf(startMonth), String.valueOf(startDay),String.valueOf(finishYear),String.valueOf(finishMonth), String.valueOf(finishDay), type, descrip, notes, stringUrl);
@@ -175,6 +177,7 @@ public class AddingActivity extends AppCompatActivity {
                 && data != null && data.getData() != null) {
             imageUri = data.getData();
             isSelected = false;
+            stringUrl = "wah";
             ivImage.setImageURI(imageUri);
         }
     }

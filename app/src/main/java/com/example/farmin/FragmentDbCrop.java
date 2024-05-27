@@ -112,9 +112,12 @@ private RecyclerView recyclerView;
                         csvDataBuilder.append("Name: "+name +",Type: "+ type +",Description: "+ descrip +",Notes: "+ notes+",key: "+ key+",Image Url: "+ stringUrl+",Qr code Url: "+ stringQr+",Cs Key: "+ csKey);
                         String csvData = csvDataBuilder.toString();
                         createCsv(fileName, csvData);
+                        Toast.makeText(getActivity(), "File Created, Please check your downloads", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getActivity(), "Please Select Something", Toast.LENGTH_SHORT).show();
                     }
                 }
-                Toast.makeText(getActivity(), "clicked", Toast.LENGTH_SHORT).show();
+
             }
         });
         ivAddCrop.setOnClickListener(view -> {
