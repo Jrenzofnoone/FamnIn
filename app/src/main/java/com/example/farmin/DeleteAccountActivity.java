@@ -1,7 +1,11 @@
 package com.example.farmin;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +20,7 @@ public class DeleteAccountActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
     private TextInputEditText etPassword;
+    private Dialog dialogAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,20 @@ public class DeleteAccountActivity extends AppCompatActivity {
                 Toast.makeText(DeleteAccountActivity.this, "Please enter your password", Toast.LENGTH_SHORT).show();
             }
         });
+
+        // Create and adjust dialog
+        dialogAccount = new Dialog(this);
+        dialogAccount.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialogAccount.setContentView(R.layout.dialog_account);
+        dialogAccount.setCancelable(true);
+
+        Window dialogWindow = dialogAccount.getWindow();
+        WindowManager.LayoutParams layoutParams = dialogWindow.getAttributes();
+        layoutParams.dimAmount = 0.6f; // Set dim amount for semi-transparency
+        layoutParams.width = WindowManager.LayoutParams.MATCH_PARENT; // Adjust width to match_parent
+        layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT; // Adjust height to wrap_content
+        dialogWindow.setAttributes(layoutParams);
+        dialogWindow.setBackgroundDrawableResource(android.R.color.transparent); // Set background to transparent
     }
 
     private void reauthenticateAndDeleteAccount(String password) {
