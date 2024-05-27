@@ -35,7 +35,16 @@ public class cal_fragment_basic extends Fragment {
         calculateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                calculateResult();
+                if (etIbs.getText().toString().equals("")){
+                    etIbs.setError("Must not be Empty");
+                } else if (etIbsUnit.getText().toString().equals("")){
+                    etIbsUnit.setError("Must not be Empty");
+                } else if (etAreas.getText().toString().equals("")){
+                    etAreas.setError("Must not be Empty");
+                } else {
+                    calculateResult();
+                }
+
             }
         });
 

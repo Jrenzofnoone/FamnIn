@@ -37,7 +37,18 @@ public class cal_fragment_advance extends Fragment {
         calculateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                calculateResult();
+                if(etLbs.getText().toString().equals("")){
+                    etLbs.setError("Must not be Empty");
+                } else if (etLbsUnit.getText().toString().equals("")) {
+                    etLbsUnit.setError("Must not be Empty");
+                } else if (etAcres.getText().toString().equals("")) {
+                    etAcres.setError("Must not be Empty");
+                } else if (etPercent.getText().toString().equals("")) {
+                    etPercent.setError("Must not be Empty");
+                } else {
+                    calculateResult();
+                }
+
             }
         });
 
