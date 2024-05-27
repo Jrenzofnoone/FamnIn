@@ -264,7 +264,7 @@
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="Description"
+        android:text="Type"
         android:autoSizeMaxTextSize="1000dp"
         android:autoSizeMinTextSize="1dp"
         android:autoSizeTextType="uniform"
