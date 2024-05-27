@@ -94,10 +94,9 @@ public class SignUp extends AppCompatActivity {
                                 user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
-                                        Toast.makeText(SignUp.this, "Please verify ", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(SignUp.this, "Please check your Email", Toast.LENGTH_SHORT).show();
                                     }
                                 });
-
                             } else {
                                 Toast.makeText(SignUp.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                             }
