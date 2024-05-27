@@ -9,7 +9,7 @@
         android:id="@+id/etAmount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Amount"
+        android:hint="Estimated amount"
         android:inputType="number" />
 
     <EditText

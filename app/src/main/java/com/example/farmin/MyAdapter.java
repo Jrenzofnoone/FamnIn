@@ -22,12 +22,10 @@ import java.util.List;
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     private List<objectIncome> itemList;
     private Context context;
-
     public MyAdapter(List<objectIncome> itemList, Context context) {
         this.itemList = itemList;
         this.context = context;
     }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -35,7 +33,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
                 .inflate(R.layout.item_income_expense, parent, false);
         return new ViewHolder(itemView);
     }
-
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         objectIncome objectIncome = itemList.get(position);
@@ -63,12 +60,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public int getItemCount() {
         return itemList.size();
     }
-
     public void updateData(List<objectIncome> newItemList) {
         this.itemList = newItemList;
         notifyDataSetChanged();
     }
-
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView amountTextView;
         public TextView noteTextView;

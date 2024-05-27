@@ -61,18 +61,19 @@ public class ExpenseDialogFragment extends DialogFragment {
 
     private void saveExpenseToFirebase(String amount, String note) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference expensesRef = database.getReference("expenses");
+        DatabaseReference expensesRef = database.getReference("EXPENSES");
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String type = "EXPENSES";
         String expenseId = expensesRef.push().getKey();
+        Date date = new Date();
         if (expenseId != null) {
             HashMap<String, String> list = new HashMap<>();
-            Date date = new Date();
             list.put("amount",amount);
             list.put("note",note);
-            list.put("user", user.getEmail());
-            list.put("type", "expenses");
-            list.put("date", date.toString());
+            list.put("type", type);
             list.put("key", expenseId);
+            list.put("date", date.toString());
+            list.put("user",user.getEmail());
             expensesRef.child(expenseId).setValue(list);
         }
     }

@@ -3,16 +3,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".cal_fragment_advance">
+    tools:context=".cal_fragment_advance"
+    android:background="@color/main">
 
-    <!-- TODO: Update blank fragment layout -->
 
     <LinearLayout
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <TextView
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/background_two"
+            android:textStyle="bold"
+            android:textSize="15dp"
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -23,9 +28,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number|numberDecimal" />
 
         <TextView
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/background_two"
+            android:textStyle="bold"
+            android:textSize="15dp"
             android:id="@+id/textView7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,9 +45,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number|numberDecimal"/>
 
         <TextView
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/background_two"
+            android:textStyle="bold"
+            android:textSize="15dp"
             android:id="@+id/textView7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -49,9 +62,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number|numberDecimal" />
 
         <TextView
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/background_two"
+            android:textStyle="bold"
+            android:textSize="15dp"
             android:id="@+id/textView7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,9 +79,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number|numberDecimal" />
 
         <TextView
+            android:layout_marginLeft="20dp"
+            android:textColor="@color/background_two"
+            android:textStyle="bold"
+            android:textSize="15dp"
             android:id="@+id/textView7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -75,26 +96,50 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:inputType="number" />
+            android:enabled="false"
+            android:textColor="@color/white"  />
+
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_marginRight="50dp"
                 android:id="@+id/calculate_button"
-                android:layout_width="208dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Calculate" />
+                android:autoSizeMaxTextSize="1000dp"
+                android:autoSizeMinTextSize="1dp"
+                android:background="@drawable/roundedcorners"
+                android:backgroundTint="@color/background"
+                android:text="Calculate"
+                android:textColor="@color/background_two"
+                android:textColorHint="#FFFFFF" />
 
-            <Button
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_marginLeft="50dp"
                 android:id="@+id/button3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Reset" />
+                android:autoSizeMaxTextSize="1000dp"
+                android:autoSizeMinTextSize="1dp"
+                android:background="@drawable/roundedcorners"
+                android:backgroundTint="@color/background"
+                android:text="Reset"
+                android:textColor="@color/background_two"
+                android:textColorHint="#FFFFFF" />
         </LinearLayout>
+
+
+
+
+
+
     </LinearLayout>
 
 </FrameLayout>

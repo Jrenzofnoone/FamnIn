@@ -27,7 +27,7 @@ public class Fragmentsetting extends Fragment {
     private Dialog supportDialog, contactsDialog;
     private TextInputEditText etMessage;
     private AppCompatButton btnReset, btnCancel;
-//    private int REQUEST_CODE_ASK_PERMISSIONS = 123;
+    //    private int REQUEST_CODE_ASK_PERMISSIONS = 123;
 //    private String[] permissions = new String[]{Manifest.permission.SEND_SMS};
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -78,11 +78,16 @@ public class Fragmentsetting extends Fragment {
 //            if (ContextCompat.checkSelfPermission(this, permissions[0]) != PackageManager.PERMISSION_GRANTED) {
 //                ActivityCompat.requestPermissions(this, permissions, REQUEST_CODE_ASK_PERMISSIONS);
 //            } else {
-                // Permission granted, proceed with email sending
+            // Permission granted, proceed with email sending
             String text = etMessage.getText().toString();
-                sendEmail(text);
-                supportDialog.dismiss();
+            sendEmail(text);
+            supportDialog.dismiss();
 //            }
+        });
+        tvAccount.setOnClickListener(view -> {
+            // Start the DeleteAccountActivity
+            Intent intent = new Intent(getActivity(), DeleteAccountActivity.class);
+            startActivity(intent);
         });
         btnCancel.setOnClickListener(view -> {
             supportDialog.dismiss();

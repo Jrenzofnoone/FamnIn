@@ -41,7 +41,7 @@
         app:layout_constraintHorizontal_bias="0.224"
         app:layout_constraintStart_toStartOf="@+id/guideline68"
         app:layout_constraintTop_toTopOf="@+id/guideline70"
-        android:src="@drawable/untitled" />
+        android:src="@drawable/gallery" />
 
     <View
         android:layout_width="0dp"
@@ -52,6 +52,7 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline73"
         app:layout_constraintStart_toStartOf="@+id/guideline58"
         app:layout_constraintTop_toTopOf="@+id/guideline72" />
+
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="0dp"
@@ -69,7 +70,7 @@
         app:tabIndicatorFullWidth="true"
         app:tabIndicatorGravity="stretch"
         app:tabMode="fixed"
-        app:tabRippleColor="@color/white"
+        app:tabRippleColor="@color/mainTextColor"
         app:tabTextColor="@color/background_two">
 
 

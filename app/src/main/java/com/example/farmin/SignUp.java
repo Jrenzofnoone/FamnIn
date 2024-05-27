@@ -33,7 +33,7 @@ public class SignUp extends AppCompatActivity {
     private TextView tvClickMe;
     FirebaseAuth mAuth;
     private TextInputEditText etEmail, etPassword, etConfirmPassword;
-//    private CheckBox cbPassword;
+    //    private CheckBox cbPassword;
     private ImageView ivShowPassword;
     private Boolean depends = true;
 
@@ -70,39 +70,39 @@ public class SignUp extends AppCompatActivity {
         etConfirmPassword = findViewById(R.id.etConfirmPassword);
         tvClickMe = findViewById(R.id.tvClickMe);
         btnSignUp.setOnClickListener(view -> {
-                String email = etEmail.getText().toString();
-                String password = etPassword.getText().toString();
-                String thing = "[a-zA-Z0-9]*$";
+            String email = etEmail.getText().toString();
+            String password = etPassword.getText().toString();
+            String thing = "[a-zA-Z0-9]*$";
             Pattern pattern = Pattern.compile(thing);
-                String confirmPassword = etConfirmPassword.getText().toString();
-                if (email.isEmpty()) {
-                    etEmail.setError("Cannot be Empty");
-                } else if (password.isEmpty()) {
-                    etPassword.setError("Cannot be Empty");
-                } else if(password.length() < 8) {
-                    etPassword.setError("Length must be more than 8 letters");
-                } else if(pattern.matcher(password).matches()) {
-                    etPassword.setError("Must contain special letters");
-                } else if (!password.equals(confirmPassword)) {
-                    Toast.makeText(SignUp.this, "Password does not match", Toast.LENGTH_SHORT).show();
-                } else {
-                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        Toast.makeText(SignUp.this, "Please check your Email", Toast.LENGTH_SHORT).show();
-                                    }
-                                });
-                            } else {
-                                Toast.makeText(SignUp.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
-                            }
+            String confirmPassword = etConfirmPassword.getText().toString();
+            if (email.isEmpty()) {
+                etEmail.setError("Cannot be Empty");
+            } else if (password.isEmpty()) {
+                etPassword.setError("Cannot be Empty");
+            } else if(password.length() < 8) {
+                etPassword.setError("Length must be more than 8 letters");
+            } else if(pattern.matcher(password).matches()) {
+                etPassword.setError("Must contain special letters");
+            } else if (!password.equals(confirmPassword)) {
+                Toast.makeText(SignUp.this, "Password does not match", Toast.LENGTH_SHORT).show();
+            } else {
+                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                            user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Toast.makeText(SignUp.this, "Please check your Email", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                        } else {
+                            Toast.makeText(SignUp.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                         }
-                    });
-                }
+                    }
+                });
+            }
         });
         tvClickMe.setOnClickListener(new View.OnClickListener() {
             @Override

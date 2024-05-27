@@ -151,12 +151,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent= "0.02" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline34"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent= "0.08" />
+        app:layout_constraintGuide_percent="0.07" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline35"
         android:layout_width="wrap_content"
@@ -265,6 +266,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="Type"
+        android:textColor="@color/black"
         android:autoSizeMaxTextSize="1000dp"
         android:autoSizeMinTextSize="1dp"
         android:autoSizeTextType="uniform"
@@ -278,6 +280,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="Notes"
+        android:textColor="@color/black"
         android:autoSizeMaxTextSize="1000dp"
         android:autoSizeMinTextSize="1dp"
         android:autoSizeTextType="uniform"
@@ -290,13 +293,31 @@
         android:id="@+id/textView3"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="Description"
         android:autoSizeMaxTextSize="1000dp"
         android:autoSizeMinTextSize="1dp"
         android:autoSizeTextType="uniform"
+        android:text="Description"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/guideline39"
         app:layout_constraintEnd_toStartOf="@+id/guideline37"
         app:layout_constraintStart_toStartOf="@+id/guideline38"
         app:layout_constraintTop_toTopOf="@+id/guideline51" />
+
+    <TextView
+        android:id="@+id/textView8"
+
+        android:text="Name"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:autoSizeMaxTextSize="1000dp"
+        android:autoSizeMinTextSize="1dp"
+        android:autoSizeTextType="uniform"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/guideline48"
+        app:layout_constraintEnd_toStartOf="@+id/guideline37"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline38"
+        app:layout_constraintTop_toTopOf="@+id/guideline34"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,6 +7,18 @@
     android:background= "@color/main"
     tools:context=".Fragmentsetting">
 
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/rounded"
+        android:backgroundTint="@color/slightTrans"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        app:layout_constraintVertical_bias="0.0" />
+
     <ImageView
         android:id="@+id/imageView8"
         android:layout_width="0dp"
@@ -15,29 +27,10 @@
         android:src="@drawable/plant"
         app:layout_constraintBottom_toTopOf="@+id/guideline1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <View
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="@drawable/rounded"
-        android:backgroundTint="@color/slightTrans"
-        app:layout_constraintBottom_toTopOf="@+id/guideline5"
-        app:layout_constraintEnd_toStartOf="@+id/guideline4"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
-
-    <ImageView
-        android:id="@+id/imageView9"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/logo"
-        app:layout_constraintBottom_toTopOf="@+id/guideline1"
-        app:layout_constraintEnd_toStartOf="@+id/guideline7"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tve_xport"
@@ -53,8 +46,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/guideline8"
         app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toTopOf="@+id/guideline6" />
+        app:layout_constraintTop_toTopOf="@+id/guideline6"
+        app:layout_constraintVertical_bias="0.0" />
 
     <View
         android:id="@+id/view9"
@@ -64,10 +59,10 @@
         android:backgroundTint="@color/background"
         app:layout_constraintBottom_toTopOf="@+id/guideline12"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toTopOf="@+id/guideline11" />
-
-
+        app:layout_constraintTop_toTopOf="@+id/guideline11"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tvAccount"
@@ -83,8 +78,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/guideline14"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline17"
-        app:layout_constraintTop_toTopOf="@+id/guideline15" />
+        app:layout_constraintTop_toTopOf="@+id/guideline15"
+        app:layout_constraintVertical_bias="0.0" />
 
     <View
         android:id="@+id/view10"
@@ -94,8 +91,10 @@
         android:backgroundTint="@color/background"
         app:layout_constraintBottom_toTopOf="@+id/guideline19"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toTopOf="@+id/guideline18" />
+        app:layout_constraintTop_toTopOf="@+id/guideline18"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/imageView11"
@@ -105,8 +104,11 @@
         android:src="@drawable/account_two"
         app:layout_constraintBottom_toTopOf="@+id/guideline14"
         app:layout_constraintEnd_toStartOf="@+id/guideline13"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline16"
-        app:layout_constraintTop_toTopOf="@+id/guideline15" />
+        app:layout_constraintTop_toTopOf="@+id/guideline15"
+        app:layout_constraintVertical_bias="0.0" />
+
     <ImageView
         android:id="@+id/imageView10"
         android:layout_width="0dp"
@@ -115,8 +117,10 @@
         android:src="@drawable/language_icon"
         app:layout_constraintBottom_toTopOf="@+id/guideline20"
         app:layout_constraintEnd_toStartOf="@+id/guideline13"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline16"
-        app:layout_constraintTop_toTopOf="@+id/guideline21" />
+        app:layout_constraintTop_toTopOf="@+id/guideline21"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tvLanguage"
@@ -132,8 +136,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/guideline20"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline17"
-        app:layout_constraintTop_toTopOf="@+id/guideline21" />
+        app:layout_constraintTop_toTopOf="@+id/guideline21"
+        app:layout_constraintVertical_bias="0.0" />
 
     <View
         android:id="@+id/view11"
@@ -143,8 +149,10 @@
         android:backgroundTint="@color/background"
         app:layout_constraintBottom_toTopOf="@+id/guideline23"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toTopOf="@+id/guideline22" />
+        app:layout_constraintTop_toTopOf="@+id/guideline22"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/imageView12"
@@ -154,8 +162,10 @@
         android:src="@drawable/support_icon"
         app:layout_constraintBottom_toTopOf="@+id/guideline25"
         app:layout_constraintEnd_toStartOf="@+id/guideline13"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline16"
-        app:layout_constraintTop_toTopOf="@+id/guideline24" />
+        app:layout_constraintTop_toTopOf="@+id/guideline24"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tvSupport"
@@ -170,8 +180,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/guideline25"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline17"
-        app:layout_constraintTop_toTopOf="@+id/guideline24" />
+        app:layout_constraintTop_toTopOf="@+id/guideline24"
+        app:layout_constraintVertical_bias="0.0" />
 
     <View
         android:id="@+id/view12"
@@ -181,8 +193,10 @@
         android:backgroundTint="@color/background"
         app:layout_constraintBottom_toTopOf="@+id/guideline27"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toTopOf="@+id/guideline26" />
+        app:layout_constraintTop_toTopOf="@+id/guideline26"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/imageView13"
@@ -192,8 +206,10 @@
         android:src="@drawable/contact_icon"
         app:layout_constraintBottom_toTopOf="@+id/guideline29"
         app:layout_constraintEnd_toStartOf="@+id/guideline13"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline16"
-        app:layout_constraintTop_toTopOf="@+id/guideline28" />
+        app:layout_constraintTop_toTopOf="@+id/guideline28"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tvContact"
@@ -208,8 +224,10 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/guideline29"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline17"
-        app:layout_constraintTop_toTopOf="@+id/guideline28" />
+        app:layout_constraintTop_toTopOf="@+id/guideline28"
+        app:layout_constraintVertical_bias="0.0" />
 
     <View
         android:id="@+id/view13"
@@ -219,8 +237,10 @@
         android:backgroundTint="@color/background"
         app:layout_constraintBottom_toTopOf="@+id/guideline31"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toTopOf="@+id/guideline30" />
+        app:layout_constraintTop_toTopOf="@+id/guideline30"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/imageView14"
@@ -230,8 +250,10 @@
         android:src="@drawable/share_icon"
         app:layout_constraintBottom_toTopOf="@+id/guideline33"
         app:layout_constraintEnd_toStartOf="@+id/guideline13"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline16"
-        app:layout_constraintTop_toTopOf="@+id/guideline32" />
+        app:layout_constraintTop_toTopOf="@+id/guideline32"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tvShare"
@@ -246,210 +268,254 @@
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/guideline33"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline17"
-        app:layout_constraintTop_toTopOf="@+id/guideline32" />
+        app:layout_constraintTop_toTopOf="@+id/guideline32"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.32" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.3" />
+        app:layout_constraintGuide_percent="0.27" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.1" />
+        app:layout_constraintGuide_percent="0.12" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.9" />
+        app:layout_constraintGuide_percent="0.92" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.95" />
+        app:layout_constraintGuide_percent="0.77" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.45" />
+        app:layout_constraintGuide_percent="0.27" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.6" />
+        app:layout_constraintGuide_percent="0.63" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.55" />
+        app:layout_constraintGuide_percent="0.37" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.2" />
+        app:layout_constraintGuide_percent="0.22" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.82" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.57" />
+        app:layout_constraintGuide_percent="0.39" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.63" />
+        app:layout_constraintGuide_percent="0.45" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.3" />
+        app:layout_constraintGuide_percent="0.32" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.62" />
+        app:layout_constraintGuide_percent="0.44" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.58" />
+        app:layout_constraintGuide_percent="0.4" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.22" />
+        app:layout_constraintGuide_percent="0.25" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.35" />
+        app:layout_constraintGuide_percent="0.37" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.64" />
+        app:layout_constraintGuide_percent="0.46" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline19"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.7" />
+        app:layout_constraintGuide_percent="0.52" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline20"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.69" />
+        app:layout_constraintGuide_percent="0.51" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline21"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.65" />
+        app:layout_constraintGuide_percent="0.47" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.71" />
+        app:layout_constraintGuide_percent="0.53" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.77" />
+        app:layout_constraintGuide_percent="0.59" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline24"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.72" />
+        app:layout_constraintGuide_percent="0.54" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline25"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.76" />
+        app:layout_constraintGuide_percent="0.58" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline26"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.78" />
+        app:layout_constraintGuide_percent="0.6" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline27"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.84" />
+        app:layout_constraintGuide_percent="0.66" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.79" />
+        app:layout_constraintGuide_percent="0.61" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline29"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.83" />
+        app:layout_constraintGuide_percent="0.65" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline30"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.85" />
+        app:layout_constraintGuide_percent="0.67" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline31"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.91" />
+        app:layout_constraintGuide_percent="0.73" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline32"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.86" />
+        app:layout_constraintGuide_percent="0.68" />
+
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline33"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.9" />
+        app:layout_constraintGuide_percent="0.72" />
 
+    <ImageView
+        android:id="@+id/imageView9"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/tve_xport"
+        app:layout_constraintTop_toTopOf="@+id/guideline6"
+        app:layout_constraintVertical_bias="0.0" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

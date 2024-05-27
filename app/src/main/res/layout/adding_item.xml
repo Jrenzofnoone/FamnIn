@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:cardCornerRadius="10dp"
-   >
+    >
 
     <View
         android:id="@+id/view14"
@@ -138,10 +138,10 @@
         android:id="@+id/ivImage"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/untitled"
         android:background="@drawable/rounded"
         android:clipToOutline="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/gallery"
         app:layout_constraintBottom_toTopOf="@+id/guideline28"
         app:layout_constraintEnd_toStartOf="@+id/guideline30"
         app:layout_constraintHorizontal_bias="0.497"

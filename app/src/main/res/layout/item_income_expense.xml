@@ -3,90 +3,109 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardElevation="12dp"
+    app:cardElevation="266dp"
     app:cardCornerRadius="12dp"
-    android:layout_margin="8dp">
+    android:layout_margin="5dp"
+    app:cardBackgroundColor="@color/light_green">
 
     <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/main">
 
         <LinearLayout
+
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_vertical"
+            android:paddingBottom="8dp">
 
-            <TextView
-                android:text="type: "
-                android:id="@+id/tvIncomeOrExpense"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginLeft="8dp">
 
-            <TextView
-                android:id="@+id/tv_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Date"
+                <TextView
+                    android:textColor="@color/white"
+                    android:id="@+id/tvIncomeOrExpense"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="text"
+                    android:textStyle="bold"
+                    android:layout_marginRight="20dp"
+                    android:textSize="18sp" />
 
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                <TextView
+
+                    android:textColor="@color/white"
+                    android:id="@+id/text_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_marginEnd="10dp"
+                    android:text="Amount"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginLeft="8dp">>
+
+                <TextView
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Date: "
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:textColor="@color/white"
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:layout_marginLeft="8dp">>
 
             <TextView
+                android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Amount: "
+                android:text="Note: "
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/text_amount"
+                android:textColor="@color/white"
+                android:id="@+id/text_note"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="18sp" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingBottom="8dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Note: "
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/text_note"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp" />
-            </LinearLayout>
             <ImageView
                 android:id="@+id/ivTrash"
                 android:layout_width="match_parent"
-                android:layout_height="75dp"
-                android:src="@drawable/trash"/>
+                android:layout_height="50dp"
+                android:layout_gravity="end"
+                android:src="@drawable/trash" />
         </LinearLayout>
-
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

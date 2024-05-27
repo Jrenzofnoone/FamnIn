@@ -63,7 +63,7 @@ import java.util.Map;
 
 public class displaying extends AppCompatActivity {
     private ImageView ivQr, ivImage, ivQrcode, ivVoiceDescrip, ivVoiceNotes, ivExports, ivGoBack;
-  //  private EditText etName,etType,etDescrip,etNote;
+    //  private EditText etName,etType,etDescrip,etNote;
     private Dialog qrDialog, dialog_exports;
     TextToSpeech t1;
     final static int RequestCode = 1232;

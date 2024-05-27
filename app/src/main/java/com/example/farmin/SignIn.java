@@ -46,7 +46,6 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -72,16 +71,16 @@ public class SignIn extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         currentUser = mAuth.getCurrentUser();
-            if(currentUser != null){
-                if(currentUser.isEmailVerified()){
-                    Intent dashboard = new Intent(getApplicationContext(), DashBoard.class);
-                    startActivity(dashboard);
-                    finish();
-                } else {
-                    Toast.makeText(this, "Please verify your Email", Toast.LENGTH_SHORT).show();
-                }
-        } else {
+        if(currentUser != null){
+            if(currentUser.isEmailVerified()){
+                Intent dashboard = new Intent(getApplicationContext(), DashBoard.class);
+                startActivity(dashboard);
+                finish();
+            } else {
+                Toast.makeText(this, "Please verify your Email", Toast.LENGTH_SHORT).show();
             }
+        } else {
+        }
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +133,7 @@ public class SignIn extends AppCompatActivity {
             startActivity(login);
         });
         tvForgetpassword.setOnClickListener(view -> {
-           forgotDialog.show();
+            forgotDialog.show();
         });
         btnCancel.setOnClickListener(view -> {
             forgotDialog.dismiss();
@@ -175,15 +174,11 @@ public class SignIn extends AppCompatActivity {
                                         startActivity(dashboard);
                                         finish();
                                     } else  {
-                                        Toast.makeText(SignIn.this, "Please Verify Your Email First ", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(SignIn.this, "Try Again", Toast.LENGTH_SHORT).show();
                                     }
 
                                 } else {
-                                    if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                        Toast.makeText(SignIn.this, "Wrong Password", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        Toast.makeText(SignIn.this, "Login Failed: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                                    }
+                                    Toast.makeText(SignIn.this, "Wrong Password", Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
