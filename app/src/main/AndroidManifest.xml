@@ -66,6 +66,8 @@
         <activity
             android:name=".SignUp"
             android:exported="false" />
+        <activity android:name=".DeleteAccountActivity"
+            android:exported="false" />
         <activity
             android:name=".splashScreen"
             android:exported="true">
