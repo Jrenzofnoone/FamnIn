@@ -54,6 +54,11 @@ public class fragmentExports extends Fragment {
         String key = viewHolderDisplay.getKey();
         String csKey = viewHolderDisplay.getCsType();
         btnExportPdf.setOnClickListener(view -> {
+            if(name.equals("")){
+                fileName = "name";
+            } else {
+                fileName = name.trim();
+            }
             createPdf(name, type, descrip, notes);
         });
         btnExportCsv.setOnClickListener(view -> {
@@ -68,6 +73,11 @@ public class fragmentExports extends Fragment {
             createCsv(fileName+".csv", csvData);
         });
         btnExportExcel.setOnClickListener(view -> {
+            if(name.equals("")){
+                fileName = "name";
+            } else {
+                fileName = name.trim();
+            }
             createExcel(name,type,descrip,notes);
         });
         return rootView;
@@ -97,7 +107,7 @@ public class fragmentExports extends Fragment {
             document.writeTo(fos);
             document.close();
             fos.close();
-            Toast.makeText(getActivity(), "Success", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "File Created, Please check your downloads", Toast.LENGTH_SHORT).show();
             progressDialog.dismiss();
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
@@ -118,6 +128,7 @@ public class fragmentExports extends Fragment {
             writer.append("\n");
             writer.flush();
             writer.close();
+            Toast.makeText(getActivity(), "File Created, Please check your downloads", Toast.LENGTH_SHORT).show();
             progressDialog.dismiss();
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -146,6 +157,7 @@ public class fragmentExports extends Fragment {
             workbook.write(fos);
             fos.close();
             workbook.close();
+            Toast.makeText(getActivity(), "File Created, Please check your downloads", Toast.LENGTH_SHORT).show();
             progressDialog.dismiss();
         } catch (Exception e) {
             throw new RuntimeException(e);

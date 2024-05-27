@@ -33,7 +33,7 @@ import java.util.List;
 public class Fragmentactivity extends Fragment implements activityInterface{
 
     private ImageView imageView;
-    private TextView tvName,tvTime,tvBeforeTime, tvNote, tvStart, tvFinish, to;
+    private TextView tvName,tvTime,tvBeforeTime, tvNote, tvStart ;
     private GridView gridView;
     private GridAdapter adapter;
     private DatabaseReference databaseRef;
@@ -47,8 +47,6 @@ public class Fragmentactivity extends Fragment implements activityInterface{
         View rootView = inflater.inflate(R.layout.fragment_fragmentactivity, container, false);
         imageView = rootView.findViewById(R.id.imageView);
         tvName = rootView.findViewById(R.id.tvName);
-        to = rootView.findViewById(R.id.to);
-        tvFinish = rootView.findViewById(R.id.tvFinish);
         tvStart = rootView.findViewById(R.id.tvStart);
         tvTime = rootView.findViewById(R.id.tvTime);
         tvBeforeTime = rootView.findViewById(R.id.tvBeforeTime);
@@ -97,7 +95,7 @@ public class Fragmentactivity extends Fragment implements activityInterface{
                 .load(image)
                 .fitCenter()
                 .into(imageView);
-        tvNote.setText(notes);
+        tvNote.setText("Note: "+notes);
         try{
             int mstartYear = Integer.parseInt(startYear) ;
             int mstartMonth = Integer.parseInt(startMonth) + 1;
@@ -109,7 +107,6 @@ public class Fragmentactivity extends Fragment implements activityInterface{
             Date currentDate = new Date();
 //            tvStart.setText(startDate.toString());
 //            tvFinish.setText(finishDate.toString());
-            to.setVisibility(View.VISIBLE);
             Log.d("start", startDate.toString());
             Log.d("1", startYear);
             Log.d("2", startMonth);

@@ -87,14 +87,23 @@ public class addingAdapter extends RecyclerView.Adapter<addingAdapter.viewHolder
             layoutParams.height = itemHeight;
         }
         addingUploads currentUploads = uploads.get(position);
-        String[] items = context.getResources().getStringArray(R.array.typeCrop);
-        holder.etName.setText(currentUploads.getName());
-        int index = Arrays.asList(items).indexOf(currentUploads.getType());
-        holder.spinType.setSelection(index);
-        holder.etDescription.setText(currentUploads.getDescrip());
-        holder.etNotes.setText(currentUploads.getNotes());
+
         String imageUrl = currentUploads.getImageurl();
+        String name = currentUploads.getName();
+        String descrip = currentUploads.getDescrip();
+        String type = currentUploads.getType();
+        String note = currentUploads.getNotes();
         String modified = imageUrl.replace("Image Url: ", "");
+        String namemodified = name.replace("Name: ", "");
+        String descripmodified = descrip.replace("Description: ", "");
+        String typemodified = type.replace("Type: ", "");
+        String notesmodified = note.replace("Notes: ", "");
+        String[] items = context.getResources().getStringArray(R.array.typeCrop);
+        holder.etName.setText(namemodified);
+        int index = Arrays.asList(items).indexOf(typemodified);
+        holder.spinType.setSelection(index);
+        holder.etDescription.setText(descripmodified);
+        holder.etNotes.setText(notesmodified);
         if (modified != null && !modified.isEmpty()) {
             Glide.with(holder.itemView.getContext())
                     .load(modified)

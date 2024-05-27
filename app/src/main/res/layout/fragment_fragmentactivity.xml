@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".Fragmentactivity">
 
     <GridView
@@ -23,10 +24,10 @@
         android:id="@+id/imageView"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="200dp"
+        android:layout_marginTop="128dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toEndOf="@+id/gvSelling"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -34,8 +35,10 @@
         android:id="@+id/tvNote"
         android:layout_width="132dp"
         android:layout_height="93dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="40dp"
         android:text=""
+        android:textColor="@color/mainTextColor"
+        android:fontFamily="@font/poppinsregular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.441"
         app:layout_constraintStart_toEndOf="@+id/gvSelling"
@@ -48,6 +51,8 @@
         android:layout_marginTop="32dp"
         android:text=""
         android:textSize="30dp"
+        android:textColor="@color/mainTextColor"
+        android:fontFamily="@font/poppinsregular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toEndOf="@+id/gvSelling"
@@ -59,6 +64,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text=""
+        android:textColor="@color/mainTextColor"
+        android:fontFamily="@font/poppinsregular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.53"
         app:layout_constraintStart_toEndOf="@+id/gvSelling"
@@ -68,9 +75,11 @@
         android:id="@+id/tvTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppinsregular"
         android:text=""
         android:textAlignment="center"
+        android:textColor="@color/mainTextColor"
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -83,32 +92,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text=""
+        android:textColor="@color/mainTextColor"
+        android:fontFamily="@font/poppinsregular"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.491"
         app:layout_constraintStart_toEndOf="@+id/gvSelling"
         app:layout_constraintTop_toBottomOf="@+id/tvTime" />
 
-    <TextView
-        android:id="@+id/to"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="to"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toEndOf="@+id/gvSelling"
-        app:layout_constraintTop_toBottomOf="@+id/tvStart" />
 
-    <TextView
-        android:id="@+id/tvFinish"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:text=""
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.491"
-        app:layout_constraintStart_toEndOf="@+id/gvSelling"
-        app:layout_constraintTop_toBottomOf="@+id/to" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
