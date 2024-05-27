@@ -17,16 +17,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Fragmentsetting extends Fragment {
     private TextView tvShare, tvSupport, tvAccount, tvContact, tvLanguage;
-    private Dialog supportDialog, contactsDialog;
+    private Dialog supportDialog, contactsDialog, dialogAccount;
     private TextInputEditText etMessage;
-    private AppCompatButton btnReset, btnCancel;
+    private AppCompatButton btnReset, btnCancel, mbtnConfirm, mbtnCancel;
+    private EditText metPassword;
     //    private int REQUEST_CODE_ASK_PERMISSIONS = 123;
 //    private String[] permissions = new String[]{Manifest.permission.SEND_SMS};
     @Override
@@ -44,8 +50,12 @@ public class Fragmentsetting extends Fragment {
         contactsDialog = new Dialog(getActivity());
         contactsDialog.setContentView(R.layout.dailog_contacts);
         contactsDialog.setCancelable(true);
+        dialogAccount = new Dialog(getActivity());
+        dialogAccount.setContentView(R.layout.dialog_account);
+        dialogAccount.setCancelable(true);
         Window window = supportDialog.getWindow();
         Window contaceswindow = contactsDialog.getWindow();
+        Window accountswindow = dialogAccount.getWindow();
         float dialogPercentageWidth = 0.8f;
         float dialogPercentageHeight = 0.4f;
         WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams();
@@ -54,11 +64,28 @@ public class Fragmentsetting extends Fragment {
         layoutParams.height = (int) (screenHeight * dialogPercentageHeight);
         window.setAttributes(layoutParams);
         contaceswindow.setAttributes(layoutParams);
+        accountswindow.setAttributes(layoutParams);
         supportDialog.getWindow().setBackgroundDrawable(requireActivity().getDrawable(R.drawable.custom_dialogbg));
         contactsDialog.getWindow().setBackgroundDrawable(requireActivity().getDrawable(R.drawable.custom_dialogbg));
+        dialogAccount.getWindow().setBackgroundDrawable(requireActivity().getDrawable(R.drawable.custom_dialogbg));
         etMessage = supportDialog.findViewById(R.id.etMessage);
         btnCancel = supportDialog.findViewById(R.id.btnCancel);
         btnReset = supportDialog.findViewById(R.id.btnReset);
+        mbtnConfirm = dialogAccount.findViewById(R.id.btnConfirm);
+        mbtnCancel = dialogAccount.findViewById(R.id.btnCancel);
+        metPassword = dialogAccount.findViewById(R.id.etDelete);
+        mbtnCancel.setOnClickListener(view -> {
+            dialogAccount.dismiss();
+        });
+        mbtnConfirm.setOnClickListener(view -> {
+            String enteredPassword = metPassword.getText().toString().trim();
+            if (!enteredPassword.isEmpty()) {
+                reauthenticateAndDeleteAccount(enteredPassword);
+            } else {
+                Toast.makeText(getActivity(), "Please enter your password", Toast.LENGTH_SHORT).show();
+            }
+            dialogAccount.dismiss();
+        });
         tvShare = rootView.findViewById(R.id.tvShare);
         tvSupport = rootView.findViewById(R.id.tvSupport);
         tvAccount = rootView.findViewById(R.id.tvAccount);
@@ -85,9 +112,7 @@ public class Fragmentsetting extends Fragment {
 //            }
         });
         tvAccount.setOnClickListener(view -> {
-            // Start the DeleteAccountActivity
-            Intent intent = new Intent(getActivity(), DeleteAccountActivity.class);
-            startActivity(intent);
+           dialogAccount.show();
         });
         btnCancel.setOnClickListener(view -> {
             supportDialog.dismiss();
@@ -109,5 +134,29 @@ public class Fragmentsetting extends Fragment {
 
 
         startActivity(Intent.createChooser(intent, "choose one application"));
+    }
+    private void reauthenticateAndDeleteAccount(String password) {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            String email = user.getEmail();
+            AuthCredential credential = EmailAuthProvider.getCredential(email, password);
+
+            user.reauthenticate(credential).addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    user.delete().addOnCompleteListener(deleteTask -> {
+                        if (deleteTask.isSuccessful()) {
+                            Toast.makeText(getActivity(), "Account deleted successfully", Toast.LENGTH_SHORT).show();
+                            // Start landing page after successful deletion
+                            Intent intent = new Intent(getActivity(), landingPage.class);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getActivity(), "Account deletion failed", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
+                    Toast.makeText(getActivity(), "Reauthentication failed. Please try again.", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 }
