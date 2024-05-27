@@ -91,7 +91,7 @@ public class Fragmentsetting extends Fragment {
     }
 
     private void sendEmail(String text) {
-        String[] recipients = new String[]{"janrenzbasilio@gmail.com"};
+        String[] recipients = new String[]{"agropro.pte.ltd@gmail.com"};
         String subject = "Support Service(Do not Delete)";
         String message = "Issue: " + text;
 
