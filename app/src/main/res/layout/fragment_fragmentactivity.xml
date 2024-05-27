@@ -32,6 +32,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:textColor="@color/white"
         android:id="@+id/tvName"
         android:layout_width="129dp"
         android:layout_height="40dp"
@@ -44,6 +45,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <TextView
+        android:textColor="@color/white"
         android:id="@+id/tvBeforeTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,6 +57,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvName" />
 
     <TextView
+        android:textColor="@color/white"
         android:id="@+id/tvTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -68,6 +71,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvBeforeTime" />
 
     <TextView
+        android:textColor="@color/white"
         android:id="@+id/tvStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -79,6 +83,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvTime" />
 
     <TextView
+        android:textColor="@color/white"
         android:id="@+id/to"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -92,6 +97,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvStart" />
 
     <TextView
+        android:textColor="@color/white"
         android:id="@+id/tvFinish"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -103,6 +109,7 @@
         app:layout_constraintTop_toBottomOf="@+id/to" />
 
     <TextView
+        android:textColor="@color/white"
         android:id="@+id/tvNote"
         android:layout_width="132dp"
         android:layout_height="93dp"

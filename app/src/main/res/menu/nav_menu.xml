@@ -10,7 +10,7 @@
         <item
             android:id="@+id/nav_activity"
             android:title="Activities"
-            android:icon="@drawable/home"/>
+            android:icon="@drawable/box"/>
         <item
             android:id="@+id/nav_calculate"
             android:layout_width="wrap_content"
@@ -23,10 +23,7 @@
             android:layout_height="wrap_content"
             android:icon="@drawable/pesos"
             android:title="Expensive" />
-        <item
-            android:id="@+id/nav_about"
-            android:title="About"
-            android:icon="@drawable/info"/>
+
         <item
             android:id="@+id/nav_setting"
             android:title="Setting"

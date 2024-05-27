@@ -26,6 +26,19 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
+        android:textColor="@color/mainTextColor"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        app:layout_constraintEnd_toStartOf="@+id/guideline18"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline17"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
         android:id="@+id/tvForgot"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -37,8 +50,9 @@
         android:textColor="@color/main"
         app:layout_constraintBottom_toTopOf="@+id/guideline23"
         app:layout_constraintEnd_toEndOf="@id/guideline18"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline17"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView10" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
