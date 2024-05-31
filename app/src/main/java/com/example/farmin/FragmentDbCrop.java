@@ -126,11 +126,9 @@ private RecyclerView recyclerView;
         });
         ivChecking.setOnClickListener(view -> {
             if (isClicked){
-                adapter.setCheckBoxVisible();
-                ivExport.setVisibility(View.INVISIBLE);
+                adapter.checkAll();
             } else {
-                adapter.setCheckBoxVisible();
-                ivExport.setVisibility(View.VISIBLE);
+                adapter.checkAll();
             }
 
         });

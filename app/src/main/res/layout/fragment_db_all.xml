@@ -15,7 +15,7 @@
         android:background="@drawable/rounded"
         android:backgroundTint="@color/background"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline1"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="parent">
@@ -29,19 +29,14 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="15dp"
+                android:gravity="center_vertical"
                 android:text="Crop Name"
                 android:textColor="@color/white"
                 android:textSize="30dp" />
 
-            <TextView
-                android:id="@+id/tvCropNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:text="Number"
-                android:textColor="@color/white" />
+
         </LinearLayout>
 
         <ImageView
@@ -61,7 +56,7 @@
         android:background="@drawable/rounded"
         android:backgroundTint="@color/background"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline1"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
@@ -75,19 +70,13 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="15dp"
+                android:gravity="center_vertical"
                 android:text="Seed Name"
                 android:textColor="@color/white"
                 android:textSize="30dp" />
 
-            <TextView
-                android:id="@+id/tvSeedNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:text="Number"
-                android:textColor="@color/white" />
         </LinearLayout>
 
         <ImageView
@@ -107,7 +96,7 @@
         android:background="@drawable/rounded"
         android:backgroundTint="@color/background"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline1"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
@@ -121,19 +110,13 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_margin="15dp"
+                android:gravity="center_vertical"
                 android:text="Activities"
                 android:textColor="@color/white"
                 android:textSize="30dp" />
 
-            <TextView
-                android:id="@+id/tvCropNumber"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:text="Number"
-                android:textColor="@color/white" />
         </LinearLayout>
 
         <ImageView
@@ -150,5 +133,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.25" />
+        app:layout_constraintGuide_percent="0.05" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
 </androidx.constraintlayout.widget.ConstraintLayout>

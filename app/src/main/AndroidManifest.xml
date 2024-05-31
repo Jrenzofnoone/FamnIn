@@ -37,15 +37,6 @@
             android:name=".SignIn"
             android:exported="false" />
         <activity
-            android:name=".Fragment_dashoard_expensive_income"
-            android:exported="false" />
-        <activity
-            android:name=".Fragmentsetting"
-            android:exported="false" />
-        <activity
-            android:name=".Fragmenthome"
-            android:exported="false" />
-        <activity
             android:name=".displaying"
             android:exported="false" />
         <activity

@@ -74,12 +74,12 @@ public class fragmentExports extends Fragment {
             if(!root.exists()){
                 root.mkdirs();
             }
-            File rawr = new File(root, realfileName +".pdf");
+            File rawr = new File(root, realfileName +".csv");
             int suffix = 1;
             while (rawr.exists()){
                 realfileName = realfileName + "(" + suffix+ ")";
                 suffix++;
-                rawr = new File(root, realfileName +".pdf");
+                rawr = new File(root, realfileName +".csv");
             }
             StringBuilder csvDataBuilder = new StringBuilder();
             csvDataBuilder.append("Name: "+name +",Type: "+ type +",Description: "+ descrip +",Notes: "+ notes);
@@ -93,12 +93,12 @@ public class fragmentExports extends Fragment {
             if(!root.exists()){
                 root.mkdirs();
             }
-            File rawr = new File(root, realfileName +".pdf");
+            File rawr = new File(root, realfileName +".xlsx");
             int suffix = 1;
             while (rawr.exists()){
                 realfileName = realfileName + "(" + suffix+ ")";
                 suffix++;
-                rawr = new File(root, realfileName +".pdf");
+                rawr = new File(root, realfileName +".xlsx");
             }
             createExcel(realfileName,name,type,descrip,notes);
         });

@@ -66,12 +66,7 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.viewHolder> {
         } else {
             Toast.makeText(context, "Image URL is empty", Toast.LENGTH_SHORT).show();
         }
-        if (areCheckBoxVisible) {
-            holder.checkBox.setVisibility(View.VISIBLE);
-        } else {
-            holder.checkBox.setVisibility(View.INVISIBLE);
-        }
-
+        holder.checkBox.setChecked(areCheckBoxVisible);
     }
 
     @Override
@@ -84,6 +79,19 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.viewHolder> {
     private boolean areCheckBoxVisible = false;
     public void setCheckBoxVisible() {
         areCheckBoxVisible = !areCheckBoxVisible;
+        notifyDataSetChanged();
+    }
+    public void checkAll() {
+        areCheckBoxVisible = !areCheckBoxVisible;
+        if(areCheckBoxVisible) {
+            checkedPosition.clear();
+            for(int i = 0; i<uploads.size(); i++) {
+                checkedPosition.add(i);
+            }
+         Toast.makeText(context, "select everything", Toast.LENGTH_SHORT).show();
+        } else {
+            checkedPosition.clear();
+        }
         notifyDataSetChanged();
 
     }
