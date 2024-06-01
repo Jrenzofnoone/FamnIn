@@ -5,6 +5,7 @@ import android.content.ContentResolver;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -26,8 +27,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -65,6 +69,7 @@ public class DashBoard extends AppCompatActivity implements NavigationView.OnNav
 
         View headerView = nav_view.getHeaderView(0);
         TextView tv = headerView.findViewById(R.id.tvUserEmail);
+        TextView tdv = headerView.findViewById(R.id.tvUserName);
         ivImage = headerView.findViewById(R.id.ivImage);
         ivImage.setOnClickListener(v -> {
             Intent intent = new Intent(getApplicationContext(), account.class);
@@ -72,6 +77,25 @@ public class DashBoard extends AppCompatActivity implements NavigationView.OnNav
             finish();
         });
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference userref = FirebaseDatabase.getInstance().getReference("Users");
+        userref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot post : snapshot.getChildren()) {
+                    anotherUserUploads anotherUserUploads = post.getValue(anotherUserUploads.class);
+
+                    if(user.getEmail().equals(anotherUserUploads.getUserEmail())){
+                        tdv.setText(anotherUserUploads.getUserNickname());
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         if (user != null) {
             tv.setText(user.getEmail());
 
