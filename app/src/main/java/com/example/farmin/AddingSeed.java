@@ -227,54 +227,54 @@ public class AddingSeed extends AppCompatActivity implements addingInterface{
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
-        private List<addingUploads> readCSV (Uri uri){
-            List<addingUploads> muploads = new ArrayList<>();
-            try {
-                InputStream inputStream = getContentResolver().openInputStream(uri);
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                String line;
-                while ((line = reader.readLine()) != null) {
-                    String[] string = line.split(",");
-                    addingUploads addingUploads = new addingUploads();
-                    addingUploads.setName(string[0]);
-                    addingUploads.setType(string[1]);
-                    addingUploads.setDescrip(string[2]);
-                    addingUploads.setNotes(string[3]);
-                    addingUploads.setKey(string[4]);
-                    addingUploads.setImageurl(string[5]);
-                    addingUploads.setQrcode(string[6]);
-                    addingUploads.setCsType(string[7]);
-                    muploads.add(addingUploads);
-                }
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+    private List<addingUploads> readCSV (Uri uri){
+        List<addingUploads> muploads = new ArrayList<>();
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(uri);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] string = line.split(",");
+                addingUploads addingUploads = new addingUploads();
+                addingUploads.setName(string[0]);
+                addingUploads.setType(string[1]);
+                addingUploads.setDescrip(string[2]);
+                addingUploads.setNotes(string[3]);
+                addingUploads.setKey(string[4]);
+                addingUploads.setImageurl(string[5]);
+                addingUploads.setQrcode(string[6]);
+                addingUploads.setCsType(string[7]);
+                muploads.add(addingUploads);
             }
-            return muploads;
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
+        return muploads;
+    }
 
-        private static final int PermissionCode = 1001;
-        @Override
-        public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-            super.onCreate(savedInstanceState, persistentState);
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if(checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PermissionCode);
-                    Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show();
-                }
+    private static final int PermissionCode = 1001;
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        super.onCreate(savedInstanceState, persistentState);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if(checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, PermissionCode);
+                Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, "hell", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if(requestCode == PermissionCode) {
+            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "hell", Toast.LENGTH_SHORT).show();
             }
         }
-
-        @Override
-        public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-            if(requestCode == PermissionCode) {
-                if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this, "hello", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "hell", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }
+    }
 }

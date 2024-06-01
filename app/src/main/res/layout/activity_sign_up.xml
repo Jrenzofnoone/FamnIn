@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:id="@+id/main"
     android:background="@color/main"
-    tools:context=".SignUp">
-
+    android:layout_height="match_parent">
     <ImageView
         android:id="@+id/imageView8"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:scaleType="fitXY"
         app:layout_constraintBottom_toTopOf="@+id/guideline17"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -49,6 +47,17 @@
         app:layout_constraintStart_toStartOf="@+id/guideline28"
         app:layout_constraintTop_toTopOf="@+id/guideline15"
         android:src="@drawable/eye" />
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:src="@drawable/logo"
+        app:layout_constraintBottom_toTopOf="@+id/guideline33"
+        app:layout_constraintEnd_toStartOf="@+id/guideline7"
+        app:layout_constraintStart_toStartOf="@+id/guideline5"
+        app:layout_constraintTop_toTopOf="@+id/guideline21" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="0dp"
@@ -56,17 +65,17 @@
         android:autoSizeMaxTextSize="1000sp"
         android:autoSizeMinTextSize="20sp"
         android:autoSizeTextType="uniform"
-        android:textAlignment="center"
-        android:text="Sign in"
         android:fontFamily="@font/sansnarrow"
+        android:text="Sign up"
+        android:textAlignment="center"
         android:textColor="@color/mainTextColor"
         android:textSize="40dp"
         android:textStyle="bold"
 
         app:layout_constraintBottom_toTopOf="@+id/guideline22"
-        app:layout_constraintEnd_toStartOf="@+id/guideline4"
-        app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="@+id/guideline21" />
+        app:layout_constraintEnd_toStartOf="@+id/guideline9"
+        app:layout_constraintStart_toStartOf="@+id/guideline8"
+        app:layout_constraintTop_toTopOf="@+id/guideline32" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout3"
@@ -76,7 +85,6 @@
         android:hint="Email"
         android:autoSizeMaxTextSize="1000dp"
         android:autoSizeMinTextSize="1dp"
-        android:autoSizeTextType="uniform"
         app:layout_constraintBottom_toTopOf="@+id/guideline20"
         app:layout_constraintEnd_toStartOf="@+id/guideline25"
         app:layout_constraintHorizontal_bias="0.484"
@@ -89,11 +97,10 @@
             android:layout_height="match_parent"
             android:autoSizeMaxTextSize="1000dp"
             android:autoSizeMinTextSize="1dp"
-            android:autoSizeTextType="uniform"
             android:fontFamily="@font/poppinsregular"
             android:background="@drawable/rounded"
             android:backgroundTint="@color/background"
-            android:textColor="@color/mainTextColor" />
+            android:textColor="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -104,7 +111,6 @@
         android:hint="Password"
         android:autoSizeMaxTextSize="1000dp"
         android:autoSizeMinTextSize="1dp"
-        android:autoSizeTextType="uniform"
         app:layout_constraintBottom_toTopOf="@+id/guideline17"
         app:layout_constraintEnd_toStartOf="@+id/guideline25"
         app:layout_constraintHorizontal_bias="0.484"
@@ -118,7 +124,6 @@
             android:layout_height="match_parent"
             android:autoSizeMaxTextSize="1000dp"
             android:autoSizeMinTextSize="1dp"
-            android:autoSizeTextType="uniform"
             android:background="@drawable/rounded"
             android:backgroundTint="@color/background"
             android:fontFamily="@font/poppinsregular"
@@ -133,7 +138,6 @@
         android:hint="Confirm Password"
         android:autoSizeMaxTextSize="1000dp"
         android:autoSizeMinTextSize="1dp"
-        android:autoSizeTextType="uniform"
         app:layout_constraintBottom_toTopOf="@+id/guideline16"
         app:layout_constraintEnd_toStartOf="@+id/guideline26"
         app:layout_constraintHorizontal_bias="0.484"
@@ -145,36 +149,56 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/rounded"
+            android:autoSizeMaxTextSize="1000dp"
+            android:autoSizeMinTextSize="1dp"
             android:backgroundTint="@color/background"
             android:fontFamily="@font/poppinsregular"
             android:inputType="textPassword" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="        android:autoSizeMaxTextSize=&quot;1000dp&quot;&#xA;        android:autoSizeMinTextSize=&quot;1dp&quot;&#xA;        android:autoSizeTextType=&quot;uniform&quot;" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnSignUp"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:autoSizeMaxTextSize="1000dp"
+        android:autoSizeMinTextSize="1dp"
         android:background="@drawable/roundedcorners"
-        android:backgroundTint="#ffffff"
+        android:backgroundTint="@color/background"
         android:text="Sign Up"
         android:textColor="#486A28"
         android:textColorHint="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/guideline24"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="@+id/guideline23" />
+        app:layout_constraintTop_toTopOf="@+id/guideline11"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tvClickMe"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="Got an Account? Click me"
-        android:textColor="#FFFFFF"
+        android:text="Don't have an Account? Click me"
         android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/guideline13"
+        android:textColor="@color/mainTextColor"
+        android:fontFamily="@font/poppinsregular"
+        android:autoSizeMaxTextSize="1000dp"
+        android:autoSizeMinTextSize="1dp"
+        android:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/guideline31"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintStart_toStartOf="@+id/guideline3"
-        app:layout_constraintTop_toTopOf="@+id/guideline12" />
+        app:layout_constraintTop_toTopOf="@+id/guideline30">
+
+    </TextView>
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline3"
         android:layout_width="wrap_content"
@@ -261,25 +285,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.54" />
+        app:layout_constraintGuide_percent="0.59" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.61" />
+        app:layout_constraintGuide_percent="0.68" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.52" />
+        app:layout_constraintGuide_percent="0.57" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline18"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.45" />
+        app:layout_constraintGuide_percent="0.48" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline19"
         android:layout_width="wrap_content"
@@ -291,25 +315,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.44" />
+        app:layout_constraintGuide_percent="0.46" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline21"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.16" />
+        app:layout_constraintGuide_percent="0.1" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline22"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.23" />
+        app:layout_constraintGuide_percent="0.35" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline23"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.76" />
+        app:layout_constraintGuide_percent="0.82" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline24"
         android:layout_width="wrap_content"
@@ -346,7 +370,28 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.79" />
-
-
-
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.85" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline31"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.88" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline32"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline33"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.3" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -47,8 +47,11 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.Calendar;
 import java.util.regex.Pattern;
@@ -169,10 +172,35 @@ public class SignIn extends AppCompatActivity {
                                 if (task.isSuccessful()) {
                                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                     if(user.isEmailVerified()){
-                                        Toast.makeText(SignIn.this, "Login Successfully ", Toast.LENGTH_SHORT).show();
-                                        Intent dashboard = new Intent(getApplicationContext(), DashBoard.class);
-                                        startActivity(dashboard);
-                                        finish();
+                                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Users");
+                                        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                boolean userExists = false;
+                                                for(DataSnapshot postSnapshot : snapshot.getChildren()) {
+                                                    anotherUserUploads anotherUserUploads = postSnapshot.getValue(com.example.farmin.anotherUserUploads.class);
+                                                    if (user.getEmail().equals(anotherUserUploads.getUserEmail())) {
+                                                        userExists = true;
+                                                        break;
+                                                    }
+                                                }
+                                                if (userExists) {
+                                                    Intent dashboard = new Intent(getApplicationContext(), DashBoard.class);
+                                                    startActivity(dashboard);
+                                                    finish();
+                                                } else {
+                                                    Intent setting = new Intent(getApplicationContext(), FinishSetting.class);
+                                                    startActivity(setting);
+                                                    finish();
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                // handle error
+                                            }
+                                        });
+                                        Toast.makeText(SignIn.this, "Finish Setup", Toast.LENGTH_SHORT).show();
                                     } else  {
                                         Toast.makeText(SignIn.this, "Try Again", Toast.LENGTH_SHORT).show();
                                     }

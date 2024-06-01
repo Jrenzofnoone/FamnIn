@@ -99,10 +99,10 @@
             android:layout_height="match_parent"
             android:autoSizeMaxTextSize="1000dp"
             android:autoSizeMinTextSize="1dp"
-            android:fontFamily="@font/poppinsregular"
             android:background="@drawable/rounded"
             android:backgroundTint="@color/background"
-            android:textColor="@color/mainTextColor" />
+            android:fontFamily="@font/poppinsregular"
+            android:textColor="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
