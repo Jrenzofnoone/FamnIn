@@ -66,7 +66,11 @@ public class DashBoard extends AppCompatActivity implements NavigationView.OnNav
         View headerView = nav_view.getHeaderView(0);
         TextView tv = headerView.findViewById(R.id.tvUserEmail);
         ivImage = headerView.findViewById(R.id.ivImage);
-        ivImage.setOnClickListener(v -> openImagePicker());
+        ivImage.setOnClickListener(v -> {
+            Intent intent = new Intent(getApplicationContext(), account.class);
+            startActivity(intent);
+            finish();
+        });
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
             tv.setText(user.getEmail());

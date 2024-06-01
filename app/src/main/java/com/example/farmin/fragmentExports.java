@@ -33,7 +33,6 @@ import java.io.IOException;
 public class fragmentExports extends Fragment {
     private Button btnExportPdf, btnExportCsv, btnExportExcel;
     private viewHolderDisplay viewHolderDisplay;
-    private String fileName;
     private ProgressDialog progressDialog;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -54,53 +53,53 @@ public class fragmentExports extends Fragment {
         String key = viewHolderDisplay.getKey();
         String csKey = viewHolderDisplay.getCsType();
         btnExportPdf.setOnClickListener(view -> {
-            String realfileName = "FarmInProductsPdf";
+            String fileName = "FarmInExportPdf";
             File root = new File(Environment.getExternalStorageDirectory(), Environment.DIRECTORY_DOWNLOADS);
             if(!root.exists()){
                 root.mkdirs();
             }
-            File rawr = new File(root, realfileName +".pdf");
+            File rawr = new File(root, fileName +".csv");
             int suffix = 1;
             while (rawr.exists()){
-                realfileName = realfileName + "(" + suffix+ ")";
+                fileName = fileName + "(" + suffix+ ")";
                 suffix++;
-                rawr = new File(root, realfileName +".pdf");
+                rawr = new File(root, fileName +".csv");
             }
-            createPdf(realfileName, name, type, descrip, notes);
+            createPdf(fileName, name, type, descrip, notes);
         });
         btnExportCsv.setOnClickListener(view -> {
-            String realfileName = "FarmInProductsCsv";
+            String fileName = "FarmInExportCsv";
             File root = new File(Environment.getExternalStorageDirectory(), Environment.DIRECTORY_DOWNLOADS);
             if(!root.exists()){
                 root.mkdirs();
             }
-            File rawr = new File(root, realfileName +".csv");
+            File rawr = new File(root, fileName +".csv");
             int suffix = 1;
             while (rawr.exists()){
-                realfileName = realfileName + "(" + suffix+ ")";
+                fileName = fileName + "(" + suffix+ ")";
                 suffix++;
-                rawr = new File(root, realfileName +".csv");
+                rawr = new File(root, fileName +".csv");
             }
             StringBuilder csvDataBuilder = new StringBuilder();
             csvDataBuilder.append("Name: "+name +",Type: "+ type +",Description: "+ descrip +",Notes: "+ notes);
             String csvData = csvDataBuilder.toString();
 
-            createCsv(realfileName+".csv", csvData);
+            createCsv(fileName, csvData);
         });
         btnExportExcel.setOnClickListener(view -> {
-            String realfileName = "FarmInProductsExcel";
+            String fileName = "FarmInExportExcel";
             File root = new File(Environment.getExternalStorageDirectory(), Environment.DIRECTORY_DOWNLOADS);
             if(!root.exists()){
                 root.mkdirs();
             }
-            File rawr = new File(root, realfileName +".xlsx");
+            File rawr = new File(root, fileName +".csv");
             int suffix = 1;
             while (rawr.exists()){
-                realfileName = realfileName + "(" + suffix+ ")";
+                fileName = fileName + "(" + suffix+ ")";
                 suffix++;
-                rawr = new File(root, realfileName +".xlsx");
+                rawr = new File(root, fileName +".csv");
             }
-            createExcel(realfileName,name,type,descrip,notes);
+            createExcel(fileName,name,type,descrip,notes);
         });
         return rootView;
     }
@@ -122,8 +121,13 @@ public class fragmentExports extends Fragment {
         canvas.drawText(notes , 300, 800, paint2);
         document.finishPage(page);
         File downloads = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-        String mrealfilename = realfilename + ".pdf";
-        File file = new File(downloads, mrealfilename);
+        int suffix = 1;
+        String mrealfilename = realfilename;
+        File file;
+        do {
+            file = new File(downloads, mrealfilename + "(" + suffix + ").pdf");
+            suffix++;
+        } while (file.exists());
         try {
             FileOutputStream fos = new FileOutputStream(file);
             document.writeTo(fos);
@@ -144,21 +148,33 @@ public class fragmentExports extends Fragment {
             if(!root.exists()){
                 root.mkdirs();
             }
-            File csvFile = new File(root, fileName);
-            FileWriter writer = new FileWriter(csvFile);
-            writer.append(csvData);
-            writer.append("\n");
-            writer.flush();
-            writer.close();
-            Toast.makeText(getActivity(), "File Created, Please check your downloads", Toast.LENGTH_SHORT).show();
-            progressDialog.dismiss();
+            int suffix = 1;
+            File csvFile;
+            do {
+                csvFile = new File(root, fileName + "(" + suffix + ").csv");
+                suffix++;
+            } while (csvFile.exists());
+                FileWriter writer = new FileWriter(csvFile);
+                writer.append(csvData);
+                writer.append("\n");
+                writer.flush();
+                writer.close();
+                Toast.makeText(getActivity(), "File Created, Please check your downloads", Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
     private void createExcel(String realfileName,String name, String type, String descrip, String notes) {
         progressDialog.show();
-        String fileName = realfileName+".xlsx";
+        String mfileName = realfileName;
+        int suffix = 1;
+        File excelFile;
+        do {
+            excelFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+                    mfileName + "(" + suffix + ").xlsx");
+            suffix++;
+        } while (excelFile.exists());
         Workbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Products");
         Row headerRow = sheet.createRow(0);
@@ -173,9 +189,9 @@ public class fragmentExports extends Fragment {
         dataRow.createCell(2).setCellValue(descrip);
         dataRow.createCell(3).setCellValue(notes);
         File downloadDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-        String filePath = downloadDir.getAbsolutePath() + File.separator + fileName;
+
         try {
-            FileOutputStream fos = new FileOutputStream(filePath);
+            FileOutputStream fos = new FileOutputStream(excelFile);
             workbook.write(fos);
             fos.close();
             workbook.close();

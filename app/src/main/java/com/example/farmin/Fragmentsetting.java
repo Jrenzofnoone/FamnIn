@@ -112,7 +112,8 @@ public class Fragmentsetting extends Fragment {
 //            }
         });
         tvAccount.setOnClickListener(view -> {
-           dialogAccount.show();
+           Intent intent = new Intent(getActivity(), account.class);
+           startActivity(intent);
         });
         btnCancel.setOnClickListener(view -> {
             supportDialog.dismiss();
