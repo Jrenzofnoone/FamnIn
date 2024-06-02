@@ -90,7 +90,7 @@ public class Fragmentsetting extends Fragment {
         tvSupport = rootView.findViewById(R.id.tvSupport);
         tvAccount = rootView.findViewById(R.id.tvAccount);
         tvContact = rootView.findViewById(R.id.tvContact);
-        tvLanguage = rootView.findViewById(R.id.tvLanguage);
+
         tvShare.setOnClickListener(view -> {
             Intent intent = new Intent(getActivity(), ShareUs.class);
             startActivity(intent);
