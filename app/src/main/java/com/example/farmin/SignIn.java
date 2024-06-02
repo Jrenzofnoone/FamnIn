@@ -46,6 +46,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -206,7 +208,13 @@ public class SignIn extends AppCompatActivity {
                                     }
 
                                 } else {
-                                    Toast.makeText(SignIn.this, "Wrong Password", Toast.LENGTH_SHORT).show();
+                                    if(task.getException() instanceof FirebaseAuthInvalidUserException) {
+                                        Toast.makeText(SignIn.this, "Email doesn't exist", Toast.LENGTH_SHORT).show();
+                                    } else if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                                        Toast.makeText(SignIn.this, "Password is Incorrect", Toast.LENGTH_SHORT).show();
+                                    } else {
+                                        Toast.makeText(SignIn.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             }
                         });
@@ -292,12 +300,9 @@ public class SignIn extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == requestCode) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted
                 Log.d("Permission", "Notification permission granted");
             } else {
-                // Permission denied
                 Log.d("Permission", "Notification permission denied");
-                // Optionally, show a message to the user explaining why the permission is necessary
             }
         }
     }

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,10 +28,11 @@ public class fragmentQr extends Fragment {
         viewHolderDisplay = new ViewModelProvider(requireActivity()).get(viewHolderDisplay.class);
         stringQr = viewHolderDisplay.getQrcode();
         ivQr = rootView.findViewById(R.id.ivQr);
-            Glide.with(getActivity())
-                    .load(stringQr)
-                    .fitCenter()
-                    .into(ivQr);
+        Log.d("qrcode ragggg", stringQr);
+        Glide.with(getActivity())
+                .load(stringQr)
+                .fitCenter()
+                .into(ivQr);
 
         return rootView;
     }
