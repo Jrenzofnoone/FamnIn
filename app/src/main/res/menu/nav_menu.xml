@@ -5,38 +5,35 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:title="Home"
-            android:icon="@drawable/home"/>
+            android:title="Inventory"
+            android:icon="@drawable/inventory_icon"/>
         <item
             android:id="@+id/nav_activity"
             android:title="Activities"
-            android:icon="@drawable/home"/>
+            android:icon="@drawable/activity_icon"/>
         <item
             android:id="@+id/nav_calculate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/info"
+            android:icon="@drawable/calculate_icon"
             android:title="Calculate" />
         <item
             android:id="@+id/nav_expensive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/pesos"
-            android:title="Expensive" />
-        <item
-            android:id="@+id/nav_about"
-            android:title="About"
-            android:icon="@drawable/info"/>
+            android:icon="@drawable/incomeexpense_icon"
+            android:title="Income and Expense" />
         <item
             android:id="@+id/nav_setting"
             android:title="Setting"
             android:icon="@drawable/settings"/>
+
     </group>
     <item android:title="">
         <menu>
             <item
                 android:id="@+id/nav_logout"
-                android:title="Log out"
+                android:title="Log out Account"
                 android:icon="@drawable/log_out"/>
         </menu>
     </item>
