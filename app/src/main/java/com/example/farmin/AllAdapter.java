@@ -121,7 +121,7 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.viewHolder> {
                 int pos = getAdapterPosition();
                 if(depends == 1) {
                     addingUploads addingUploads = uploads.get(pos);
-                    Intent intent = new Intent(context, displaying.class);
+                    Intent intent = new Intent(context, AddingActivity.class);
                     intent.putExtra("Name",addingUploads.getName());
                     intent.putExtra("Descrip",addingUploads.getDescrip());
                     intent.putExtra("Type",addingUploads.getType());
@@ -140,7 +140,7 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.viewHolder> {
                     intent.putExtra("Notes",addingUploads.getNotes());
                     intent.putExtra("Image",addingUploads.getImageurl());
                     intent.putExtra("qrCode", addingUploads.getQrcode());
-                    intent.putExtra("Key", addingUploads.getKey());
+                    intent.putExtra("key", addingUploads.getKey());
                     intent.putExtra("csKey", addingUploads.getCsType());
                     context.startActivity(intent);
                 }

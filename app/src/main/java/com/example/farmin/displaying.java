@@ -115,6 +115,7 @@ public class displaying extends AppCompatActivity {
         String stringQr = getIntent().getStringExtra("qrCode");
         String key = getIntent().getStringExtra("Key");
         String csKey = getIntent().getStringExtra("csKey");
+        Log.d("qrcode", stringQr);
         viewHolderDisplay.setName(name);
         viewHolderDisplay.setDescrip(descrip);
         viewHolderDisplay.setType(type);

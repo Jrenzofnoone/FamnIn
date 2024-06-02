@@ -56,7 +56,7 @@ public class FragmentDbSeed extends Fragment implements clickInterface{
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         uploads = new ArrayList<>();
-        adapter = new AllAdapter(getActivity(),1, uploads, this, itemHeight);
+        adapter = new AllAdapter(getActivity(),2, uploads, this, itemHeight);
         user = FirebaseAuth.getInstance().getCurrentUser();
         seedRef = FirebaseDatabase.getInstance().getReference("Seeds");
         seedRef.addValueEventListener(new ValueEventListener() {
