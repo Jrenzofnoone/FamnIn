@@ -8,6 +8,16 @@
     app:cardCornerRadius="10dp"
     >
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/second_main"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline52"
+        app:layout_constraintStart_toStartOf="@+id/guideline51"
+        app:layout_constraintTop_toTopOf="@+id/guideline50">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <View
         android:id="@+id/view14"
         android:layout_width="0dp"
@@ -59,11 +69,16 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/etDescriptionLayout"
+        style="@style/TextInputLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:boxStrokeColor="@color/main"
         android:background="@drawable/rounded"
         android:backgroundTint="@color/background"
+        android:autoSizeMaxTextSize="1000sp"
+        android:autoSizeMinTextSize="1dp"
+        android:autoSizeTextType="uniform"
+        android:hint="Count"
         app:layout_constraintBottom_toTopOf="@+id/guideline42"
         app:layout_constraintEnd_toStartOf="@+id/guideline40"
         app:layout_constraintHorizontal_bias="0.5"
@@ -71,14 +86,16 @@
         app:layout_constraintTop_toTopOf="@+id/guideline41">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etDescription"
+            android:id="@+id/etCount"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:hint="Description"
+            android:autoSizeMaxTextSize="1000sp"
+            android:autoSizeMinTextSize="1dp"
+            android:autoSizeTextType="uniform"
             android:fontFamily="@font/poppinsregular"
             android:background="@drawable/rounded"
             android:backgroundTint="@color/background"
-            android:textColor="@color/mainTextColor" />
+            android:textColor="@color/mainTextColor"  />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Spinner
@@ -96,8 +113,25 @@
         app:layout_constraintStart_toStartOf="@+id/guideline39"
         app:layout_constraintTop_toTopOf="@+id/guideline43" />
 
+    <Spinner
+        android:id="@+id/spinStatus"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@drawable/rounded"
+        android:backgroundTint="@color/background"
+        android:entries="@array/status"
+        android:fontFamily="@font/poppinsregular"
+        android:textColor="@color/mainTextColor"
+
+        app:layout_constraintBottom_toTopOf="@+id/guideline54"
+        app:layout_constraintEnd_toStartOf="@+id/guideline40"
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintStart_toStartOf="@+id/guideline39"
+        app:layout_constraintTop_toTopOf="@+id/guideline53" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/etNotesLayout"
+        style="@style/TextInputLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/rounded"
@@ -160,7 +194,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.32" />
+        app:layout_constraintGuide_percent="0.29" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline29"
@@ -197,13 +231,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.35" />
+        app:layout_constraintGuide_percent="0.31" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline35"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.38" />
+        app:layout_constraintGuide_percent="0.32" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline36"
         android:layout_width="wrap_content"
@@ -215,13 +249,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.495" />
+        app:layout_constraintGuide_percent="0.435" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline38"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.4" />
+        app:layout_constraintGuide_percent="0.34" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline39"
         android:layout_width="wrap_content"
@@ -239,25 +273,25 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.52" />
+        app:layout_constraintGuide_percent="0.45" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline42"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.65" />
+        app:layout_constraintGuide_percent="0.54" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline43"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.68" />
+        app:layout_constraintGuide_percent="0.67" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline44"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.75" />
+        app:layout_constraintGuide_percent="0.76" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline45"
         android:layout_width="wrap_content"
@@ -288,6 +322,37 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.99" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.02" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline51"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.05" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline52"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline53"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.56" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline54"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.65" />
+
 
 
 

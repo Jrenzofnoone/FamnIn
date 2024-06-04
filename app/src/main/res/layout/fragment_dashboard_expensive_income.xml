@@ -79,7 +79,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginBottom="30dp"
         android:orientation="vertical"
-        android:background="@drawable/backgrountwo"
+
         android:elevation="0dp"> <!-- Ensure no elevation here -->
 
         <androidx.recyclerview.widget.RecyclerView
@@ -99,24 +99,28 @@
         android:weightSum="2">
 
         <TextView
+            android:textStyle="bold"
             android:id="@+id/addIncome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="10dp"
             android:layout_weight="1"
-            android:background="#49B4E6"
+            android:background="@drawable/backgrountwo"
+            android:backgroundTint="#49B3E5"
             android:gravity="center"
             android:padding="15dp"
             android:text="Add Income"
             android:textColor="@android:color/white" />
 
         <TextView
+            android:textStyle="bold"
             android:id="@+id/addExpensive"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_weight="1"
-            android:background="@android:color/holo_red_light"
+            android:backgroundTint="#FE4444"
+            android:background="@drawable/backgrountwo"
             android:gravity="center"
             android:padding="15dp"
             android:text="Add Expense"

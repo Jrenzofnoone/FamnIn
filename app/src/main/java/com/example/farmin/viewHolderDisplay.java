@@ -3,7 +3,7 @@ package com.example.farmin;
 import androidx.lifecycle.ViewModel;
 
 public class viewHolderDisplay extends ViewModel {
-    private String csType, key, userEmail, name, type,descrip,  notes,  mimageurl,  mqrcode;
+    private String csType, key, userEmail, name, type,count,  notes,  mimageurl,  mqrcode;
     public String getName() {
         return name;
     }
@@ -12,12 +12,12 @@ public class viewHolderDisplay extends ViewModel {
         this.name = name;
     }
 
-    public String getDescrip() {
-        return descrip;
+    public String getCount() {
+        return count;
     }
 
-    public void setDescrip(String descrip) {
-        this.descrip = descrip;
+    public void setCount(String count) {
+        this.count = count;
     }
 
     public String getNotes() {

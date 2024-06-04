@@ -199,14 +199,12 @@ public class SignIn extends AppCompatActivity {
 
                                             @Override
                                             public void onCancelled(@NonNull DatabaseError error) {
-                                                // handle error
                                             }
                                         });
                                         Toast.makeText(SignIn.this, "Finish Setup", Toast.LENGTH_SHORT).show();
                                     } else  {
                                         Toast.makeText(SignIn.this, "Try Again", Toast.LENGTH_SHORT).show();
                                     }
-
                                 } else {
                                     if(task.getException() instanceof FirebaseAuthInvalidUserException) {
                                         Toast.makeText(SignIn.this, "Email doesn't exist", Toast.LENGTH_SHORT).show();

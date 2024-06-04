@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline80" />
 
     <View
-        android:id="@+id/view5"
+        android:id="@+id/weatherview"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@drawable/rounded"
@@ -231,7 +231,7 @@
         app:tabRippleColor="@color/main"
         app:tabSelectedTextColor="@color/background_two"
         app:tabTextColor="@color/white"
->
+        >
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="match_parent"

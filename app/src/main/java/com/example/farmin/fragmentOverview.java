@@ -1,5 +1,6 @@
 package com.example.farmin;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -19,15 +21,18 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Arrays;
 import java.util.Locale;
 
 public class fragmentOverview extends Fragment {
     private viewHolderDisplay viewHolderDisplay;
-    private EditText etName,etType,etDescrip,etNote;
+    private EditText etName,etType,etCount,etNote;
     private ImageView ivEdit, ivVoiceNotes, ivVoiceDescrip;
     private Boolean editState = false;
     private String csKey, key, stringUrl, stringQr;
     private TextToSpeech t1;
+    private Spinner spinStatus;
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -48,35 +53,43 @@ public class fragmentOverview extends Fragment {
         ivEdit = rootView.findViewById(R.id.ivEdit);
         etName = rootView.findViewById(R.id.etName);
         etType = rootView.findViewById(R.id.etType);
-        etDescrip = rootView.findViewById(R.id.etDescrip);
+        spinStatus = rootView.findViewById(R.id.spinStatus);
+        etCount = rootView.findViewById(R.id.etCount);
         etNote = rootView.findViewById(R.id.etNote);
+        String[] statusitems = getResources().getStringArray(R.array.status);
+        int statusindex = Arrays.asList(statusitems).indexOf(statusitems);
+        spinStatus.setSelection(statusindex);
         etName.setText(viewHolderDisplay.getName());
-        etDescrip.setText(viewHolderDisplay.getDescrip());
+        etCount.setText(viewHolderDisplay.getCount());
         etType.setText(viewHolderDisplay.getType());
         etNote.setText(viewHolderDisplay.getNotes());
+
         csKey = viewHolderDisplay.getCsType();
         key = viewHolderDisplay.getKey();
         stringQr = viewHolderDisplay.getQrcode();
         stringUrl = viewHolderDisplay.getImageurl();
         etName.setEnabled(false);
-        etDescrip.setEnabled(false);
+        etCount.setEnabled(false);
         etType.setEnabled(false);
         etNote.setEnabled(false);
+        spinStatus.setEnabled(false);
         ivEdit.setOnClickListener(view -> {
             if(editState == false) {
                 etName.setEnabled(true);
-                etDescrip.setEnabled(true);
+                etCount.setEnabled(true);
                 etType.setEnabled(true);
                 etNote.setEnabled(true);
+                spinStatus.setEnabled(true);
                 ivEdit.setImageResource(R.drawable.check);
                 editState = true;
             } else {
-                update(csKey, key, etName.getText().toString(), etType.getText().toString(), etDescrip.getText().toString(), etNote.getText().toString(), stringUrl, stringQr);
+                update(csKey, key, etName.getText().toString(), etType.getText().toString(),spinStatus.getSelectedItem().toString(), etCount.getText().toString(), etNote.getText().toString(), stringUrl, stringQr);
                 editState = false;
                 etName.setEnabled(false);
-                etDescrip.setEnabled(false);
+                etCount.setEnabled(false);
                 etType.setEnabled(false);
                 etNote.setEnabled(false);
+                spinStatus.setEnabled(false);
                 ivEdit.setImageResource(R.drawable.edit);
             }
         });
@@ -90,10 +103,10 @@ public class fragmentOverview extends Fragment {
         });
         return rootView;
     }
-    private void update(String csType, String key, String name, String type, String descrip, String notes, String stringUrl, String stringQr) {
+    private void update(String csType, String key, String name, String type,String status, String descrip, String notes, String stringUrl, String stringQr) {
         DatabaseReference productRef = FirebaseDatabase.getInstance().getReference(csType);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        addingUploads addingUploads = new addingUploads(csType, key, user.getEmail(), name, type, descrip, notes, stringUrl, stringQr);
+        addingUploads addingUploads = new addingUploads(csType, key, user.getEmail(), name, type, status, descrip, notes, stringUrl, stringQr);
         productRef.child(key).setValue(addingUploads).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {

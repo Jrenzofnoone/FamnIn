@@ -66,7 +66,7 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:autoSizeMaxTextSize="1000sp"
-        android:autoSizeMinTextSize="20sp"
+        android:autoSizeMinTextSize="1sp"
         android:autoSizeTextType="uniform"
         android:fontFamily="@font/sansnarrow"
         android:text="Sign In"
@@ -99,10 +99,10 @@
             android:layout_height="match_parent"
             android:autoSizeMaxTextSize="1000dp"
             android:autoSizeMinTextSize="1dp"
+            android:fontFamily="@font/poppinsregular"
             android:background="@drawable/rounded"
             android:backgroundTint="@color/background"
-            android:fontFamily="@font/poppinsregular"
-            android:textColor="@color/white" />
+            android:textColor="@color/mainTextColor" />
     </com.google.android.material.textfield.TextInputLayout>
 
 

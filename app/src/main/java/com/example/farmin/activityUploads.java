@@ -13,13 +13,12 @@ public class activityUploads {
     String finishYear;
     String finishMonth;
     String finishDay;
-    String yield;
     String notes;
     String mimage;
     String key;
     String userEmail;
 
-    public activityUploads(String userEmail,String key,String name, String type, String descrip, String startYear, String startMonth, String startDay,String finishYear, String finishMonth, String finishDay, String yield, String notes, String image) {
+    public activityUploads(String userEmail,String key,String name, String type, String descrip, String startYear, String startMonth, String startDay,String finishYear, String finishMonth, String finishDay, String notes, String image) {
         this.userEmail = userEmail;
         this.name = name;
         this.type = type;
@@ -30,7 +29,6 @@ public class activityUploads {
         this.finishYear = finishYear;
         this.finishMonth = finishMonth;
         this.finishDay = finishDay;
-        this.yield = yield;
         this.notes = notes;
         this.mimage = image;
     }
@@ -121,14 +119,6 @@ public class activityUploads {
 
     public void setDescrip(String descrip) {
         this.descrip = descrip;
-    }
-
-    public String getYield() {
-        return yield;
-    }
-
-    public void setYield(String yield) {
-        this.yield = yield;
     }
 
     public String getNotes() {

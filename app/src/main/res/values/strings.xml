@@ -19,5 +19,9 @@
         <item>Hemp Seeds</item>
         <item>Jackfruit Seeds</item>
         <item>Lotus Seeds</item>
-    </string-array>
+    </string-array><string-array name="status">
+    <item>Inventory</item>
+    <item>Planted</item>
+    <item>Harvest</item>
+</string-array>
 </resources>

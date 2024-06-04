@@ -88,11 +88,11 @@ public class AddingSeed extends AppCompatActivity implements addingInterface{
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int screenHeight = displayMetrics.heightPixels;
-        int itemHeight = (int) (screenHeight * 0.8);
+        int itemHeight = (int) (screenHeight * 0.9);
         ivImport = findViewById(R.id.ivImport);
         recyclerView = findViewById(R.id.recyclerView);
         uploads = new ArrayList<>();
-        addingUploads addingUploads = new addingUploads("","","","","","","","","");
+        addingUploads addingUploads = new addingUploads("","","","","","","","","","");
         uploads.add(addingUploads);
         adapter = new addingAdapter(AddingSeed.this,"Seeds", uploads, this, itemHeight);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -172,7 +172,7 @@ public class AddingSeed extends AppCompatActivity implements addingInterface{
                     for (DataSnapshot postSnap : snapshot.getChildren()) {
                         addingUploads addingUploads = postSnap.getValue(addingUploads.class);
                         if (addingUploads.getKey().equals(key)) {
-                            adapter.setAllforItemQr(pos,addingUploads.getName(), addingUploads.getType(),addingUploads.getDescrip(),
+                            adapter.setAllforItemQr(pos,addingUploads.getName(), addingUploads.getType(),addingUploads.getCount(),
                                     addingUploads.getNotes(),addingUploads.getImageurl());
                         }
                     }
@@ -238,7 +238,7 @@ public class AddingSeed extends AppCompatActivity implements addingInterface{
                 addingUploads addingUploads = new addingUploads();
                 addingUploads.setName(string[0]);
                 addingUploads.setType(string[1]);
-                addingUploads.setDescrip(string[2]);
+                addingUploads.setCount(string[2]);
                 addingUploads.setNotes(string[3]);
                 addingUploads.setKey(string[4]);
                 addingUploads.setImageurl(string[5]);
