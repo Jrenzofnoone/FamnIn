@@ -27,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -48,11 +49,13 @@ public class Fragmenthome extends Fragment {
     private static final String baseUrl = "https://api.openweathermap.org/data/2.5/";
     private static final int locationCode = 1001;
     private ImageView ivCloud;
+    private View weatherview;
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView =  inflater.inflate(R.layout.fragment_fragmenthome, container, false);
+        weatherview = rootView.findViewById(R.id.weatherview);
         ivCloud = rootView.findViewById(R.id.ivCloud);
         tvTemp = rootView.findViewById(R.id.tvTemp);
         tvDescrip = rootView.findViewById(R.id.tvDescrip);
@@ -63,6 +66,38 @@ public class Fragmenthome extends Fragment {
         tabLayout = rootView.findViewById(R.id.tabLayout);
         requestLocationPermission();
         getLocation();
+        weatherview.setOnClickListener(view -> {
+            getLocation();
+            Toast.makeText(getActivity(), "Refreshed", Toast.LENGTH_SHORT).show();
+        });
+        ivCloud.setOnClickListener(view -> {
+            getLocation();
+            Toast.makeText(getActivity(), "Refreshed", Toast.LENGTH_SHORT).show();
+        });
+        tvTemp.setOnClickListener(view -> {
+            getLocation();
+            Toast.makeText(getActivity(), "Refreshed", Toast.LENGTH_SHORT).show();
+        });
+        tvDescrip.setOnClickListener(view -> {
+            getLocation();
+            Toast.makeText(getActivity(), "Refreshed", Toast.LENGTH_SHORT).show();
+        });
+        tvCloudiness.setOnClickListener(view -> {
+            getLocation();
+            Toast.makeText(getActivity(), "Refreshed", Toast.LENGTH_SHORT).show();
+        });
+        tvPressure.setOnClickListener(view -> {
+            getLocation();
+            Toast.makeText(getActivity(), "Refreshed", Toast.LENGTH_SHORT).show();
+        });
+        tvHumidity.setOnClickListener(view -> {
+            getLocation();
+            Toast.makeText(getActivity(), "Refreshed", Toast.LENGTH_SHORT).show();
+        });
+        tvWind.setOnClickListener(view -> {
+            getLocation();
+            Toast.makeText(getActivity(), "Refreshed", Toast.LENGTH_SHORT).show();
+        });
         return rootView;
     }
 

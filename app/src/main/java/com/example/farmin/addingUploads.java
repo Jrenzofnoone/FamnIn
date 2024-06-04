@@ -4,7 +4,15 @@ public class addingUploads {
     public addingUploads() {
 
     }
-    private String csType, key, userEmail, name, type,descrip,  notes,  mimageurl,  mqrcode;
+    private String csType, key, userEmail, name, type, status,count,  notes,  mimageurl,  mqrcode;
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 
     public String getName() {
         return name;
@@ -14,12 +22,12 @@ public class addingUploads {
         this.name = name;
     }
 
-    public String getDescrip() {
-        return descrip;
+    public String getCount() {
+        return count;
     }
 
-    public void setDescrip(String descrip) {
-        this.descrip = descrip;
+    public void setCount(String count) {
+        this.count = count;
     }
 
     public String getNotes() {
@@ -78,16 +86,17 @@ public class addingUploads {
         this.csType = csType;
     }
 
-    public addingUploads(String csType, String key, String userEmail, String name, String type, String descrip, String notes, String imageurl, String qrcode) {
+    public addingUploads(String csType, String key, String userEmail, String name, String type,String status, String count, String notes, String imageurl, String qrcode) {
         this.csType = csType;
         this.key = key;
         this.userEmail = userEmail;
         this.name = name;
-        this.descrip = descrip;
+        this.count = count;
         this.notes = notes;
         this.mimageurl = imageurl;
         this.mqrcode = qrcode;
         this.type = type;
+        this.status = status;
     }
 }
 

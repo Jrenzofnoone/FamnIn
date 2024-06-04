@@ -1,12 +1,7 @@
 package com.example.farmin;
 
-import static androidx.core.app.ActivityCompat.startActivityForResult;
-
-import android.app.Activity;
 import android.app.ProgressDialog;
-import android.content.ContentResolver;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.text.Editable;
@@ -15,12 +10,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,17 +21,13 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import android.net.Uri;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -46,7 +35,6 @@ import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -54,15 +42,14 @@ public class addingAdapter extends RecyclerView.Adapter<addingAdapter.viewHolder
     private List<addingUploads> uploads;
     private Context context;
     private addingInterface addingInterface;
-    String key, qrCodeUrl;
-    String name, type, descrip, notes;
     private String ref;
-    private int selectedItem = -1, itemHeight;
+    private int selectedItem = -1;
+    private int itemHeight;
     private ProgressDialog progressDialog;
 
-    public addingAdapter(Context context, String ref,List<addingUploads> uploads, addingInterface addingInterface, int itemHeight) {
+    public addingAdapter(Context context, String ref, List<addingUploads> uploads, addingInterface addingInterface, int itemHeight) {
         if (uploads == null || uploads.isEmpty()) {
-            addingUploads addingUploads = new addingUploads("","","","","","","","","");
+            addingUploads addingUploads = new addingUploads("","", "", "", "", "", "", "", "", "");
             uploads.add(addingUploads);
         }
         this.uploads = uploads;
@@ -71,38 +58,44 @@ public class addingAdapter extends RecyclerView.Adapter<addingAdapter.viewHolder
         this.addingInterface = addingInterface;
         this.itemHeight = itemHeight;
     }
+
     @NonNull
     @Override
     public addingAdapter.viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context).inflate(R.layout.adding_item, parent, false);
-        return new viewHolder(v , addingInterface);
+        return new viewHolder(v, addingInterface);
     }
 
     @Override
     public void onBindViewHolder(@NonNull addingAdapter.viewHolder holder, int position) {
         ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
-        if(layoutParams == null) {
+        if (layoutParams == null) {
             layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, itemHeight);
         } else {
             layoutParams.height = itemHeight;
         }
-        addingUploads currentUploads = uploads.get(position);
 
+        addingUploads currentUploads = uploads.get(position);
         String imageUrl = currentUploads.getImageurl();
         String name = currentUploads.getName();
-        String descrip = currentUploads.getDescrip();
+        String count = currentUploads.getCount();
         String type = currentUploads.getType();
+        String status = currentUploads.getType();
         String note = currentUploads.getNotes();
         String modified = imageUrl.replace("Image Url: ", "");
         String namemodified = name.replace("Name: ", "");
-        String descripmodified = descrip.replace("Description: ", "");
+        String countmodified = count.replace("Count: ", "");
         String typemodified = type.replace("Type: ", "");
+        String statusmodified = status.replace("Status: ", "");
         String notesmodified = note.replace("Notes: ", "");
         String[] items = context.getResources().getStringArray(R.array.typeCrop);
+        String[] statusitems = context.getResources().getStringArray(R.array.status);
         holder.etName.setText(namemodified);
         int index = Arrays.asList(items).indexOf(typemodified);
+        int statusindex = Arrays.asList(statusitems).indexOf(statusmodified);
         holder.spinType.setSelection(index);
-        holder.etDescription.setText(descripmodified);
+        holder.spinStatus.setSelection(statusindex);
+        holder.etCount.setText(countmodified);
         holder.etNotes.setText(notesmodified);
         if (modified != null && !modified.isEmpty()) {
             Glide.with(holder.itemView.getContext())
@@ -111,14 +104,19 @@ public class addingAdapter extends RecyclerView.Adapter<addingAdapter.viewHolder
                     .into(holder.ivImage);
             Log.d("mic check", modified);
         } else {
-            //Toast.makeText(context, "Image URL is empty", Toast.LENGTH_SHORT).show();
-        }
-        if(selectedItem == position){
-            holder.itemView.setBackgroundColor(Color.parseColor("#14531A"));
-        }else {
-            holder.itemView.setBackgroundColor(Color.TRANSPARENT);
         }
 
+        if (selectedItem == position) {
+            holder.second_main.setBackgroundResource(R.drawable.custom_item_two);
+            Toast.makeText(context, "Item Selected", Toast.LENGTH_SHORT).show();
+        } else {
+            holder.second_main.setBackgroundResource(0);
+        }
+
+        holder.etName.addTextChangedListener(new GenericTextWatcher(currentUploads, "name"));
+        holder.etCount.addTextChangedListener(new GenericTextWatcher(currentUploads, "descrip"));
+        holder.etNotes.addTextChangedListener(new GenericTextWatcher(currentUploads, "notes"));
+        holder.spinType.setOnItemSelectedListener(new GenericItemSelectedListener(currentUploads));
     }
 
     @Override
@@ -127,77 +125,83 @@ public class addingAdapter extends RecyclerView.Adapter<addingAdapter.viewHolder
     }
 
     public class viewHolder extends RecyclerView.ViewHolder {
-        private TextInputEditText etNotes, etDescription, etName;
-        private Spinner spinType;
+        private TextInputEditText etNotes, etCount, etName;
+        private Spinner spinType, spinStatus;
         private ImageView ivImage;
         private Button btnAdd;
-        private ConstraintLayout mainBackground;
+        private ConstraintLayout second_main;
 
         public viewHolder(@NonNull View itemView, addingInterface addingInterface) {
             super(itemView);
-            mainBackground = itemView.findViewById(R.id.mainBackground);
+            second_main = itemView.findViewById(R.id.second_main);
             etNotes = itemView.findViewById(R.id.etNotes);
-            etDescription = itemView.findViewById(R.id.etDescription);
+            etCount = itemView.findViewById(R.id.etCount);
+            spinStatus = itemView.findViewById(R.id.spinStatus);
             spinType = itemView.findViewById(R.id.spinType);
             etName = itemView.findViewById(R.id.etName);
             ivImage = itemView.findViewById(R.id.ivImage);
             btnAdd = itemView.findViewById(R.id.btnAdd);
             progressDialog = new ProgressDialog(context);
             progressDialog.setMessage("Uploading, please wait...");
+
             ivImage.setOnClickListener(view -> {
                 addingInterface.setItemClick(getAdapterPosition(), "Image");
             });
+
             itemView.setOnClickListener(view -> {
                 addingInterface.setItemClick(getAdapterPosition(), "Background");
                 selectedItem = getAdapterPosition();
                 notifyDataSetChanged();
             });
+
             btnAdd.setOnClickListener(view -> {
                 addingUploads currentUploads = uploads.get(getAdapterPosition());
                 String imageUrl = currentUploads.getImageurl();
                 String csKey = currentUploads.getCsType();
                 String name = etName.getText().toString();
                 String type = spinType.getSelectedItem().toString();
-                String descrip = etDescription.getText().toString();
+                String status = spinStatus.getSelectedItem().toString();
+                String count = etCount.getText().toString();
                 String notes = etNotes.getText().toString();
                 String modified = imageUrl.replace("Image Url: ", "");
-                if(name.isEmpty() ||descrip.isEmpty()|| notes.isEmpty() || type.isEmpty() ||modified.isEmpty()){
+                if (name.isEmpty() || count.isEmpty() || notes.isEmpty() || type.isEmpty() || modified.isEmpty()) {
                     Toast.makeText(context, "empty", Toast.LENGTH_SHORT).show();
-                } else{
-                    addProduct(name, type,descrip,notes,modified, csKey);
+                } else {
+                    addProduct(name, type,status, count, notes, modified, csKey);
                     uploads.remove(getAdapterPosition());
                     notifyDataSetChanged();
                     if (uploads == null || uploads.isEmpty()) {
                         Glide.with(context).clear(ivImage);
-                        addingUploads addingUploads = new addingUploads("","","","","","","","","");
+                        addingUploads addingUploads = new addingUploads("", "", "", "", "", "", "", "", "", "");
                         uploads.add(addingUploads);
-                    } else {
-
                     }
                 }
             });
         }
     }
-    public void setImageForItem(int position, String imageUrl){
+
+    public void setImageForItem(int position, String imageUrl) {
         uploads.get(position).setImageurl(imageUrl);
         notifyItemChanged(position);
     }
-    public void setAllforItemQr(int position, String name, String type, String descrip,String notes, String imageUrl){
+
+    public void setAllforItemQr(int position, String name, String type, String count, String notes, String imageUrl) {
         uploads.get(position).setImageurl(imageUrl);
         uploads.get(position).setName(name);
         uploads.get(position).setType(type);
-        uploads.get(position).setDescrip(descrip);
+        uploads.get(position).setCount(count);
         uploads.get(position).setNotes(notes);
         notifyItemChanged(position);
     }
 
-    private void addProduct(String name, String type, String descrip, String notes, String imageUrl, String csKey) {
+    private void addProduct(String name, String type, String status, String count, String notes, String imageUrl, String csKey) {
         progressDialog.show();
         DatabaseReference productRef = FirebaseDatabase.getInstance().getReference(ref);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         MultiFormatWriter writer = new MultiFormatWriter();
-        key = productRef.push().getKey();
+        String key = productRef.push().getKey();
         StorageReference storageRef = FirebaseStorage.getInstance().getReference("Qr Code");
+
         try {
             BitMatrix matrix = writer.encode(key, BarcodeFormat.QR_CODE, 800, 800);
             BarcodeEncoder encoder = new BarcodeEncoder();
@@ -207,36 +211,66 @@ public class addingAdapter extends RecyclerView.Adapter<addingAdapter.viewHolder
             byte[] data = baos.toByteArray();
 
             StorageReference qrRef = storageRef.child(System.currentTimeMillis() + "." + ".jpg");
-            qrRef.putBytes(data).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onProgress(@NonNull UploadTask.TaskSnapshot snapshot) {
-//                    double progress = (100.0 * snapshot.getBytesTransferred()/ snapshot.getTotalByteCount());
-//                    progressBar.setProgress((int) progress);
-                }
-            }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                    currentSteps++;
-//                    progressBar.setProgress((currentSteps * 100) / totalSteps);
-                    taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                        @Override
-                        public void onSuccess(Uri uri) {
-                            qrCodeUrl = uri.toString();
-                            addingUploads addingUploads = new addingUploads(csKey,key, user.getEmail(), name, type, descrip, notes,imageUrl,qrCodeUrl);
-                            productRef.child(key).setValue(addingUploads).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void unused) {
-                                    progressDialog.dismiss();
-                                    Log.d("please", "wirk");
-                                }
-                            });
-                        }
+            qrRef.putBytes(data).addOnSuccessListener(taskSnapshot -> {
+                taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(uri -> {
+                    String qrCodeUrl = uri.toString();
+                    addingUploads addingUploads = new addingUploads(csKey, key, user.getEmail(), name, type,status, count, notes, imageUrl, qrCodeUrl);
+                    productRef.child(key).setValue(addingUploads).addOnSuccessListener(unused -> {
+                        progressDialog.dismiss();
+                        Log.d("please", "wirk");
                     });
-                }
+                });
             });
         } catch (WriterException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private class GenericTextWatcher implements TextWatcher {
+        private addingUploads currentUploads;
+        private String field;
+
+        public GenericTextWatcher(addingUploads currentUploads, String field) {
+            this.currentUploads = currentUploads;
+            this.field = field;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            switch (field) {
+                case "name":
+                    currentUploads.setName(s.toString());
+                    break;
+                case "descrip":
+                    currentUploads.setCount(s.toString());
+                    break;
+                case "notes":
+                    currentUploads.setNotes(s.toString());
+                    break;
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {}
+    }
+}
+    class GenericItemSelectedListener implements android.widget.AdapterView.OnItemSelectedListener {
+        private addingUploads currentUploads;
+
+        public GenericItemSelectedListener(addingUploads currentUploads) {
+            this.currentUploads = currentUploads;
+        }
+
+        @Override
+        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
 
         }
 
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
+
+        }
     }
-}

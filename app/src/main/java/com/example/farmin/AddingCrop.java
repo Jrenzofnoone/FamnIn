@@ -96,12 +96,12 @@ public class AddingCrop extends AppCompatActivity implements addingInterface {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int screenHeight = displayMetrics.heightPixels;
-        int itemHeight = (int) (screenHeight * 0.8);
+        int itemHeight = (int) (screenHeight * 0.9);
         ivImport = findViewById(R.id.ivImport);
         ivGoBack = findViewById(R.id.ivGoBack);
         recyclerView = findViewById(R.id.recyclerView);
         uploads = new ArrayList<>();
-        addingUploads addingUploads = new addingUploads("","","","","","","","","");
+        addingUploads addingUploads = new addingUploads("","","","","","","","","","");
         uploads.add(addingUploads);
         adapter = new addingAdapter(AddingCrop.this, "Crops", uploads, this, itemHeight);
 
@@ -131,26 +131,6 @@ public class AddingCrop extends AppCompatActivity implements addingInterface {
             startActivity(intent);
             finish();
         });
-//        if(haveScan == true) {
-//
-//        } else {
-//
-//        }
-//        btnAdd.setOnClickListener(view -> {
-//            if(etName.getText().toString().isEmpty()) {
-//                etName.setError("Must not be empty");
-//            } else if (etNotes.getText().toString().isEmpty()) {
-//                etNotes.setError("Must not be empty");
-//            } else if (etDescription.getText().toString().isEmpty()) {
-//                etDescription.setError("Must not be empty");
-//            } else {
-//                progressBar.setVisibility(View.VISIBLE);
-//                addProduct(etName.getText().toString().trim(),spinType.getSelectedItem().toString(),etNotes.getText().toString().trim(),etDescription.getText().toString().trim());
-//            }
-//        });
-//        ivImage.setOnClickListener(view -> {
-//            openFileChooser();
-//        });
     }
     @Override
     public void setItemClick(int position, String itemClick) {
@@ -201,8 +181,9 @@ public class AddingCrop extends AppCompatActivity implements addingInterface {
                     for (DataSnapshot postSnap : snapshot.getChildren()) {
                         addingUploads addingUploads = postSnap.getValue(addingUploads.class);
                         if (addingUploads.getKey().equals(key)) {
-                           adapter.setAllforItemQr(pos,addingUploads.getName(), addingUploads.getType(),addingUploads.getDescrip(),
+                           adapter.setAllforItemQr(pos,addingUploads.getName(), addingUploads.getType(),addingUploads.getCount(),
                                    addingUploads.getNotes(),addingUploads.getImageurl());
+                           Log.d("image url check",addingUploads.getImageurl());
                             haveScan = "none";
                         }
                     }
@@ -272,7 +253,7 @@ public class AddingCrop extends AppCompatActivity implements addingInterface {
                 addingUploads addingUploads = new addingUploads();
                 addingUploads.setName(string[0]);
                 addingUploads.setType(string[1]);
-                addingUploads.setDescrip(string[2]);
+                addingUploads.setCount(string[2]);
                 addingUploads.setNotes(string[3]);
                 addingUploads.setKey(string[4]);
                 addingUploads.setImageurl(string[5]);

@@ -2,21 +2,28 @@ package com.example.farmin;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Environment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,18 +42,24 @@ import java.util.List;
 public class FragmentDbCrop extends Fragment implements clickInterface{
     private ImageView ivAddCrop, ivChecking, ivExport;
     private boolean isClicked = false;
-private String name, descrip, type, notes, stringUrl, stringQr, key, csKey;
-private RecyclerView recyclerView;
+    private String name, descrip, type, notes, stringUrl, stringQr, key, csKey;
+    private RecyclerView recyclerView;
     private List<addingUploads> uploads;
     private AllAdapter adapter;
     private FirebaseUser user;
     private DatabaseReference cropRef;
+    private ImageView ivEdit;
+    private View checkView, exportView;
+    private TextView tvExport;
+    private Boolean isPick = false;
+    private EditText etSearch;
 
     @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_db_crop, container, false);
+        ivAddCrop = rootView.findViewById(R.id.ivAddCrop);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         requireActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int screenHeight = displayMetrics.heightPixels;
@@ -76,14 +89,38 @@ private RecyclerView recyclerView;
 
             }
         });
-        ivAddCrop = rootView.findViewById(R.id.ivAddCrop);
         ivExport = rootView.findViewById(R.id.ivExport);
         ivChecking = rootView.findViewById(R.id.ivChecking);
+        ivEdit = rootView.findViewById(R.id.ivEdit);
+        exportView = rootView.findViewById(R.id.exportView);
+        checkView = rootView.findViewById(R.id.checkView);
+        tvExport = rootView.findViewById(R.id.tvExport);
+        ivEdit.setOnClickListener(view -> {
+            adapter.setCheckBoxVisible();
+            if(isPick == false ) {
+                checkView.setVisibility(View.VISIBLE);
+                ivChecking.setVisibility(View.VISIBLE);
+                ivExport.setVisibility(View.VISIBLE);
+                exportView.setVisibility(View.VISIBLE);
+                tvExport.setVisibility(View.VISIBLE);
+                isPick = true;
+            } else {
+                checkView.setVisibility(View.INVISIBLE);
+                ivChecking.setVisibility(View.INVISIBLE);
+                ivExport.setVisibility(View.INVISIBLE);
+                exportView.setVisibility(View.INVISIBLE);
+                tvExport.setVisibility(View.INVISIBLE);
+                isPick = false;
+            }
+        });
+        etSearch = rootView.findViewById(R.id.etSearch);
+        etSearch.addTextChangedListener(new MyEditTextWatcher());
         recyclerView = rootView.findViewById(R.id.recyclerView);
         List<Integer> checkedPosition = adapter.getCheckedPosition();
         ivExport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(getActivity(), "Please", Toast.LENGTH_SHORT).show();
                 String fileName = "BulkProducts";
                 File root = new File(Environment.getExternalStorageDirectory(), Environment.DIRECTORY_DOWNLOADS);
                 if(!root.exists()){
@@ -101,7 +138,7 @@ private RecyclerView recyclerView;
                         Log.d("psition", String.valueOf(positions));
                         addingUploads uploadCurrent = uploads.get(positions);
                         name = uploadCurrent.getName();
-                        descrip = uploadCurrent.getDescrip();
+                        descrip = uploadCurrent.getCount();
                         type = uploadCurrent.getType();
                         notes = uploadCurrent.getNotes();
                         stringUrl = uploadCurrent.getImageurl();
@@ -170,5 +207,29 @@ private RecyclerView recyclerView;
     @Override
     public void setItemClick(int position) {
 
+    }
+    public class MyEditTextWatcher implements TextWatcher {
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            filter(s.toString());
+        }
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    }
+    private void filter(String newText) {
+        List<addingUploads> filteredList = new ArrayList<>();
+        for(addingUploads item: uploads) {
+            if(item.getName().toLowerCase().contains(newText.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+        adapter.filterList(filteredList);
     }
 }

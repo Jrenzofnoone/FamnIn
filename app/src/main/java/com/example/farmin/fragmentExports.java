@@ -45,11 +45,11 @@ public class fragmentExports extends Fragment {
         btnExportCsv = rootView.findViewById(R.id.btnExportCsv);
         btnExportExcel = rootView.findViewById(R.id.btnExportExcel);
         String name = viewHolderDisplay.getName();
-        String descrip = viewHolderDisplay.getDescrip();
+        String count = viewHolderDisplay.getCount();
         String type = viewHolderDisplay.getType();
         String notes = viewHolderDisplay.getNotes();
-        String stringUrl = viewHolderDisplay.getQrcode();
-        String stringQr = viewHolderDisplay.getImageurl();
+        String stringUrl = viewHolderDisplay.getImageurl();
+        String stringQr = viewHolderDisplay.getQrcode();
         String key = viewHolderDisplay.getKey();
         String csKey = viewHolderDisplay.getCsType();
         btnExportPdf.setOnClickListener(view -> {
@@ -65,7 +65,7 @@ public class fragmentExports extends Fragment {
                 suffix++;
                 rawr = new File(root, fileName +".csv");
             }
-            createPdf(fileName, name, type, descrip, notes);
+            createPdf(fileName, name, type, count, notes);
         });
         btnExportCsv.setOnClickListener(view -> {
             String fileName = "FarmInExportCsv";
@@ -81,8 +81,10 @@ public class fragmentExports extends Fragment {
                 rawr = new File(root, fileName +".csv");
             }
             StringBuilder csvDataBuilder = new StringBuilder();
-            csvDataBuilder.append("Name: "+name +",Type: "+ type +",Description: "+ descrip +",Notes: "+ notes);
+            csvDataBuilder.append("Name: "+name +",Type: "+ type +",Description: "+ count +",Notes: "+ notes+",key: "+ key+",Image Url: "+ stringUrl+",Qr code Url: "+ stringQr+",Cs Key: "+ csKey);
             String csvData = csvDataBuilder.toString();
+            createCsv(fileName, csvData);
+            Toast.makeText(getActivity(), "File Created, Please check your downloads", Toast.LENGTH_SHORT).show();
 
             createCsv(fileName, csvData);
         });
@@ -99,7 +101,7 @@ public class fragmentExports extends Fragment {
                 suffix++;
                 rawr = new File(root, fileName +".csv");
             }
-            createExcel(fileName,name,type,descrip,notes);
+            createExcel(fileName,name,type,count,notes);
         });
         return rootView;
     }

@@ -45,7 +45,7 @@ public class fragmentAdapter extends RecyclerView.Adapter<fragmentAdapter.viewHo
         addingUploads currentUploads = uploads.get(position);
         holder.tvName.setText(currentUploads.getName());
         holder.tvType.setText("Type: " + currentUploads.getType());
-        holder.tvDescrip.setText("Description: " + currentUploads.getDescrip());
+        holder.tvDescrip.setText("Description: " + currentUploads.getCount());
         holder.tvNote.setText("Notes: " + currentUploads.getNotes());
         String imageUrl = currentUploads.getImageurl();
         if (imageUrl != null && !imageUrl.isEmpty()) {

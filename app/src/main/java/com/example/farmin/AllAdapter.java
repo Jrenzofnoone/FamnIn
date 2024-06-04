@@ -2,6 +2,8 @@ package com.example.farmin;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.constraintlayout.widget.Constraints;
+import androidx.constraintlayout.widget.Guideline;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -55,8 +62,8 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.viewHolder> {
         addingUploads currentUploads = uploads.get(position);
         holder.tvName.setText(currentUploads.getName());
         holder.tvType.setText(currentUploads.getType());
-        holder.tvDescrip.setText(currentUploads.getDescrip());
-        holder.tvNote.setText(currentUploads.getNotes());
+        holder.tvCount.setText(currentUploads.getCount());
+        holder.tvStatus.setText(currentUploads.getStatus());
         String imageUrl = currentUploads.getImageurl();
         if (imageUrl != null && !imageUrl.isEmpty()) {
             Glide.with(holder.itemView.getContext())
@@ -65,6 +72,26 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.viewHolder> {
                     .into(holder.ivImage);
         } else {
             Toast.makeText(context, "Image URL is empty", Toast.LENGTH_SHORT).show();
+        }
+        Drawable drawable = ContextCompat.getDrawable(context, R.drawable.custom_background);
+//        holder.main.setBackgroundResource(R.drawable.rounded);
+//        holder.second_main.setBackgroundResource(R.drawable.rounded);
+        if(areCheckBoxCheck == false) {
+            holder.checkBox.setVisibility(View.VISIBLE);
+            holder.second_main.setBackgroundResource(R.drawable.custom_background);
+            holder.main.setBackgroundResource(0);
+            ConstraintLayout.LayoutParams newParams = (ConstraintLayout.LayoutParams) holder.second_main.getLayoutParams();
+            int newGuideline = holder.guideline78.getId();
+            newParams.startToStart = newGuideline;
+            holder.second_main.setLayoutParams(newParams);
+        } else {
+            holder.checkBox.setVisibility(View.INVISIBLE);
+            holder.main.setBackgroundResource(R.drawable.custom_background);
+            holder.second_main.setBackgroundResource(0);
+            ConstraintLayout.LayoutParams newParams = (ConstraintLayout.LayoutParams) holder.second_main.getLayoutParams();
+            int newGuideline = holder.guideline78.getId();
+            newParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID;
+            holder.second_main.setLayoutParams(newParams);
         }
         holder.checkBox.setChecked(areCheckBoxVisible);
     }
@@ -77,8 +104,9 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.viewHolder> {
         return checkedPosition;
     }
     private boolean areCheckBoxVisible = false;
+    private boolean areCheckBoxCheck = true;
     public void setCheckBoxVisible() {
-        areCheckBoxVisible = !areCheckBoxVisible;
+        areCheckBoxCheck = !areCheckBoxCheck;
         notifyDataSetChanged();
     }
     public void checkAll() {
@@ -96,13 +124,19 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.viewHolder> {
 
     }
     public class viewHolder extends RecyclerView.ViewHolder {
-        private TextView tvNote, tvDescrip, tvType, tvName;
+        private TextView tvStatus, tvCount, tvType, tvName;
         private ImageView ivImage;
         private CheckBox checkBox;
+        private ConstraintLayout main, second_main;
+        private Guideline guideline66, guideline78;
         public viewHolder(@NonNull View itemView, clickInterface clickInterface) {
             super(itemView);
-            tvNote = itemView.findViewById(R.id.tvNote);
-            tvDescrip = itemView.findViewById(R.id.tvDescrip);
+            main = itemView.findViewById(R.id.main);
+            second_main = itemView.findViewById(R.id.second_main);
+            guideline66 = itemView.findViewById(R.id.guideline66);
+            guideline78 = itemView.findViewById(R.id.guideline78);
+            tvStatus = itemView.findViewById(R.id.tvStatus);
+            tvCount = itemView.findViewById(R.id.tvCount);
             tvType = itemView.findViewById(R.id.tvType);
             tvName = itemView.findViewById(R.id.tvName);
             ivImage = itemView.findViewById(R.id.ivImage);
@@ -123,8 +157,9 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.viewHolder> {
                     addingUploads addingUploads = uploads.get(pos);
                     Intent intent = new Intent(context, AddingActivity.class);
                     intent.putExtra("Name",addingUploads.getName());
-                    intent.putExtra("Descrip",addingUploads.getDescrip());
+                    intent.putExtra("Count",addingUploads.getCount());
                     intent.putExtra("Type",addingUploads.getType());
+                    intent.putExtra("Status",addingUploads.getStatus());
                     intent.putExtra("Notes",addingUploads.getNotes());
                     intent.putExtra("Image",addingUploads.getImageurl());
                     intent.putExtra("key", addingUploads.getKey());
@@ -135,8 +170,9 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.viewHolder> {
                     addingUploads addingUploads = uploads.get(pos);
                     Intent intent = new Intent(context, displaying.class);
                     intent.putExtra("Name",addingUploads.getName());
-                    intent.putExtra("Descrip",addingUploads.getDescrip());
+                    intent.putExtra("Count",addingUploads.getCount());
                     intent.putExtra("Type",addingUploads.getType());
+                    intent.putExtra("Status",addingUploads.getStatus());
                     intent.putExtra("Notes",addingUploads.getNotes());
                     intent.putExtra("Image",addingUploads.getImageurl());
                     intent.putExtra("qrCode", addingUploads.getQrcode());
@@ -146,6 +182,9 @@ public class AllAdapter extends RecyclerView.Adapter<AllAdapter.viewHolder> {
                 }
             });
         }
-
+    }
+    public void filterList(List<addingUploads> filteredList) {
+        uploads = filteredList;
+        notifyDataSetChanged();
     }
 }
