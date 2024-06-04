@@ -7,12 +7,17 @@
     android:background="@color/main">
 
     <LinearLayout
+
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="20dp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        android:background="@drawable/backgrountwo">
 
         <TextView
+            android:layout_marginTop="10dp"
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -100,9 +105,9 @@
                 android:autoSizeMaxTextSize="1000dp"
                 android:autoSizeMinTextSize="1dp"
                 android:background="@drawable/roundedcorners"
-                android:backgroundTint="@color/background"
+                android:backgroundTint="@color/background_two"
                 android:text="Calculate"
-                android:textColor="@color/background_two"
+                android:textColor="@color/background"
                 android:textColorHint="#FFFFFF" />
 
 
@@ -114,10 +119,12 @@
                 android:autoSizeMaxTextSize="1000dp"
                 android:autoSizeMinTextSize="1dp"
                 android:background="@drawable/roundedcorners"
-                android:backgroundTint="@color/background"
+                android:backgroundTint="@color/background_two"
                 android:text="Reset"
-                android:textColor="@color/background_two"
-                android:textColorHint="#FFFFFF" />
+                android:textColor="@color/background"
+                android:textColorHint="#FFFFFF"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"/>
         </LinearLayout>
 
     </LinearLayout>

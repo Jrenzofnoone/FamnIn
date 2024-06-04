@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,45 +16,73 @@ import androidx.viewpager.widget.ViewPager;
 import com.google.android.material.tabs.TabLayout;
 
 public class cal_dash extends Fragment {
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    private VPadapter vPadapter;
+    private EditText etIbs;
+    private EditText etIbsUnit;
+    private EditText etAreas;
+    private EditText etTotalResult;
+    private Button calculateButton;
+    private Button resetButton;
 
     public cal_dash() {
         // Required empty public constructor
     }
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("currentTab", tabLayout.getSelectedTabPosition());
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        if (savedInstanceState != null) {
-            int currentTab = savedInstanceState.getInt("currentTab");
-            viewPager.setCurrentItem(currentTab);
-        }
-    }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.cal_tab, container, false);
-        tabLayout = view.findViewById(R.id.tab_cal);
-        viewPager = view.findViewById(R.id.vp_cal);
+        View view = inflater.inflate(R.layout.fragment_cal_basic, container, false);
+        etIbs = view.findViewById(R.id.et_ibs);
+        etIbsUnit = view.findViewById(R.id.et_ibs_unit);
+        etAreas = view.findViewById(R.id.et_areas);
+        etTotalResult = view.findViewById(R.id.et_total_result);
+        calculateButton = view.findViewById(R.id.calculate_button);
+        resetButton = view.findViewById(R.id.button3); // Assigning the reset button
 
-        tabLayout.setupWithViewPager(viewPager);
+        calculateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (etIbs.getText().toString().equals("")){
+                    etIbs.setError("Must not be Empty");
+                } else if (etIbsUnit.getText().toString().equals("")){
+                    etIbsUnit.setError("Must not be Empty");
+                } else if (etAreas.getText().toString().equals("")){
+                    etAreas.setError("Must not be Empty");
+                } else {
+                    calculateResult();
+                }
 
-        vPadapter = new VPadapter(getChildFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        vPadapter.addFragment(new cal_fragment_basic(), "basic");
-        vPadapter.addFragment(new cal_fragment_advance(), "advance");
-        viewPager.setAdapter(vPadapter);
+            }
+        });
+        resetButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetFields();
+            }
+        });
 
         return view;
+    }
+
+    private void resetFields() {
+        // Clear all EditText fields
+        etIbs.getText().clear();
+        etIbsUnit.getText().clear();
+        etAreas.getText().clear();
+        etTotalResult.getText().clear();
+    }
+
+    private void calculateResult() {
+        // Your calculation logic goes here...
+        double harvestWeight = Double.parseDouble(etIbs.getText().toString());
+        double weightPerUnit = Double.parseDouble(etIbsUnit.getText().toString());
+        double totalArea = Double.parseDouble(etAreas.getText().toString());
+
+        // Calculate result
+        double harvestYield = (harvestWeight / weightPerUnit) / totalArea;
+
+        // Display result
+        etTotalResult.setText(String.valueOf(harvestYield));
     }
 
     @Override

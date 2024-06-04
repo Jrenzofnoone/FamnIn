@@ -42,6 +42,7 @@ public class Fragment_dashoard_expensive_income extends Fragment {
         DatabaseReference incomeRef = FirebaseDatabase.getInstance().getReference("INCOME");
         DatabaseReference expenseRef = FirebaseDatabase.getInstance().getReference("EXPENSES");
         fetchAndDisplayData(incomeRef, expenseRef);
+
         addExpenseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

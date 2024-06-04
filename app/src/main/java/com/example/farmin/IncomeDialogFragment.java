@@ -40,6 +40,10 @@ public class IncomeDialogFragment extends DialogFragment {
                 EditText etNoteIncome = dialogView.findViewById(R.id.etNote);  // Assuming you have a note field
 
                 String amount = etAmount.getText().toString();
+                if (amount.isEmpty()) {
+                    Toast.makeText(getContext(), "Amount cannot be empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 String note = etNoteIncome.getText().toString();
 
                 // Save to Firebase

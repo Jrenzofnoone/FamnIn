@@ -39,13 +39,18 @@ public class ExpenseDialogFragment extends DialogFragment {
                 EditText etAmount = dialogView.findViewById(R.id.etAmount);
                 EditText etNote_expensive = dialogView.findViewById(R.id.etNote);  // Assuming you have a note field
 
-                String amount = etAmount.getText().toString();
+                String amountText = etAmount.getText().toString();
+                if (amountText.isEmpty()) {
+                    Toast.makeText(getContext(), "Amount cannot be empty", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 String note = etNote_expensive.getText().toString();
 
                 // Save to Firebase
-                saveExpenseToFirebase(amount, note);
+                saveExpenseToFirebase(amountText, note);
 
-                Toast.makeText(getContext(), "Expense saved: Amount - " + amount + ", Note - " + note, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Expense saved: Amount - " + amountText + ", Note - " + note, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -68,12 +73,12 @@ public class ExpenseDialogFragment extends DialogFragment {
         Date date = new Date();
         if (expenseId != null) {
             HashMap<String, String> list = new HashMap<>();
-            list.put("amount",amount);
-            list.put("note",note);
+            list.put("amount", amount);
+            list.put("note", note);
             list.put("type", type);
             list.put("key", expenseId);
             list.put("date", date.toString());
-            list.put("user",user.getEmail());
+            list.put("user", user.getEmail());
             expensesRef.child(expenseId).setValue(list);
         }
     }
