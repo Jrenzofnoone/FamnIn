@@ -5,22 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddingActivity"
-    android:background="@color/main">
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/btnGoBack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="@color/white"
-        android:clickable="true"
-        android:tint="#486a28"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/arrow" />
+    android:background="@color/main"
+    tools:context=".AddingActivity">
 
 
     <View
@@ -33,12 +19,38 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <View
+        android:id="@+id/view15"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rounded"
+        android:backgroundTint="@color/background_two"
+        app:layout_constraintEnd_toStartOf="@+id/textView14"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline100"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/btnGoBack"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintEnd_toStartOf="@+id/textView14"
+        app:layout_constraintHorizontal_bias="0.609"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back_two" />
+
     <ImageView
         android:id="@+id/ivCheck"
         android:layout_width="50dp"
         android:layout_height="48dp"
         android:layout_marginTop="24dp"
-        android:src="@drawable/check"
+        android:src="@drawable/check_two"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toEndOf="@+id/ivBox"
@@ -63,7 +75,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="Add Activity"
-        android:textColor="#ffffff"
+        android:layout_marginLeft="25dp"
+        android:textColor="@color/background_two"
         android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.336"
@@ -88,33 +101,37 @@
 
     <EditText
         android:id="@+id/etName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
         android:layout_marginTop="4dp"
+        android:background="@drawable/rounded"
+        android:backgroundTint="@color/background_two"
         android:ems="10"
         android:hint="Enter a name"
+
         android:inputType="text"
+        android:padding="5dp"
         android:text=""
-        android:textColor="@color/white"
-        android:textColorHint="@color/light_green"
+        android:textColor="@color/background"
+        android:textColorHint="@color/background"
         android:textSize="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.28"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline96"
+        app:layout_constraintHorizontal_bias="0.182"
+        app:layout_constraintStart_toStartOf="@+id/guideline100"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:text="Date"
         android:textColor="@color/background_two"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.086"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.014"
+        app:layout_constraintStart_toStartOf="@+id/guideline100"
         app:layout_constraintTop_toBottomOf="@+id/etName" />
 
     <ImageView
@@ -123,10 +140,10 @@
         android:layout_height="51dp"
         app:layout_constraintBottom_toTopOf="@+id/ivFinishCalendar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.447"
+        app:layout_constraintHorizontal_bias="0.206"
         app:layout_constraintStart_toEndOf="@+id/etStartingDate"
         app:layout_constraintTop_toBottomOf="@+id/textVie4"
-        app:layout_constraintVertical_bias="0.13"
+        app:layout_constraintVertical_bias="0.027"
         app:srcCompat="@drawable/calendar" />
 
     <TextView
@@ -137,38 +154,41 @@
         android:text="Starting Date"
         android:textColor="@color/dark_green"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.115"
+        app:layout_constraintHorizontal_bias="0.097"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etName" />
 
     <EditText
         android:id="@+id/etStartingDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="32dp"
+        android:background="@drawable/rounded"
+        android:backgroundTint="@color/background_two"
         android:clickable="false"
         android:ems="10"
         android:hint="MM/DD/YYYY"
         android:inputType="text"
+        android:padding="5dp"
         android:text=""
-        android:textColor="@color/white"
-        android:textColorHint="@color/light_green"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.225"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/background"
+        android:textColorHint="@color/background"
+        app:layout_constraintEnd_toStartOf="@+id/guideline96"
+        app:layout_constraintHorizontal_bias="0.186"
+        app:layout_constraintStart_toStartOf="@+id/guideline100"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <TextView
         android:id="@+id/tetVie4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="136dp"
+        android:layout_marginTop="8dp"
         android:text="Finishing Date"
         android:textColor="@color/dark_green"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.117"
+        app:layout_constraintHorizontal_bias="0.092"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etName" />
+        app:layout_constraintTop_toBottomOf="@+id/etStartingDate" />
 
     <ImageView
         android:id="@+id/ivFinishCalendar"
@@ -176,106 +196,116 @@
         android:layout_height="51dp"
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.447"
+        app:layout_constraintHorizontal_bias="0.197"
         app:layout_constraintStart_toEndOf="@+id/etFinishDate"
         app:layout_constraintTop_toBottomOf="@+id/tetVie4"
         app:srcCompat="@drawable/calendar" />
 
     <EditText
         android:id="@+id/etFinishDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/rounded"
+        android:backgroundTint="@color/background_two"
         android:clickable="false"
         android:ems="10"
         android:hint="MM/DD/YYYY"
         android:inputType="text"
+        android:padding="5dp"
         android:text=""
-        android:textColor="@color/white"
-        android:textColorHint="@color/light_green"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.225"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/background"
+        android:textColorHint="@color/background"
+        app:layout_constraintEnd_toStartOf="@+id/guideline96"
+        app:layout_constraintHorizontal_bias="0.186"
+        app:layout_constraintStart_toStartOf="@+id/guideline100"
         app:layout_constraintTop_toBottomOf="@+id/tetVie4" />
 
-    <EditText
-        android:id="@+id/etYield"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:ems="10"
-        android:hint="Estimated Yield"
-        android:inputType="text"
-        android:text=""
-        android:textColor="@color/white"
-        android:textColorHint="@color/light_green"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.243"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Estimated Yield"
-        android:textColor="@color/dark_green"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.102"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etFinishDate" />
 
     <EditText
         android:id="@+id/etNotes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/rounded"
+        android:backgroundTint="@color/background_two"
         android:ems="10"
         android:hint="Notes"
         android:inputType="text"
+        android:padding="5dp"
         android:text=""
-        android:textColor="@color/white"
-        android:textColorHint="@color/light_green"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.243"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/background"
+        android:textColorHint="@color/background"
+        app:layout_constraintEnd_toStartOf="@+id/guideline96"
+        app:layout_constraintHorizontal_bias="0.18"
+        app:layout_constraintStart_toStartOf="@+id/guideline100"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:text="Notes"
         android:textColor="@color/background_two"
         android:textSize="20dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.085"
+        app:layout_constraintHorizontal_bias="0.086"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/etYield" />
-
-    <ImageView
-        android:id="@+id/ivBox"
-        android:layout_width="51dp"
-        android:layout_height="46dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toEndOf="@+id/textView14"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/box" />
+        app:layout_constraintTop_toBottomOf="@+id/etFinishDate" />
 
     <ImageView
         android:id="@+id/ivImage"
-        android:layout_width="102dp"
+        android:layout_width="0dp"
         android:layout_height="97dp"
         android:layout_marginTop="36dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline98"
         app:layout_constraintHorizontal_bias="0.512"
-        app:layout_constraintStart_toEndOf="@+id/etName"
+        app:layout_constraintStart_toStartOf="@+id/guideline97"
         app:layout_constraintTop_toTopOf="@+id/view2"
         app:srcCompat="@drawable/gallery" />
+
+    <ImageView
+        android:id="@+id/ivBox"
+        android:layout_width="50dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toEndOf="@+id/textView14"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/inventory_icon" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline96"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.7" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline97"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.72" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline98"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.95" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline99"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.85" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline100"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.07" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

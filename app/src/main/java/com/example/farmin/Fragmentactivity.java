@@ -89,7 +89,7 @@ public class Fragmentactivity extends Fragment implements activityInterface{
     }
     private long timeDifference;
     @Override
-    public void setOnClick(String name, String type, String descrip, String startYear, String startMonth, String startDay, String finishYear, String finishMonth, String finishDay, String yield, String notes, String image) {
+    public void setOnClick(String name, String type, String descrip, String startYear, String startMonth, String startDay, String finishYear, String finishMonth, String finishDay, String notes, String image) {
         tvName.setText(name);
         Glide.with(this)
                 .load(image)

@@ -37,8 +37,8 @@ import com.google.firebase.storage.UploadTask;
 public class AddingActivity extends AppCompatActivity {
     private ImageView ivFinishCalendar, ivStartCalendar, ivCheck, ivBox, ivImage;
     private Dialog calendarDialog;
-    private EditText etFinishDate, etStartingDate, etName, etYield, etNotes;
-    private FloatingActionButton btnGoBack;
+    private EditText etFinishDate, etStartingDate, etName, etNotes;
+    private ImageView btnGoBack;
     private CalendarView calendarView;
     private int startYear, startMonth, startDay, finishYear, finishMonth, finishDay;
     private String name, descrip, type, notes, stringUrl = "";
@@ -63,7 +63,6 @@ public class AddingActivity extends AppCompatActivity {
         btnGoBack = findViewById(R.id.btnGoBack);
         etName = findViewById(R.id.etName);
         etNotes = findViewById(R.id.etNotes);
-        etYield = findViewById(R.id.etYield);
         ivStartCalendar = findViewById(R.id.ivStartCalendar);
         ivFinishCalendar = findViewById(R.id.ivFinishCalendar);
         ivCheck = findViewById(R.id.ivCheck);
@@ -134,17 +133,15 @@ public class AddingActivity extends AppCompatActivity {
                 etStartingDate.setError("Must not be Empty");
             } else if (etFinishDate.getText().toString().equals("")) {
                 etFinishDate.setError("Must not be Empty");
-            } else if (etYield.getText().toString().equals("")) {
-                etYield.setError("Must not be Empty");
             } else if (etNotes.getText().toString().equals("")) {
                 etNotes.setError("Must not be Empty");
             } else if (stringUrl.equals("")) {
                 Toast.makeText(this, "Please Select an image", Toast.LENGTH_SHORT).show();
             } else {
                 if(isSelected == true) {
-                    addActivity(name,etYield.getText().toString(),String.valueOf(startYear),String.valueOf(startMonth), String.valueOf(startDay),String.valueOf(finishYear),String.valueOf(finishMonth), String.valueOf(finishDay), type, descrip, notes, stringUrl);
+                    addActivity(name,String.valueOf(startYear),String.valueOf(startMonth), String.valueOf(startDay),String.valueOf(finishYear),String.valueOf(finishMonth), String.valueOf(finishDay), type, descrip, notes, stringUrl);
                 } else {
-                    addActivity(etName.getText().toString(), etYield.getText().toString(),String.valueOf(startYear),String.valueOf(startMonth), String.valueOf(startDay),String.valueOf(finishYear),String.valueOf(finishMonth), String.valueOf(finishDay), "", "", etNotes.getText().toString(), "");
+                    addActivity(etName.getText().toString(),String.valueOf(startYear),String.valueOf(startMonth), String.valueOf(startDay),String.valueOf(finishYear),String.valueOf(finishMonth), String.valueOf(finishDay), "", "", etNotes.getText().toString(), "");
                 }
             }
         });
@@ -186,13 +183,13 @@ public class AddingActivity extends AppCompatActivity {
         MimeTypeMap mime = MimeTypeMap.getSingleton();
         return mime.getExtensionFromMimeType(cR.getType(uri));
     }
-    private void addActivity(String name, String yield,String mstartYear, String mstartMonth, String mstartDay, String mfinishYear, String mfinishMonth, String mfinishDay, String type, String descrip, String notes, String urlImage) {
+    private void addActivity(String name,String mstartYear, String mstartMonth, String mstartDay, String mfinishYear, String mfinishMonth, String mfinishDay, String type, String descrip, String notes, String urlImage) {
         progressDialog.show();
         DatabaseReference activityRef = FirebaseDatabase.getInstance().getReference("Activity");
         String key = activityRef.push().getKey();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(isSelected == true) {
-            activityUploads activityUploads = new activityUploads(user.getEmail(),key,name, type, descrip, mstartYear, mstartMonth, mstartDay, mfinishYear, mfinishMonth, mfinishDay, yield, notes, urlImage);
+            activityUploads activityUploads = new activityUploads(user.getEmail(),key,name, type, descrip, mstartYear, mstartMonth, mstartDay, mfinishYear, mfinishMonth, mfinishDay, notes, urlImage);
             activityRef.child(key).setValue(activityUploads).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void unused) {
@@ -212,7 +209,7 @@ public class AddingActivity extends AppCompatActivity {
                     taskSnapshot.getStorage().getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                            activityUploads activityUploads = new activityUploads(user.getEmail(),key,name, type, descrip, mstartYear, mstartMonth, mstartDay, mfinishYear, mfinishMonth, mfinishDay, yield, notes, uri.toString());
+                            activityUploads activityUploads = new activityUploads(user.getEmail(),key,name, type, descrip, mstartYear, mstartMonth, mstartDay, mfinishYear, mfinishMonth, mfinishDay, notes, uri.toString());
                             activityRef.child(key).setValue(activityUploads).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {

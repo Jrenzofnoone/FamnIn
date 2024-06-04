@@ -81,7 +81,7 @@ public class GridAdapter extends BaseAdapter {
             activityUploads currentUploads = uploads.get(i);
             activityInterface.setOnClick(currentUploads.getName(), currentUploads.getType(), currentUploads.descrip, currentUploads.getStartYear(),
                     currentUploads.getStartMonth(), currentUploads.getStartDay(), currentUploads.getFinishYear(), currentUploads.getFinishMonth(),
-                    currentUploads.getFinishDay(), currentUploads.yield, currentUploads.notes, currentUploads.getimage());
+                    currentUploads.getFinishDay(), currentUploads.notes, currentUploads.getimage());
         });
         return view;
     }
