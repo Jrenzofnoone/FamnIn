@@ -54,7 +54,7 @@
         android:textIsSelectable="false"
         android:textSize="20dp"
         android:maxLines="1"
-        android:inputType="text"
+        android:inputType="number"
         android:ellipsize="end"
         app:layout_constraintBottom_toTopOf="@+id/guideline40"
         app:layout_constraintEnd_toStartOf="@+id/guideline31"
@@ -94,7 +94,6 @@
         android:paddingLeft="20dp"
         android:textSize="20dp"
         android:maxLines="1"
-        android:clipToOutline="true"
         android:ellipsize="end"
         app:layout_constraintBottom_toTopOf="@+id/guideline44"
         app:layout_constraintEnd_toStartOf="@+id/guideline31"
@@ -140,15 +139,6 @@
         app:layout_constraintStart_toStartOf="@+id/guideline32"
         app:layout_constraintTop_toTopOf="@+id/guideline43"
         app:srcCompat="@drawable/voice" />
-
-
-
-
-
-
-
-
-
 
 
     <androidx.constraintlayout.widget.Guideline
