@@ -27,7 +27,7 @@
         android:autoSizeMinTextSize="1dp"
         android:autoSizeTextType="uniform"
         android:fontFamily="@font/sansnarrow"
-        android:gravity="center_horizontal"
+
         android:text="FARMIN"
         android:textColor="@color/background"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"

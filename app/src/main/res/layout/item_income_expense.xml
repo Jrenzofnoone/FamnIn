@@ -101,14 +101,25 @@
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
-            <ImageView
-                android:tint="@color/background"
-                android:id="@+id/ivTrash"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_gravity="end"
-                android:src="@drawable/trash" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:background="@drawable/custom_item_two">
+
+                <ImageView
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:id="@+id/ivTrash"
+                    android:layout_width="35dp"
+                    android:layout_height="27dp"
+                    android:layout_gravity="center|end"
+                    android:src="@drawable/trash_can" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>
+
 </androidx.cardview.widget.CardView>
