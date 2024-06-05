@@ -1,12 +1,14 @@
 package com.example.farmin;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -26,6 +28,8 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -40,7 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentDbCrop extends Fragment implements clickInterface{
-    private ImageView ivAddCrop, ivChecking, ivExport;
+    private ImageView ivAddCrop, ivChecking, ivExport, ivDelete;
     private boolean isClicked = false;
     private String name, descrip, type, notes, stringUrl, stringQr, key, csKey;
     private RecyclerView recyclerView;
@@ -49,7 +53,7 @@ public class FragmentDbCrop extends Fragment implements clickInterface{
     private FirebaseUser user;
     private DatabaseReference cropRef;
     private ImageView ivEdit;
-    private View checkView, exportView;
+    private View checkView, exportView, deleteView;
     private TextView tvExport;
     private Boolean isPick = false;
     private EditText etSearch;
@@ -95,6 +99,8 @@ public class FragmentDbCrop extends Fragment implements clickInterface{
         exportView = rootView.findViewById(R.id.exportView);
         checkView = rootView.findViewById(R.id.checkView);
         tvExport = rootView.findViewById(R.id.tvExport);
+        ivDelete = rootView.findViewById(R.id.ivDelete);
+        deleteView = rootView.findViewById(R.id.deleteView);
         ivEdit.setOnClickListener(view -> {
             adapter.setCheckBoxVisible();
             if(isPick == false ) {
@@ -103,6 +109,8 @@ public class FragmentDbCrop extends Fragment implements clickInterface{
                 ivExport.setVisibility(View.VISIBLE);
                 exportView.setVisibility(View.VISIBLE);
                 tvExport.setVisibility(View.VISIBLE);
+                deleteView.setVisibility(View.VISIBLE);
+                ivDelete.setVisibility(View.VISIBLE);
                 isPick = true;
             } else {
                 checkView.setVisibility(View.INVISIBLE);
@@ -110,6 +118,8 @@ public class FragmentDbCrop extends Fragment implements clickInterface{
                 ivExport.setVisibility(View.INVISIBLE);
                 exportView.setVisibility(View.INVISIBLE);
                 tvExport.setVisibility(View.INVISIBLE);
+                deleteView.setVisibility(View.INVISIBLE);
+                ivDelete.setVisibility(View.INVISIBLE);
                 isPick = false;
             }
         });
@@ -120,7 +130,6 @@ public class FragmentDbCrop extends Fragment implements clickInterface{
         ivExport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "Please", Toast.LENGTH_SHORT).show();
                 String fileName = "BulkProducts";
                 File root = new File(Environment.getExternalStorageDirectory(), Environment.DIRECTORY_DOWNLOADS);
                 if(!root.exists()){
@@ -156,6 +165,49 @@ public class FragmentDbCrop extends Fragment implements clickInterface{
                 }
 
             }
+        });
+        ivDelete.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("Deleting Crops");
+            builder.setMessage("Are you sure you want to delete?");
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public  void onClick(DialogInterface dialog, int which) {
+                    for(Integer positions : checkedPosition){
+                        if(positions != null) {
+                            Log.d("p0sition", String.valueOf(positions));
+                            addingUploads uploadCurrent = uploads.get(positions);
+                            name = uploadCurrent.getName();
+                            descrip = uploadCurrent.getCount();
+                            type = uploadCurrent.getType();
+                            notes = uploadCurrent.getNotes();
+                            stringUrl = uploadCurrent.getImageurl();
+                            stringQr = uploadCurrent.getQrcode();
+                            key = uploadCurrent.getKey();
+                            csKey = uploadCurrent.getCsType();
+                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Crops");
+                            ref.child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Toast.makeText(getActivity(), "Successfully Deleted", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            uploads.remove(positions);
+                        } else {
+                            Toast.makeText(getActivity(), "Please Select Something", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    uploads.clear();
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
         });
         ivAddCrop.setOnClickListener(view -> {
             Intent intent = new Intent(getContext(), AddingCrop.class);

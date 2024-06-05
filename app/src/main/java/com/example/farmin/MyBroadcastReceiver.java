@@ -67,13 +67,13 @@ public class MyBroadcastReceiver extends BroadcastReceiver {
                 }
                 for(int i = 0; i<finishList.size(); i++) {
                     String title = "Activity";
-                    String message = finishList.get(i).getName() + "activity finish";
+                    String message = finishList.get(i).getName() + " activity finish";
                     sendNotification(context, title, message);
                     Log.d("mic check", "trust check");
                 }
                 for(int i = 0; i<startList.size(); i++) {
                     String title = "Activity";
-                    String message = startList.get(i).getName() + "activity started";
+                    String message = startList.get(i).getName() + " activity started";
                     sendNotification(context, title, message);
                     Log.d("mic check", "trust check");
                 }

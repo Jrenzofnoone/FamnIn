@@ -1,6 +1,8 @@
 package com.example.farmin;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
@@ -24,6 +26,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -43,9 +47,9 @@ public class FragmentDbSeed extends Fragment implements clickInterface{
     private AllAdapter adapter;
     private FirebaseUser user;
     private DatabaseReference seedRef;
-    private ImageView ivAddSeed, ivChecking, ivExport;
+    private ImageView ivAddSeed, ivChecking, ivExport, ivDelete;
     private ImageView ivEdit;
-    private View checkView, exportView;
+    private View checkView, exportView, deleteView;
     private TextView tvExport;
     private Boolean isPick = false;
     private String name, descrip, type, notes, stringUrl, stringQr, key, csKey;
@@ -100,13 +104,18 @@ public class FragmentDbSeed extends Fragment implements clickInterface{
         exportView = rootView.findViewById(R.id.exportView);
         checkView = rootView.findViewById(R.id.checkView);
         tvExport = rootView.findViewById(R.id.tvExport);
+        ivDelete = rootView.findViewById(R.id.ivDelete);
+        deleteView = rootView.findViewById(R.id.deleteView);
         ivEdit.setOnClickListener(view -> {
+            adapter.setCheckBoxVisible();
             if(isPick == false ) {
                 checkView.setVisibility(View.VISIBLE);
                 ivChecking.setVisibility(View.VISIBLE);
                 ivExport.setVisibility(View.VISIBLE);
                 exportView.setVisibility(View.VISIBLE);
                 tvExport.setVisibility(View.VISIBLE);
+                deleteView.setVisibility(View.VISIBLE);
+                ivDelete.setVisibility(View.VISIBLE);
                 isPick = true;
             } else {
                 checkView.setVisibility(View.INVISIBLE);
@@ -114,9 +123,12 @@ public class FragmentDbSeed extends Fragment implements clickInterface{
                 ivExport.setVisibility(View.INVISIBLE);
                 exportView.setVisibility(View.INVISIBLE);
                 tvExport.setVisibility(View.INVISIBLE);
+                deleteView.setVisibility(View.INVISIBLE);
+                ivDelete.setVisibility(View.INVISIBLE);
                 isPick = false;
             }
         });
+
         etSearch = rootView.findViewById(R.id.etSearch);
         etSearch.addTextChangedListener(new MyEditTextWatcher());
         recyclerView = rootView.findViewById(R.id.recyclerView);
@@ -124,7 +136,6 @@ public class FragmentDbSeed extends Fragment implements clickInterface{
         ivExport.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getActivity(), "Please", Toast.LENGTH_SHORT).show();
                 String fileName = "BulkProducts";
                 File root = new File(Environment.getExternalStorageDirectory(), Environment.DIRECTORY_DOWNLOADS);
                 if(!root.exists()){
@@ -154,12 +165,54 @@ public class FragmentDbSeed extends Fragment implements clickInterface{
                         String csvData = csvDataBuilder.toString();
                         createCsv(fileName, csvData);
                         Toast.makeText(getActivity(), "File Created, Please check your downloads", Toast.LENGTH_SHORT).show();
-
                     }  else {
                         Toast.makeText(getActivity(), "Please Select Something", Toast.LENGTH_SHORT).show();
                     }
                 }
             }
+        });
+        ivDelete.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("Deleting Crops");
+            builder.setMessage("Are you sure you want to delete?");
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public  void onClick(DialogInterface dialog, int which) {
+                    for(Integer positions : checkedPosition){
+                        if(positions != null) {
+                            Log.d("p0sition", String.valueOf(positions));
+                            addingUploads uploadCurrent = uploads.get(positions);
+                            name = uploadCurrent.getName();
+                            descrip = uploadCurrent.getCount();
+                            type = uploadCurrent.getType();
+                            notes = uploadCurrent.getNotes();
+                            stringUrl = uploadCurrent.getImageurl();
+                            stringQr = uploadCurrent.getQrcode();
+                            key = uploadCurrent.getKey();
+                            csKey = uploadCurrent.getCsType();
+                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Seeds");
+                            ref.child(key).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    Toast.makeText(getActivity(), "Successfully Deleted", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            uploads.remove(positions);
+                        } else {
+                            Toast.makeText(getActivity(), "Please Select Something", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    uploads.clear();
+                }
+            });
+            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
         });
         ivChecking.setOnClickListener(view -> {
             if (isClicked){
