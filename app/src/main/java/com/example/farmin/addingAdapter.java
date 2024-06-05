@@ -1,5 +1,6 @@
 package com.example.farmin;
 
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -11,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -88,8 +90,21 @@ public class addingAdapter extends RecyclerView.Adapter<addingAdapter.viewHolder
         String typemodified = type.replace("Type: ", "");
         String statusmodified = status.replace("Status: ", "");
         String notesmodified = note.replace("Notes: ", "");
-        String[] items = context.getResources().getStringArray(R.array.typeCrop);
+
         String[] statusitems = context.getResources().getStringArray(R.array.status);
+        ArrayAdapter<String> adapterstats = new ArrayAdapter<>(context, R.layout.custom_spinner_text_two, statusitems);
+        holder.spinStatus.setAdapter(adapterstats);
+        String[] items;
+        if(ref.equals("Seeds")) {
+            items = context.getResources().getStringArray(R.array.typeSeed);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.custom_spinner_text_two, items);
+            holder.spinType.setAdapter(adapter);
+        } else {
+            items = context.getResources().getStringArray(R.array.typeCrop);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(context, R.layout.custom_spinner_text_two, items);
+            holder.spinType.setAdapter(adapter);
+        }
+
         holder.etName.setText(namemodified);
         int index = Arrays.asList(items).indexOf(typemodified);
         int statusindex = Arrays.asList(statusitems).indexOf(statusmodified);
@@ -144,6 +159,7 @@ public class addingAdapter extends RecyclerView.Adapter<addingAdapter.viewHolder
             progressDialog = new ProgressDialog(context);
             progressDialog.setMessage("Uploading, please wait...");
 
+
             ivImage.setOnClickListener(view -> {
                 addingInterface.setItemClick(getAdapterPosition(), "Image");
             });
@@ -157,7 +173,7 @@ public class addingAdapter extends RecyclerView.Adapter<addingAdapter.viewHolder
             btnAdd.setOnClickListener(view -> {
                 addingUploads currentUploads = uploads.get(getAdapterPosition());
                 String imageUrl = currentUploads.getImageurl();
-                String csKey = currentUploads.getCsType();
+                String csKey = ref;
                 String name = etName.getText().toString();
                 String type = spinType.getSelectedItem().toString();
                 String status = spinStatus.getSelectedItem().toString();

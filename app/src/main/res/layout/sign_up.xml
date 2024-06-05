@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:id="@+id/main"
     android:background="@color/main"
-             android:layout_height="match_parent">
+    android:layout_height="match_parent">
     <ImageView
         android:id="@+id/imageView8"
         android:layout_width="0dp"
@@ -36,17 +36,17 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline16"
         app:layout_constraintEnd_toStartOf="@+id/guideline25"
         app:layout_constraintStart_toStartOf="@+id/guideline27"
-        app:layout_constraintTop_toTopOf="@+id/guideline15" />
+        app:layout_constraintTop_toTopOf="@+id/guideline34" />
 
     <ImageView
         android:id="@+id/ivShowPassword"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:src="@drawable/eye"
         app:layout_constraintBottom_toTopOf="@+id/guideline16"
         app:layout_constraintEnd_toStartOf="@+id/guideline29"
         app:layout_constraintStart_toStartOf="@+id/guideline28"
-        app:layout_constraintTop_toTopOf="@+id/guideline15"
-        android:src="@drawable/eye" />
+        app:layout_constraintTop_toTopOf="@+id/guideline34" />
 
     <ImageView
         android:id="@+id/logo"
@@ -100,7 +100,9 @@
             android:fontFamily="@font/poppinsregular"
             android:background="@drawable/rounded"
             android:backgroundTint="@color/background"
-            android:textColor="@color/mainTextColor" />
+            android:textColor="@color/white"
+            android:inputType="text"
+            android:maxLines="1"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -127,7 +129,8 @@
             android:background="@drawable/rounded"
             android:backgroundTint="@color/background"
             android:fontFamily="@font/poppinsregular"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:maxLines="1"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -153,7 +156,8 @@
             android:autoSizeMinTextSize="1dp"
             android:backgroundTint="@color/background"
             android:fontFamily="@font/poppinsregular"
-            android:inputType="textPassword" />
+            android:inputType="textPassword"
+            android:maxLines="1"/>
 
         <TextView
             android:id="@+id/textView7"
@@ -333,13 +337,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.82" />
+        app:layout_constraintGuide_percent="0.81" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline24"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.82" />
+        app:layout_constraintGuide_percent="0.8" />
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline25"
         android:layout_width="wrap_content"
@@ -394,4 +398,10 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.3" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline34"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.595" />
 </androidx.constraintlayout.widget.ConstraintLayout>

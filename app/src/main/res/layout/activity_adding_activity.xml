@@ -112,6 +112,8 @@
         android:inputType="text"
         android:padding="5dp"
         android:text=""
+        android:textColor="@color/background"
+        android:textColorHint="@color/background"
         app:layout_constraintEnd_toStartOf="@+id/guideline96"
         app:layout_constraintHorizontal_bias="0.182"
         app:layout_constraintStart_toStartOf="@+id/guideline100"

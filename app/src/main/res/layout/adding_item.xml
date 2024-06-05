@@ -107,6 +107,7 @@
         android:backgroundTint="@color/background"
         android:textColor="@color/mainTextColor"
         android:entries="@array/typeCrop"
+        android:paddingLeft="10dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline44"
         app:layout_constraintEnd_toStartOf="@+id/guideline40"
         app:layout_constraintHorizontal_bias="0.526"
@@ -122,7 +123,7 @@
         android:entries="@array/status"
         android:fontFamily="@font/poppinsregular"
         android:textColor="@color/mainTextColor"
-
+        android:paddingLeft="10dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline54"
         app:layout_constraintEnd_toStartOf="@+id/guideline40"
         app:layout_constraintHorizontal_bias="0.526"
