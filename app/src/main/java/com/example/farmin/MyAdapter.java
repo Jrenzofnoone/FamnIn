@@ -1,6 +1,7 @@
 package com.example.farmin;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -46,17 +48,25 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         holder.tv_date.setText(objectIncome.getDate());
         holder.setTextColor(objectIncome.getType()); // Set the text color based on the type
         holder.ivTrash.setOnClickListener(view -> {
-            DatabaseReference ref = FirebaseDatabase.getInstance().getReference(objectIncome.getType());
-            Log.d("checking delete", objectIncome.getKey());
-            Log.d("checking delete", objectIncome.getType());
-            ref.child(objectIncome.getKey()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    Toast.makeText(context, "Successfully Deleted", Toast.LENGTH_SHORT).show();
-                }
-            });
-            itemList.remove(position);
-            notifyDataSetChanged();
+            new AlertDialog.Builder(context)
+                    .setTitle("Delete Confirmation")
+                    .setMessage("Are you sure you want to delete this item?")
+                    .setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference(objectIncome.getType());
+                        Log.d("checking delete", objectIncome.getKey());
+                        Log.d("checking delete", objectIncome.getType());
+                        ref.child(objectIncome.getKey()).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                Toast.makeText(context, "Successfully Deleted", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        itemList.remove(position);
+                        notifyDataSetChanged();
+                    })
+                    .setNegativeButton(android.R.string.no, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
         });
     }
 

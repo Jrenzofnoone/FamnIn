@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:background="@drawable/custom_item_two"
+
         android:orientation="vertical">
 
         <LinearLayout
@@ -30,8 +30,11 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:background="@drawable/custom_item_two"
                     android:id="@+id/tvIncomeOrExpense"
                     android:layout_width="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
                     android:text="text"

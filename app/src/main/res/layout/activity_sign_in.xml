@@ -154,7 +154,8 @@
         android:id="@+id/tvClickMe"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:text="Already got an Account? Click me"
+        android:text="Don't have an Account? Click me"
+
         android:textAlignment="center"
         android:textColor="@color/mainTextColor"
         android:fontFamily="@font/poppinsregular"

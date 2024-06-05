@@ -28,6 +28,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".cal_dash"
+            android:windowSoftInputMode="adjustResize|stateVisible">
+            <!-- other activity attributes -->
+        </activity>
+
+        <activity
             android:name=".account"
             android:windowSoftInputMode="adjustPan"
             android:exported="false" />
